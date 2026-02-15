@@ -11,6 +11,13 @@ const NotFoundPage = () => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Page Not Found
           </h2>
+            <img
+              src="https://media.giphy.com/media/26n6WywJyh39n1pBu/giphy.gif"
+              alt="Lost in space animation"
+              width="480"
+              height="270"
+              className="mx-auto rounded shadow"
+            />
           <p className="text-gray-600 mb-8">
             The page you are looking for doesn't exist or has been moved.
           </p>
