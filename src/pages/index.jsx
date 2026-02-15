@@ -222,10 +222,9 @@ const IndexPage = () => {
                 Robotics &amp; AI Engineer (Ph.D.)
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                I build reliable autonomous systems at the intersection of
-                robotics, computer vision, and production-grade ML. Background
-                in human-robot interaction, with experience from Disney Research,
-                TU Munich, Roboception, and a Ph.D. from University of Naples.
+                I bridge the gap between advanced research and production-grade autonomous systems, 
+                leveraging a Ph.D. from the University of Naples and experience from Disney Research, 
+                TU Munich, and Roboception.
               </p>
               <p className="text-gray-500 text-sm leading-relaxed mb-6">
                 Specializing in perception pipelines, ROS/ROS2, edge AI

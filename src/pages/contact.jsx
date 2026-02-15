@@ -1,6 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
+
+// Copy to clipboard button for email
+const CopyEmailButton = () => {
+  const [copied, setCopied] = useState(false);
+  const email = "hello@francescovigni.com";
+  
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+    } catch (e) {
+      setCopied(false);
+    }
+  };
+  
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="inline-flex items-center px-2 py-1 text-xs font-medium rounded bg-gray-100 hover:bg-primary-100 text-gray-600 hover:text-primary-700 border border-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-300"
+      aria-label="Copy email to clipboard"
+    >
+      {copied ? "Copied!" : "Copy"}
+    </button>
+  );
+};
 
 const ContactPage = () => {
   return (
@@ -12,43 +39,46 @@ const ContactPage = () => {
             Questions, collaborations, or just saying hi. I'd love to hear from you.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            {/* Email */}
-            <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mb-10">
+            {/* Email: spans 3/5 on large screens */}
+            <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200 lg:col-span-3">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
                 Email
               </span>
-              <a
-                href="mailto:hello@francescovigni.com"
-                className="block mt-2 text-sm font-medium text-gray-900 hover:text-primary-600 transition-colors"
-              >
-                hello@francescovigni.com
-              </a>
+              <div className="flex items-center mt-2 gap-2">
+                <a
+                  href="mailto:hello@francescovigni.com"
+                  className="text-2xl font-bold text-gray-900 hover:text-primary-600 transition-colors"
+                >
+                  hello@francescovigni.com
+                </a>
+                <CopyEmailButton />
+              </div>
             </div>
 
-            {/* Location */}
-            <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
-              <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                Location
-              </span>
-              <a
-                href="https://www.openstreetmap.org/?mlat=44.2227&mlon=12.0407#map=8/44.2227/12.0407"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block mt-2 text-sm font-medium text-gray-900 hover:text-primary-600 transition-colors"
-              >
-                Forlì, Italy &rarr;
-              </a>
-            </div>
-
-            {/* Availability */}
-            <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
-              <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                Availability
-              </span>
-              <p className="mt-2 text-sm font-medium text-gray-900">
-                Open to freelance &amp; consulting
-              </p>
+            {/* Stack Location and Availability vertically in the right 2/5 */}
+            <div className="flex flex-col gap-5 lg:col-span-2">
+              <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  Location
+                </span>
+                <a
+                  href="https://www.openstreetmap.org/?mlat=44.2227&mlon=12.0407#map=8/44.2227/12.0407"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block mt-2 text-sm font-medium text-gray-900 hover:text-primary-600 transition-colors"
+                >
+                  Forlì, Italy &rarr;
+                </a>
+              </div>
+              <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  Availability
+                </span>
+                <p className="mt-2 text-sm font-medium text-gray-900">
+                  Open to freelance &amp; consulting
+                </p>
+              </div>
             </div>
           </div>
 
@@ -60,9 +90,11 @@ const ContactPage = () => {
             <div className="flex flex-wrap gap-3">
               {[
                 { label: "GitHub", href: "https://github.com/francescovigni" },
-                { label: "LinkedIn", href: "https://www.linkedin.com/in/francescovigni/" },
+                { label: "LinkedIn", href: "https://www.linkedin.com/in/francesco-vigni/" },
                 { label: "Scholar", href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en" },
-                { label: "Keybase", href: "https://keybase.io/francescovigni" },
+                { label: "X", href: "https://x.com/fra_cescovigni" },
+                { label: "Orcid", href: "https://orcid.org/0000-0001-9918-8485" },
+
               ].map((link) => (
                 <a
                   key={link.label}

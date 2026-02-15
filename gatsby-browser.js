@@ -1,4 +1,6 @@
 import "./src/styles/global.css";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 const COOKIE_NAME = "gatsby-gdpr-google-analytics";
 
@@ -16,4 +18,12 @@ export const onClientEntry = () => {
       analytics_storage: "granted",
     });
   }
+};
+
+export const onRouteUpdate = () => {
+  NProgress.done();
+};
+
+export const onPreRouteUpdate = () => {
+  NProgress.start();
 };
