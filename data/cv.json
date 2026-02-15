@@ -1,0 +1,112 @@
+[
+  {
+    "title": "Robotics & AI Systems Consultant",
+    "employer": "Vigni Advanced Technologies",
+    "date-start": "2025-09-01",
+    "date-end": "",
+    "where": "Remote/Forlì, Italy",
+    "slug": "ml",
+    "extra": "Architecting production-ready ML pipelines and ROS2 deployments for autonomous systems. Specializing in Edge AI (NVIDIA Jetson) and MLOps.",
+    "url": "https://apps.francescovigni.com",
+    "icon": "fa-gears" 
+  },
+  {
+    "title": "Sabbatical",
+    "employer": "Exploring",
+    "date-start": "2025-02-11",
+    "date-end": "2025-08-01",
+    "where": "🌎",
+    "slug": "sab",
+    "extra": "",
+    "url": "",
+    "icon": "fa-flask"
+  },
+  {
+    "title": "PhD Student - MSCA Fellow",
+    "employer": "University of Naples Federico II",
+    "date-start": "2021-12-01",
+    "date-end": "2025-02-10",
+    "where": "Naples, Italy",
+    "slug": "perseo",
+    "extra": "worked with: Silvia Rossi",
+    "url": "/insights/phd/",
+    "icon": "fa-robot"
+  },
+  {
+    "title": "Robotics Engineer",
+    "employer": "Roboception GmbH",
+    "date-start": "2021-07-01",
+    "date-end": "2021-12-30",
+    "where": "Munich, Germany",
+    "slug": "roboception",
+    "extra": "worked with: Michael Suppa",
+    "url": "https://roboception.com/",
+    "icon": "fa-cicio"
+  },
+  {
+    "title": "Licensed Engineer",
+    "employer": "Polytechnic University of Turin",
+    "date-start": "2020-12-01",
+    "date-end": "",
+    "where": "Turin, Italy",
+    "slug": "engineer",
+    "extra": "",
+    "url": "https://www.polito.it/",
+    "icon": "fa-cicio"
+  },
+  {
+    "title": "Autonomous Systems Developer",
+    "employer": "STtech GmbH",
+    "date-start": "2020-04-01",
+    "date-end": "2021-06-30",
+    "where": "Munich, Germany",
+    "slug": "engineer",
+    "extra": "",
+    "url": "https://www.sttech.de/",
+    "icon": "fa-cicio"
+  },
+  {
+    "title": "Research Assistant",
+    "employer": "Technical University of Munich",
+    "date-start": "2019-04-01",
+    "date-end": "2020-03-31",
+    "where": "Munich, Germany",
+    "slug": "engineer",
+    "extra": "worked with: Sami Haddadin",
+    "url": "https://www.mirmi.tum.de/mirmi/startseite/",
+    "icon": "fa-cicio"
+  },
+  {
+    "title": "Daimler Cloud Services Consultant",
+    "employer": "Kadacon GmbH",
+    "date-start": "2019-01-01",
+    "date-end": "2019-03-31",
+    "where": "Area Mid-North Italy",
+    "slug": "engineer",
+    "extra": "",
+    "url": "https://kadacon.com/",
+    "icon": "fa-cicio"
+  },
+  {
+    "title": "M.Sc. Robotics and Automation Engineering",
+    "employer": "University of Siena",
+    "date-start": "2015-10-01",
+    "date-end": "2018-10-31",
+    "where": "Siena, Italy",
+    "slug": "engineer",
+    "extra": "worked with: D. Prattichizzo, M. Malvezzi, E. Knopp",
+    "url": "https://computer-automation.unisi.it/it",
+    "icon": "fa-cicio"
+  },
+  {
+    "title": "B.Sc. Management Engineering",
+    "employer": "University of Siena",
+    "date-start": "2011-10-01",
+    "date-end": "2015-10-31",
+    "where": "Siena, Italy",
+    "slug": "engineer",
+    "extra": "worked with: Antonio Vicino",
+    "url": "https://ing-gestionale.unisi.it/it",
+    "icon": "fa-cicio"
+  }
+]

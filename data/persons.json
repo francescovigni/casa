@@ -1,0 +1,85 @@
+[
+  {
+    "name": "Francesco",
+    "surname": "Vigni",
+    "slug": "francesco-vigni",
+    "web": "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en"
+  },
+  {
+    "name": "Antonio",
+    "surname": "Andriella",
+    "slug": "antonio-andriella",
+    "web": "https://antonioandriella.com"
+  },
+  {
+    "name": "Espen",
+    "surname": "Knoop",
+    "slug": "espen-knopp"
+  },
+  {
+    "name": "Domenico",
+    "surname": "Prattichizzo",
+    "slug": "domenico-prattichizzo",
+    "web": "https://scholar.google.com/citations?hl=en&user=mMjWcPAAAAAJ"
+  },
+  {
+    "name": "Monica",
+    "surname": "Malvezzi",
+    "slug": "monica-malvezzi",
+    "web": "https://scholar.google.com/citations?user=M0NWWgcAAAAJ&hl=en"
+  },
+  {
+    "name": "Linda",
+    "surname": "Miccio",
+    "slug": "linda-miccio"
+  },
+  {
+    "name": "Silvia",
+    "surname": "Rossi",
+    "slug": "silvia-rossi",
+    "web": "https://scholar.google.com/citations?user=Q_F1-QIAAAAJ&hl=en&oi=ao"
+  },
+  {
+    "name": "Alessandra",
+    "surname": "Rossi",
+    "slug": "alessandra-rossi",
+    "web": "https://scholar.google.com/citations?hl=en&user=ETBNEJ0AAAAJ"
+  },
+  {
+    "name": "Georgios",
+    "surname": "Angelopoulos",
+    "slug": "georgios-angelopoulos",
+    "web": "https://scholar.google.com/citations?hl=en&user=C2jDeBkAAAAJ"
+  },
+  {
+    "name": "Giuseppina",
+    "surname": "Russo",
+    "slug": "giuseppina-russo"
+  },
+  {
+    "name": "Antonio",
+    "surname": "Vicino",
+    "slug": "antonio-vicino",
+    "web": "https://scholar.google.com/citations?user=Z1Mf9KwAAAAJ&hl=en"
+  },
+  {
+    "name": "Mario",
+    "surname": "Turco",
+    "slug": "mario-turco"
+  },
+  {
+    "name": "Dimitri",
+    "surname": "Maglietta",
+    "slug": "dimitri-maglietta"
+  },
+  {
+    "name": "Vasilis",
+    "surname": "Mizaridis",
+    "slug": "vasilis-mizaridis"
+  },
+  {
+    "name": "Stratos",
+    "surname": "Arampatzis",
+    "slug": "stratos-arampatzis"
+  }
+]

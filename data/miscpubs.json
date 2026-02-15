@@ -1,0 +1,57 @@
+[
+  {
+    "title": "The impact of robot communication style on user task performance",
+    "date": "2023-10-20",
+    "slug": "irim2023",
+    "url": "https://i-rim.it/en/",
+    "img": "./images/publications/irim.png",
+    "attach": "",
+    "type": "I-RIM 3D",
+    "tags": ["Pal Robotics ARI", "HRI"],
+    "venue": "5th Edition of 3D I-RIM Conference",
+    "authors": ["francesco-vigni", "antonio-andriella", "silvia-rossi"],
+    "abstract": "Humans naturally hold conversations and interact swiftly with each other, conveying content and biases (un)consciously with verbal and non-verbal communication. This phenomenon is inherently shipped with social robots, whose tasks include interacting with people verbally and eventually helping them to complete a task. To understand the impact of verbal and non-verbal communication on the task at hand, we built a game scenario and endowed a social robot with two clearly distinguishable communication styles. The user study allowed us to understand how the communication style of the robot can impact task performance and shed some light on its gradient. Additionally, our results show that participants with lower prior experience with robots obtained higher game scores, suggesting a shift of interest of experienced participants in the communication strategies of the robot rather than in the game."
+  },
+  {
+    "title": "An Interaction-centric Approach to Metrics in Social HRI",
+    "date": "2023-03-13",
+    "slug": "hri2023",
+    "url": "https://sites.google.com/view/concatenate-hri/home",
+    "img": "./images/publications/system.png",
+    "attach": "",
+    "type": "Workshop paper",
+    "tags": ["social robot", "metrics", "HRI"],
+    "venue": "ACM/IEEE International Conference on Human-Robot Interaction",
+    "authors": ["francesco-vigni", "silvia-rossi"],
+    "abstract": "Metrics in Human-Robot Interaction (HRI) are used to monitor the interaction and can be exploited by the robot to react to changes in the environment. The current strategies for defining metrics in HRI are fragmented and heterogenous when it comes to values like engagement. Moreover, it is crucial for a robot to reason, not only about its individual point-of-view but also about the ensemble formed with the user while engaged in an interaction. In this work, we propose an interaction-centric approach for building metrics in social HRI and suggest a closed-loop system perspective on the metrics that might improve the representation of the evolution of the interactions. Characterization of the robot’s personality in terms of target values of engagement is introduced and framed within the negative “stable” feedback loop."
+  },
+  {
+    "title": "A Closed Loop Approach to Human-Robot Handshake",
+    "date": "2018-10-22",
+    "slug": "master-thesis",
+    "attach": "./research/msc_thesis.pdf",
+    "type": "Master Thesis",
+    "tags": ["handshake", "social robot", "HRI"],
+    "details": "Computer and Automation Engineering - Robotics and Automation track - class LM32",
+    "venue": "Universita degli Studi di Siena",
+    "authors": [
+      "francesco-vigni",
+      "domenico-prattichizzo",
+      "monica-malvezzi",
+      "espen-knopp"
+    ],
+    "abstract": "The following work is focusing on the Human-Robot hand interaction, specifically in the grasping force of the handshake. The handshake event between human beings is a well known task, it can enable a communication between participants as a mixture of physical features like: grip force of the hand, velocity approach, duration of the handshake, oscillation frequency and amplitude of the arm. The hypothesis we want to test in this work, is that in human-human handshake there is a balance between an intrinsic (open loop) and extrinsic (closed loop) contributions. Thus, the force applied by a participant in a handshake results as a trade off between the intrinsic force strength and the force perceived from the partner. The target of this work is to develop an experimental setup in order to test the hypothesis for the human-robot handshake grip force, assuming to shape the robot handshake controller as the closest to the one implemented by humans. A 3D{printed object whose shape and dimension similar to a uman hand palm, is used in order to estimate the human grasping force. Relying on the human tactile response, an open loop experiment is run in order to estimate the robot grasping force. A sensorimotor delay is introduced to imitate the reaction time of Central Nervous System (CNS). Five controllers are presented in this work and a user study is run in order to evaluate aspects like: the handshake quality, the human-likeliness of the handshake and the robot personality. The work is born from a collaboration between SIRSLab (Siena) and Disney Research (Zurich) and the results were submitted to RA-L/ICRA 2019 with title: The Role of Closed-Loop Hand Control in Handshaking Interactions. The innovative idea is presented as a force controller obtained considering the inner behaviour of the robot, kept as a constant in this work, and the force applied from the human participant. This method allows for the robot hand to: define its own dynamics and modulate the applied force in order to reach an agreement with the human."
+  },
+  {
+    "title": "Analisi e confronti di strategie di trading basate sul trend following",
+    "date": "2015-10-05",
+    "slug": "bachelor-thesis",
+    "details": "Management Engineering - class L8",
+    "attach": "./research/bsc_thesis.pdf",
+    "type": "Bachelor Thesis",
+    "tags": ["Finance", "GARCH", "metrics"],
+    "venue": "Universita degli Studi di Siena",
+    "authors": ["francesco-vigni", "antonio-vicino"],
+    "abstract": "Il seguente lavoro di tesi vuole illustrare come sia possibile migliorare una delle più famose tecniche di investimento utilizzate nell’analisi ﬁnanziaria, il Trend Following. La tecnica mira ad individuare i trend del mercato ed a produrre segnali di acquisto e di vendita in maniera sistematica. L’idea dell’ottimizzazione di questa tecnica, si basa sul possibile utilizzo di modelli statistici per la modellizzazione della volatilità delle serie ﬁnanziarie, insieme con l’analisi tecnica, che aiuta a deﬁnire i momenti in cui è più favorevole entrare e uscire dal mercato. Uno dei principali problemi dell’analisi ﬁnanziaria consiste nell’individuare la tempistica ottimale (timing) d’ingresso e di uscita dal mercato e in particolare, questo lavoro vuole andare ad analizzare la fase d’individuazione del trend. Le simulazioni del codice sono state eseguite su un database contenente oltre 5000 titoli opportunamente ﬁltrato per fornire risultati quanto più corretti possibile. Lo sviluppo di questo lavoro mira a stimare i parametri ottimali su un arco temporale medio-lungo (periodo di osservazione), e ad eseguire la strategia ottenuta su un periodo più modesto. Il periodo di osservazione è stato ﬁssato dal 1983 al 2000, mentre l’arco temporale dove sono state eﬀettuate le prove dell’algoritmo ottimizzato va dal 2000 al 2005. Questa bipartizione temporale del database è comune ai quattro algoritmi testati, i quali si diﬀerenziano tra loro per il modo in cui vengono generati i segnali di uscita dal mercato."
+  }
+]

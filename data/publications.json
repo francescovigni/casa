@@ -1,0 +1,223 @@
+[
+  {
+    "title": "Are Emotions Important? A Study on Social Distances for Path Planning based on Emotions",
+    "date": "2024-08-01",
+    "slug": "roomba-emotion",
+    "location": "Pasadena, California",
+    "url": "https://ieeexplore.ieee.org/document/10731180",
+    "img": "./images/publications/roomba-emotion.png",
+    "attach": {
+      "get": "/",
+      "video": ""
+    },
+    "alternate_link": "https://doi.org/10.1109/RO-MAN60168.2024.10731180",
+    "tags": ["non-humanoid", 
+            "Turtlebot",
+            "ieee roman",
+            "experimental design", 
+            "statistical analysis", 
+            "academic writing & editing"],
+    "venue": "33rd IEEE International Conference on Robot and Human Interactive Communication (RO-MAN 2024)",
+    "authors": [
+      "vasilis-mizaridis",
+      "francesco-vigni",
+      "stratos-arampatzis",
+      "silvia-rossi"
+    ],
+    "coFirstAuthors": true,
+    "abstract": "The development of social robots with advanced conversational capabilities aiming to engage humans in natural interactions has recently surged. This paper investigates the dynamic aspect of Human-Robot Interaction (HRI), focusing on the regulation of interpersonal distance based on human emotion. Through a user study with a humanoid robot, we explore how participants perceive and respond to rule-based versus randomly generated robot behaviours in adjusting inter- personal space during an unconstrained conversation. Results suggest that participants perceive the robot using rule-based behaviours as more socially competent and adaptable to human behaviour and emotions compared to the random ones. These findings highlight the importance of considering subtle non- verbal cues and adapting robot behaviour based on human emotions to improve the quality of HRI, and consequently facilitate the successful integration of human natural nuances in robots.",
+    "doi": "10.1109/RO-MAN60168.2024.10731180"
+  },
+  {
+    "title": "Too Close to You? A Study on Emotion-Adapted Proxemics Behaviours",
+    "date": "2024-08-01",
+    "slug": "too-close",
+    "location": "Pasadena, California",
+    "url": "https://ieeexplore.ieee.org/document/10731458",
+    "img": "./images/publications/too-close.png",
+    "attach": {
+      "get": "/",
+      "video": ""
+    },
+    "alternate_link": "https://doi.org/10.1109/RO-MAN60168.2024.10731458",
+    "tags": ["humanoid",
+            "Aldebaran Pepper",
+            "ieee roman",
+            "experimental design", 
+            "statistical analysis", 
+            "academic writing & editing"],
+    "venue": "33rd IEEE International Conference on Robot and Human Interactive Communication (RO-MAN 2024)",
+    "authors": ["francesco-vigni", "dimitri-maglietta", "silvia-rossi"],
+    "coFirstAuthors": false,
+    "abstract": "The development of social robots with advanced conversational capabilities aiming to engage humans in natural interactions has recently surged. This paper investigates the dynamic aspect of Human-Robot Interaction (HRI), focusing on the regulation of interpersonal distance based on human emotion. Through a user study with a humanoid robot, we explore how participants perceive and respond to rule-based versus randomly generated robot behaviours in adjusting inter- personal space during an unconstrained conversation. Results suggest that participants perceive the robot using rule-based behaviours as more socially competent and adaptable to human behaviour and emotions compared to the random ones. These findings highlight the importance of considering subtle non- verbal cues and adapting robot behaviour based on human emotions to improve the quality of HRI, and consequently facilitate the successful integration of human natural nuances in robots.",
+    "doi": "10.1109/RO-MAN60168.2024.10731458"
+  },
+  {
+    "title": "A Rosbag Tool to Improve Dataset Reliability",
+    "date": "2024-01-20",
+    "slug": "rosbags",
+    "location": "Boulder, Colorado",
+    "url": "https://www.iris.unina.it/handle/11588/952722",
+    "img": "./images/publications/rosbags.png",
+    "attach": {
+      "get": "",
+      "video": "https://www.youtube.com/watch?v=A2P3OobA_tc"
+    },
+    "alternate_link": "https://doi.org/10.1145/3610978.3640556",
+    "tags": ["Dataset Reliability",
+            "acm/ieee hri",
+            "statistical analysis", 
+            "academic writing & editing"],
+    "venue": "Companion of 19th Annual ACM/IEEE International Conference on Human Robot Interaction (HRI)",
+    "authors": ["francesco-vigni", "antonio-andriella", "silvia-rossi"],
+    "coFirstAuthors": false,
+    "abstract": "Datasets are cornerstones of research in Human-Robot Interaction (HRI) and allow researchers to structure observations for other peers to work on. These often store temporal sensitive information about the behaviour of humans and robots involved in the study, and take advantage of the state of the art in robot logging, e.g., rosbags. Depending on the research goal, an approach commonly adopted is to publish datasets alongside annotated semantic information about the interaction. However, validating and assessing the quality of the datasets has not been the main concern of the community. This work highlights the risk of publishing datasets without ensuring the synchronicity between objective and subjective measures and proposes a simple yet effective tool to mitigate it. The tool is evaluated on the rosbags of a popular dataset. Results show that 31.48% of its content contains indeterministic delays, causing the original synchronicity with the respective annotations to be lost.",
+    "doi": "10.1145/3610978.3640556"
+  },
+  {
+    "title": "Sweet Robot O’Mine - How a Cheerful Robot Boosts Users' Performance in a Game Scenario",
+    "date": "2023-08-30",
+    "slug": "sweet-robot",
+    "location": "Busan, Korea",
+    "url": "https://ieeexplore.ieee.org/document/10309378",
+    "img": "./images/publications/sweet.png",
+    "attach": {
+      "get": "",
+      "video": "https://www.youtube.com/watch?v=VgfcLbxTpK4"
+    },
+    "alternate_link": "https://events.infovaya.com/presentation?id=97910",
+    "tags": [
+            "humanoid",
+            "Pal Robotics ARI",
+            "Python",
+            "ROS",
+            "ieee roman",
+            "experimental design", 
+            "statistical analysis", 
+            "academic writing & editing"],
+    "venue": "32nd IEEE International Conference on Robot and Human Interactive Communication (RO-MAN 2023)",
+    "authors": ["francesco-vigni", "antonio-andriella", "silvia-rossi"],
+    "coFirstAuthors": false,
+    "abstract": "The ability to impact the attitudes and behaviours of others is a key aspect of human-human interaction. The same capability is a desideratum in human-robot interaction, when it can have an impact on healthy behaviours. The robot's interaction style plays a significant role in achieving effective communication, leading to better outcomes, improved user experience, and overall enhanced robot performance. Nonetheless, little is known about how different robots' communication styles impact users' performance and decision-making. In this article, we build upon previous work, in which a robot was endowed with two personality behavioural patterns: one more antagonist and other-comparative and the other one more agreeable and self-comparative. We conducted a user study where N=66 participants played a game with a robot displaying the two multimodal communication styles. Our results indicated that i) participants' decision-making was not influenced by the designed robot's communication styles, ii) participants who interacted with the agreeable robot performed better in the game, and iii) the more participants are knowledgeable about robots, the lower they performed in the game.",
+    "doi": "10.1109/RO-MAN57019.2023.10309378"
+  },
+  {
+    "title": "Exploring Non-Verbal Strategies for Initiating an HRI",
+    "date": "2023-02-01",
+    "slug": "icsr-approach",
+    "location": "Florence, Italy",
+    "url": "https://link.springer.com/chapter/10.1007/978-3-031-24667-8_25",
+    "img": "./images/publications/approach.png",
+    "attach": {
+      "get": "./research/ICSR_138.pdf",
+      "video": ""
+    },
+    "tags": ["icsr",
+            "Aldebaran Pepper",
+            "Python",
+            "ROS",
+            "experimental design",
+            "humanoid",
+            "statistical analysis", 
+            "academic writing & editing"],
+    "venue": "14th International Conference on Social Robotics (ICSR 2022)",
+    "authors": ["francesco-vigni", "silvia-rossi"],
+    "coFirstAuthors": false,
+    "abstract": "The growing deployment of robots in social contexts implies the need to model their behaviour as social agents. In this context, the way a robot approaches a user and eventually engages in an interaction is a crucial aspect to take into account for the acceptance of these tools.\n In this work, we explore how the approaching policy and gaze behaviours can influence the perceived intention to interact before the interaction starts. The conducted user study highlights the importance of the robot’s gaze behaviour when approaching a human with respect to its approaching behaviour. In particular, if the robot moves in the surroundings of a human, even not straightforward in their direction, but locks the gaze at them, the intention to interact is recognised clearer and faster with respect to the direct approaching of the user but with an adverse gaze.",
+    "doi": "10.1007/978-3-031-24667-8_25"
+  },
+  {
+    "title": "On The Emotional Transparency of a Non-Humanoid Social Robot",
+    "date": "2023-02-01",
+    "slug": "icsr-emotions",
+    "location": "Florence, Italy",
+    "url": "https://link.springer.com/chapter/10.1007/978-3-031-24667-8_26",
+    "img": "./images/publications/emotion.png",
+    "attach": {
+      "get": "./research/ICSR_140.pdf",
+      "video": ""
+    },
+    "tags": [ "social robot",
+              "non-humanoid",
+              "Protom ClassMate",
+              "Python",
+              "ROS",
+              "icsr",
+              "experimental design", 
+              "statistical analysis", 
+              "academic writing & editing"],
+    "venue": "14th International Conference on Social Robotics (ICSR 2022)",
+    "authors": [
+      "francesco-vigni",
+      "alessandra-rossi",
+      "linda-miccio",
+      "silvia-rossi"
+    ],
+    "coFirstAuthors": false,
+    "abstract": "Non-anthropomorphic robots have issues in conveying internal state during a Human-Robot Interaction (HRI). A possible approach is to let robots communicate their states or intentions through emotions. However, the robot’s emotional responses are not always clearly identified by people, and it is also difficult to identify which and how many cues are most relevant in affecting people’s ability of recognition of robots’ emotions during the ongoing interaction. We involved 102 participants in an online questionnaire-based study where they rated the robot’s behaviours, designed in terms of colours, movements and sounds, according to the perceived emotions in order to identify the cues to be used for making robots more legible. The results suggest that emotional transparency can benefit from multimodal interaction. Our results underline that single modes can be capable of conveying effectively the desired emotion, and little benefit is obtained by the use of additional modes that may be not necessarily noticed by the users.",
+    "doi": "10.1007/978-3-031-24667-8_26"
+  },
+  {
+    "title": "The Role of Closed-Loop Hand Control in Handshaking Interactions",
+    "date": "2019-01-16",
+    "slug": "icra-handshake",
+    "location": "Montreal, Canada",
+    "url": "https://ieeexplore.ieee.org/document/8613850",
+    "img": "./images/publications/hand.png",
+    "attach": {
+      "get": "",
+      "video": "https://www.youtube.com/watch?v=81vSuxVPW4o&pp=ygVAVGhlIFJvbGUgb2YgQ2xvc2VkLUxvb3AgSGFuZCBDb250cm9sIGluIEhhbmRzaGFraW5nIEludGVyYWN0aW9ucw%3D%3D"
+    },
+    "tags": ["handshake", 
+            "Pisa/IIT hand",
+            "Arduino",
+            "C++",
+            "ROS",
+            "ieee icra",
+            "experimental design", 
+            "statistical analysis", 
+            "academic writing & editing"],
+    "venue": "IEEE International Conference on Robotics and Automation (ICRA 2019)",
+    "authors": [
+      "francesco-vigni",
+      "espen-knopp",
+      "domenico-prattichizzo",
+      "monica-malvezzi"
+    ],
+    "coFirstAuthors": false,
+    "abstract": "In this letter, we investigate the role of haptic feedback in human–robot handshaking by comparing different force controllers. The basic hypothesis is that in human handshaking force control there is a balance between an intrinsic (open-loop) and extrinsic (closed-loop) contributions. We use an underactuated anthropomorphic robotic hand, the Pisa/IIT hand, instrumented with a set of pressure sensors estimating the grip force applied by humans. In a first set of experiments, we ask subjects to mimic a given force profile applied by the robot hand, to understand how human perceive and are able to reproduce a handshaking force. Using the obtained results, we implement three different handshaking controllers, in which we varied the intrinsic and extrinsic contributions and in a second set of experiments, we ask participants to evaluate them in a user study. We show that a sensorimotor delay mimicking the reaction time of the central nervous system is beneficial for making interactions more human-like. Moreover, we demonstrate that humans exploit closed-loop control for handshaking. By varying the controller we show that we can change the perceived handshake quality and also influence personality traits attributed to the robot. ",
+    "doi": "10.1109/LRA.2019.2893402"
+  },
+  {
+    "title": "Familiar Acoustic Cues for Legible Service Robots",
+    "date": "2022-08-31",
+    "slug": "roman-roomba",
+    "location": "Naples, Italy",
+    "url": "https://ieeexplore.ieee.org/document/9900699",
+    "img": "./images/publications/roomba.png",
+    "attach": {
+      "get": "",
+      "video": ""
+    },
+    "tags": [
+      "ieee roman",
+      "Turtlebot",
+      "non-humanoid",
+      "experimental design", 
+      "statistical analysis", 
+      "academic writing & editing"
+    ],
+    "venue": "31st IEEE International Conference on Robot and Human Interactive Communication (RO-MAN 2022)",
+    "authors": [
+      "georgios-angelopoulos",
+      "francesco-vigni",
+      "alessandra-rossi",
+      "giuseppina-russo",
+      "mario-turco",
+      "silvia-rossi"
+    ],
+    "coFirstAuthors": true,
+    "abstract": "When navigating in a shared environment, the extent to which robots are able to effectively use signals for coordinating with human behaviors can ameliorate dissatisfaction and increase acceptance. In this paper, we present an online video study to investigate whether familiar acoustic signals can improve the legibility of a robot’s navigation behavior. We collected the responses of 120 participants to evaluate their perceptions of a robot that communicates with one of the three used non-verbal navigational cues (an acoustic signal, an acoustic in pair with a visual signal, and a dissimilar frequency acoustic signal). Our results showed a significant legibility improvement when the robot used both light and acoustic signals to communicate its intentions compared to using only the same acoustic sound. Additionally, our findings highlighted that people also perceived differently the robot’s intentions when they were expressed through two frequencies of the mere sound. The results of this work suggest a paradigm that can help the development of mobile service robots in public spaces.",
+    "doi": "10.1109/RO-MAN53752.2022.9900699"
+  }
+]

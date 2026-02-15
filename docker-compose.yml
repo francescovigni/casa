@@ -1,0 +1,26 @@
+services:
+  # Development service
+  dev:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.cache
+      - /app/public
+    environment:
+      - NODE_ENV=development
+    command: npm run develop
+
+  # Production service (static build served via Nginx)
+  production:
+    build:
+      context: .
+      target: production
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
