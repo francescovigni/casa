@@ -32,7 +32,7 @@ const ContactPage = () => {
                 Location
               </span>
               <a
-                href="https://www.openstreetmap.org/#map=13/44.2227/12.0407"
+                href="https://www.openstreetmap.org/?mlat=44.2227&mlon=12.0407#map=8/44.2227/12.0407"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block mt-2 text-sm font-medium text-gray-900 hover:text-primary-600 transition-colors"
