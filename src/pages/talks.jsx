@@ -41,7 +41,7 @@ const TalksPage = () => {
   return (
     <Layout>
       <section className="py-12 md:py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Talks</h1>
           <p className="text-gray-500 mb-10">
             Invited talks, presentations, and public appearances.

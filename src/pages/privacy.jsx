@@ -6,7 +6,7 @@ const PrivacyPage = () => {
   return (
     <Layout>
       <section className="py-12 md:py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-gray prose-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-gray prose-sm">
           <h1>Privacy Policy</h1>
           <p className="text-gray-500 text-sm">
             Last updated: 15 February 2026

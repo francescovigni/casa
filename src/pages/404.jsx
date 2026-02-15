@@ -6,7 +6,7 @@ const NotFoundPage = () => {
   return (
     <Layout>
       <section className="py-32 text-center">
-        <div className="max-w-2xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-8xl font-bold text-primary-600 mb-4">404</h1>
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Page Not Found

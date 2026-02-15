@@ -9,7 +9,7 @@ const BlogPostTemplate = ({ data }) => {
   return (
     <Layout>
       <article className="py-20 md:py-28">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             to="/blog/"
             className="text-sm text-gray-400 hover:text-gray-600 transition-colors"

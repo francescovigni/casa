@@ -143,7 +143,7 @@ const MilestonesSection = () => {
 
   return (
     <section className="py-10 border-t border-gray-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
           Milestones
         </h2>
@@ -199,7 +199,7 @@ const IndexPage = () => {
     <Layout>
       {/* Hero */}
       <section className="py-12 md:py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-10 items-start">
             <div className="hidden md:block flex-shrink-0">
               <div className="w-40 h-40 rounded-full overflow-hidden">
@@ -254,7 +254,7 @@ const IndexPage = () => {
 
       {/* Skills — compact */}
       <section className="py-10 border-t border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
             What I Do
           </h2>
@@ -288,7 +288,7 @@ const IndexPage = () => {
 
       {/* Experience */}
       <section className="py-10 border-t border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
             Experience
           </h2>
@@ -324,7 +324,7 @@ const IndexPage = () => {
 
       {/* Education */}
       <section className="py-10 border-t border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
             Education
           </h2>
