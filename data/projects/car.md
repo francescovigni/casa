@@ -11,10 +11,7 @@ link: "https://github.com/francescovigni/carla_parking"
 
 [ProjectRepo](https://github.com/francescovigni/carla_parking)
 
-<video width="50%" controls>
-   <source src="/videos/carla.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<img src="https://raw.githubusercontent.com/francescovigni/carla-parking/master/.figure/m1_comp.gif" alt="Rule-based parking demo" style="width:50%; margin:auto; display:block;" />
 
 [Carla](http://carla.org/) is a renowned open-source simulator for autonomous driving research, offering a realistic environment for testing and developing autonomous vehicles. In this project, we present an implementation of a rule-based parking motion using Carla and ROS (Robot Operating System). The parking motion follows an open-loop approach, meaning it relies on predefined rules without information retrieval from sensors, potentially leading to crashes.
 

@@ -9,7 +9,7 @@ const ProjectTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <article className="py-20 md:py-28">
+      <article className="py-10 md:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             to="/projects/"

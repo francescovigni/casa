@@ -202,11 +202,11 @@ const IndexPage = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-10 items-start">
             <div className="hidden md:block flex-shrink-0">
-              <div className="w-40 h-40 rounded-full overflow-hidden">
+              <div className="w-40 h-40 rounded-full overflow-hidden transition-transform duration-300 group hover:scale-125 hover:rotate-2 hover:ring-4 hover:ring-primary-300 hover:shadow-2xl">
                 <StaticImage
                   src="../images/EC9_8572.jpg"
                   alt="Francesco Vigni"
-                  className="w-full h-full"
+                  className="w-full h-full transition-transform duration-300"
                   placeholder="blurred"
                   layout="constrained"
                   width={160}
