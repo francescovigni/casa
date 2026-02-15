@@ -119,6 +119,14 @@ const miscPubs = [
     type: "Workshop",
   },
   {
+    title: "The Unscripted Encounter: Social Cues for Spontaneous Human-Robot Interactions",
+    date: "Feb 2025",
+    venue: "Ph.D. Thesis, University of Naples Federico II",
+    authors: ["francesco-vigni"],
+    url: "https://drive.google.com/file/d/1_kec847ygcR6kId2rmPujNkQSnkms1Dv/view",
+    type: "Ph.D. Thesis",
+  },
+  {
     title: "A Closed Loop Approach to Human-Robot Handshake",
     date: "Oct 2018",
     venue: "Università degli Studi di Siena",
