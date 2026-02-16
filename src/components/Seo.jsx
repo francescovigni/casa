@@ -3,7 +3,7 @@ import React from "react";
 const Seo = ({ title, description }) => {
   const siteTitle = "Francesco Vigni";
   const defaultDescription =
-    "ML Engineer & Robotics Researcher — Applied ML, Computer Vision, Human-Robot Interaction.";
+    "Robotics & AI Engineer (Ph.D.) — Human-Robot Interaction, Applied AI, Computer Vision.";
 
   return (
     <>
