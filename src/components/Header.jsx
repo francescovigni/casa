@@ -31,7 +31,7 @@ const Header = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-xl p-2 font-bold tracking-tight text-primary-700 hover:text-primary-500 transition-colors transform-gpu transition-transform duration-300 hover:scale-150 hover:rotate-3"
+            className="text-xl p-2 font-bold tracking-tight text-primary-700 hover:text-primary-500 transition-colors transform-gpu transition-transform duration-300 hover:scale-150 hover:-rotate-3"
             style={{ display: 'inline-block' }}
           >
             FV

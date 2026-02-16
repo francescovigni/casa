@@ -122,7 +122,7 @@ const ContactPage = () => {
           <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
               <div>
-                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                <h2 className="text-xs font-semibold text-primary-600 uppercase tracking-wider">
                   OpenPGP Public Key
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">

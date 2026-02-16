@@ -144,7 +144,7 @@ const MilestonesSection = () => {
   return (
     <section className="py-10 border-t border-gray-100">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
+        <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
           Milestones
         </h2>
         <div className="space-y-1">
@@ -202,7 +202,7 @@ const IndexPage = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-10 items-start">
             <div className="hidden md:block flex-shrink-0">
-              <div className="w-40 h-40 rounded-full overflow-hidden transition-transform duration-300 group hover:scale-125 hover:rotate-2 hover:ring-4 hover:ring-primary-300 hover:shadow-2xl">
+              <div className="w-40 h-40 rounded-full overflow-hidden transition-transform duration-300 group hover:scale-[1.3] hover:-rotate-[0.1rad] hover:ring-4 hover:ring-primary-400 hover:shadow-2xl">
                 <StaticImage
                   src="../images/EC9_8572.jpg"
                   alt="Francesco Vigni"
@@ -254,7 +254,7 @@ const IndexPage = () => {
       {/* Skills — compact */}
       <section className="py-10 border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
+          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
             What I Do
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -288,7 +288,7 @@ const IndexPage = () => {
       {/* Experience */}
       <section className="py-10 border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
+          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
             Experience
           </h2>
           <div className="space-y-3">
@@ -324,7 +324,7 @@ const IndexPage = () => {
       {/* Education */}
       <section className="py-10 border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
+          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
             Education
           </h2>
           <div className="space-y-3">
