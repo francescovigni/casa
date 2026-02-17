@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: "Francesco Vigni",
     description:
-      "ML Engineer & Robotics Researcher — Applied ML, Computer Vision, Human-Robot Interaction.",
+      "Robotics & AI Engineer (Ph.D.) —  Human-Robot Interaction, Applied AI, Computer Vision.",
     author: "Francesco Vigni",
     siteUrl: "https://francescovigni.com",
   },
@@ -21,6 +21,13 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
+        name: "blog-images",
+        path: `${__dirname}/src/images/blogs`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
         name: "projects",
         path: `${__dirname}/data/projects`,
       },
@@ -32,6 +39,20 @@ module.exports = {
         path: `${__dirname}/data/blog`,
       },
     },
-    "gatsby-transformer-remark",
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+              linkImagesToOriginal: false,
+              showCaptions: true,
+            },
+          },
+        ],
+      },
+    },
   ],
 };
