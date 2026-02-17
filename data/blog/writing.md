@@ -4,7 +4,7 @@ subtitle: A gentle introduction to social robotics
 slug: social-robotics
 date: 2023-05-01
 img: "../images/blogs/snow.jpg"
-category: "Robotics"
+category: "HRI"
 ---
 
 If you are not a geek like me, you may not know that

@@ -3,6 +3,7 @@ title: "Spontaneous Human-Robot Interaction: Embracing the Unplanned"
 date: 2026-02-17
 slug: spontaneous-hri
 description: "Exploring the importance and challenges of unplanned, spontaneous interactions between humans and robots."
+category: "HRI"
 ---
 
 ## Spontaneous Human-Robot Interaction: Embracing the Unplanned
