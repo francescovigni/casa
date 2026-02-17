@@ -6,8 +6,6 @@ description: "Exploring the importance and challenges of unplanned, spontaneous 
 category: "HRI"
 ---
 
-## Spontaneous Human-Robot Interaction: Embracing the Unplanned
-
 When we think about human-robot interaction (HRI), we often imagine carefully designed scenarios: a robot assistant following a set routine, or a service robot responding to pre-defined commands. But real life is rarely so predictable. The true test—and opportunity—of HRI lies in the spontaneous, unplanned moments that emerge when humans and robots share space and purpose.
 
 In my thesis, I proposed a definition of spontaneous HRI as as unplanned and ad-hoc exchanges typically driven by context, emotions, or immediate needs. The following figure drafts the concept.
