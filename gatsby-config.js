@@ -7,6 +7,26 @@ module.exports = {
     siteUrl: "https://francescovigni.com",
   },
   plugins: [
+    {
+      resolve: 'gatsby-omni-font-loader',
+      options: {
+        enableListener: true,
+        preconnect: [
+          'https://fonts.googleapis.com',
+          'https://fonts.gstatic.com',
+        ],
+        web: [
+          {
+            name: 'Inter',
+            file: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+          },
+          {
+            name: 'JetBrains Mono',
+            file: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap',
+          },
+        ],
+      },
+    },
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
