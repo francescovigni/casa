@@ -4,21 +4,21 @@ import Seo from "../components/Seo";
 const mecspeLogo = "https://senaf-mecspe.s3.eu-west-1.amazonaws.com/2024/12/mecspe_logo_it.svg";
 
 const quickFacts = [
-    {
-        label: "Currently",
-        value: "Medical AI Consulting",
-        detail: "Building foundation model for gastroenterology.",
-    },
 	{
-        label: "Engineering",
+		label: "Currently",
+		value: "Medical AI Consulting",
+		detail: "Building foundation model for gastroenterology.",
+	},
+	{
+		label: "Engineering",
 		value: "Robot minds",
 		detail: "Jetson deployments, perception stacks, safety loops.",
 	},
-    {
-        label: "Research",
-        value: "Human-centered robotics",
-        detail: "HRI, proxemics, social cues for service robots.",
-    },
+	{
+		label: "Research",
+		value: "Human-centered robotics",
+		detail: "HRI, proxemics, social cues for service robots.",
+	},
 	{
 		label: "Base",
 		value: "Forlì · Remote-first",
@@ -44,24 +44,20 @@ const highlights = [
 
 const actionLinks = [
 	{
+		label: "Linkedin",
+		href: "https://www.linkedin.com/in/francesco-vigni/",
+	},
+	{
 		label: "Write me",
 		href: "mailto:hello@francescovigni.com",
 		accent: true,
-	},
-	{
-		label: "See projects",
-		href: "/projects/",
-	},
-	{
-		label: "Resume",
-		href: "/VIGNI_resume.pdf",
 	},
 ];
 
 const pillItems = [
 	"Medical AI Consulting",
 	"Full-stack ROS2 tooling",
-    "ROS2 + Jetson deployments",
+	"ROS2 + Jetson deployments",
 	"Jetson + CV deployments",
 ];
 
@@ -91,19 +87,45 @@ const BcPage = () => {
 					<p className="text-base text-white/80 md:text-lg">
 						Robotics & AI Engineer (Ph.D.) bridging research labs and production teams. I build perception stacks, and deployment workflows for autonomous systems.
 					</p>
-					<div className="mt-2 flex flex-wrap items-center gap-3 rounded-[28px] border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
-						<span className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/70">
-							Next stop
-						</span>
-						<img
-							src={mecspeLogo}
-							alt="MECSPE logo"
-							className="h-8 w-auto drop-shadow-[0_6px_20px_rgba(3,3,10,0.5)]"
-						/>
-						<span className="text-sm text-white/75">
-							Meet me at MECSPE Bologna · Mar 6–8
-						</span>
+				</div>
+
+				<div className="rounded-[32px] border border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-white/10 p-6">
+					<p className="text-sm uppercase tracking-[0.4em] text-white/60">Let’s add momentum</p>
+					<p className="mt-3 text-2xl font-semibold text-white">
+						Need a robotics partner? I help teams validate, prototype, and deploy.
+					</p>
+					<p className="mt-2 text-sm text-white/70">
+						Typical engagement: diagnostics call → technical scope → pilot build for your platform.
+					</p>
+					<div className="mt-5 flex flex-wrap gap-3">
+						{actionLinks.map((action) => (
+							<a
+								key={action.label}
+								href={action.href}
+								className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+									action.accent
+										? "bg-white text-black hover:bg-white/90"
+										: "border border-white/30 text-white hover:border-white"
+								}`}
+							>
+								{action.label}
+							</a>
+						))}
 					</div>
+				</div>
+
+				<div className="mt-2 flex flex-wrap items-center gap-3 rounded-[28px] border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
+					<span className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/70">
+						Next stop
+					</span>
+					<img
+						src={mecspeLogo}
+						alt="MECSPE logo"
+						className="h-8 w-auto drop-shadow-[0_6px_20px_rgba(3,3,10,0.5)]"
+					/>
+					<span className="text-sm text-white/75">
+						Meet me at MECSPE Bologna · Mar 6–8
+					</span>
 				</div>
 
 				<div className="grid gap-4 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur lg:grid-cols-2">
@@ -136,31 +158,6 @@ const BcPage = () => {
 							<p className="mt-2 text-sm text-white/70">{item.detail}</p>
 						</div>
 					))}
-				</div>
-
-				<div className="rounded-[32px] border border-white/10 bg-gradient-to-r from-white/10 via-white/5 to-white/10 p-6">
-					<p className="text-sm uppercase tracking-[0.4em] text-white/60">Let’s add momentum</p>
-					<p className="mt-3 text-2xl font-semibold text-white">
-						Need a robotics partner? I help teams validate, prototype, and deploy.
-					</p>
-					<p className="mt-2 text-sm text-white/70">
-						Typical engagement: diagnostics call → technical scope → pilot build for your platform.
-					</p>
-					<div className="mt-5 flex flex-wrap gap-3">
-						{actionLinks.map((action) => (
-							<a
-								key={action.label}
-								href={action.href}
-								className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
-									action.accent
-										? "bg-white text-black hover:bg-white/90"
-										: "border border-white/30 text-white hover:border-white"
-								}`}
-							>
-								{action.label}
-							</a>
-						))}
-					</div>
 				</div>
 
 				<p className="text-xs uppercase tracking-[0.3em] text-white/50">
