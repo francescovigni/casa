@@ -92,6 +92,8 @@ const education = [
 ];
 
 const milestones = [
+  { date: "Mar 2026", text: "Attended MECSPE 2026, the international trade fair for the manufacturing industry, held in Bologna, Italy.", tag: "Event" },
+  { date: "Feb 2026", text: "Kicked off a new consultancy project applying computer vision and AI to medical imaging.", tag: "Project" },
   { date: "Dec 2025", text: "Won 1st prize at the 2nd Startup Creation Lab — Università di Bologna, hosted at Laboratorio Aperto Forlì.", tag: "Award" },
   { date: "Sep 2025", text: "Launched updated portfolio showcasing recent projects, ML demos, and interests.", tag: "Project" },
   {date: "Jul 2025", text: <a href="https://walk.francescovigni.com">Walked about 1000 km along north of Spain through the Camino del Norte. </a>, tag:"Project"},
@@ -126,7 +128,7 @@ const tagColors = {
   Award: "bg-amber-50 text-amber-700",
   Publication: "bg-blue-50 text-blue-700",
   Talk: "bg-green-50 text-green-700",
-  Visit: "bg-purple-50 text-purple-700",
+  Event: "bg-purple-50 text-purple-700",
   Media: "bg-rose-50 text-rose-700",
   Workshop: "bg-orange-50 text-orange-700",
   Education: "bg-emerald-50 text-emerald-700",
