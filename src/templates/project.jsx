@@ -2,8 +2,9 @@ import React from "react";
 import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
+import ShareButtons from "../components/ShareButtons";
 
-const ProjectTemplate = ({ data }) => {
+const ProjectTemplate = ({ data, location }) => {
   const { frontmatter, html } = data.markdownRemark;
   const skills = frontmatter.skills || [];
 
@@ -63,13 +64,17 @@ const ProjectTemplate = ({ data }) => {
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
-          <div className="mt-12 pt-6 border-t border-gray-100">
+          <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between">
             <Link
               to="/projects/"
               className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
             >
               &larr; All Projects
             </Link>
+            <ShareButtons
+              title={frontmatter.title}
+              url={`https://francescovigni.com${location.pathname}`}
+            />
           </div>
         </div>
       </article>
@@ -79,12 +84,18 @@ const ProjectTemplate = ({ data }) => {
 
 export default ProjectTemplate;
 
-export const Head = ({ data }) => (
-  <Seo
-    title={data.markdownRemark.frontmatter.title}
-    description={data.markdownRemark.frontmatter.subtitle}
-  />
-);
+export const Head = ({ data, location }) => {
+  const { frontmatter } = data.markdownRemark;
+  const image = frontmatter.img?.childImageSharp?.gatsbyImageData?.images?.fallback?.src;
+  return (
+    <Seo
+      title={frontmatter.title}
+      description={frontmatter.subtitle}
+      image={image}
+      pathname={location.pathname}
+    />
+  );
+};
 
 export const query = graphql`
   query ProjectByID($id: String!) {
@@ -97,6 +108,11 @@ export const query = graphql`
         skills
         category
         link
+        img {
+          childImageSharp {
+            gatsbyImageData(width: 1200)
+          }
+        }
       }
     }
   }

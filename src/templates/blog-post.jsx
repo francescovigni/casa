@@ -2,8 +2,9 @@ import React from "react";
 import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
+import ShareButtons from "../components/ShareButtons";
 
-const BlogPostTemplate = ({ data }) => {
+const BlogPostTemplate = ({ data, location }) => {
   const { frontmatter, html, timeToRead } = data.markdownRemark;
 
   return (
@@ -46,13 +47,17 @@ const BlogPostTemplate = ({ data }) => {
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
-          <div className="mt-12 pt-6 border-t border-gray-100">
+          <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between">
             <Link
               to="/blog/"
               className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
             >
               &larr; All Posts
             </Link>
+            <ShareButtons
+              title={frontmatter.title}
+              url={`https://francescovigni.com${location.pathname}`}
+            />
           </div>
         </div>
       </article>
@@ -62,12 +67,18 @@ const BlogPostTemplate = ({ data }) => {
 
 export default BlogPostTemplate;
 
-export const Head = ({ data }) => (
-  <Seo
-    title={data.markdownRemark.frontmatter.title}
-    description={data.markdownRemark.frontmatter.subtitle}
-  />
-);
+export const Head = ({ data, location }) => {
+  const { frontmatter } = data.markdownRemark;
+  const image = frontmatter.img?.childImageSharp?.gatsbyImageData?.images?.fallback?.src;
+  return (
+    <Seo
+      title={frontmatter.title}
+      description={frontmatter.subtitle}
+      image={image}
+      pathname={location.pathname}
+    />
+  );
+};
 
 export const query = graphql`
   query BlogPostByID($id: String!) {
@@ -80,6 +91,11 @@ export const query = graphql`
         date(formatString: "MMMM D, YYYY")
         category
         slug
+        img {
+          childImageSharp {
+            gatsbyImageData(width: 1200)
+          }
+        }
       }
     }
   }
