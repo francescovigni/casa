@@ -1,7 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 import { StaticImage } from "gatsby-plugin-image";
+
+const Typewriter = ({ words, typingSpeed = 120, deletingSpeed = 60, pauseDuration = 2200, delay = 0 }) => {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [started, setStarted] = useState(delay === 0);
+
+  useEffect(() => {
+    if (delay > 0) {
+      const t = setTimeout(() => setStarted(true), delay);
+      return () => clearTimeout(t);
+    }
+  }, [delay]);
+
+  const tick = useCallback(() => {
+    const currentWord = words[wordIndex];
+    if (!isDeleting) {
+      setText(currentWord.slice(0, text.length + 1));
+      if (text.length + 1 === currentWord.length) {
+        setTimeout(() => setIsDeleting(true), pauseDuration);
+        return;
+      }
+    } else {
+      setText(currentWord.slice(0, text.length - 1));
+      if (text.length - 1 === 0) {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % words.length);
+        return;
+      }
+    }
+  }, [text, isDeleting, wordIndex, words, pauseDuration]);
+
+  useEffect(() => {
+    if (!started) return;
+    const speed = isDeleting ? deletingSpeed : typingSpeed;
+    const timer = setTimeout(tick, speed);
+    return () => clearTimeout(timer);
+  }, [tick, isDeleting, deletingSpeed, typingSpeed, started]);
+
+  return (
+    <span>
+      {text}
+      <span className="animate-pulse text-primary-600">|</span>
+    </span>
+  );
+};
 
 const experience = [
   {
@@ -253,39 +299,77 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* Skills — compact */}
+      {/* Recent: Medical AI */}
       <section className="py-10 border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
-            What I Do
+            Recently Working On
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              {
-                title: "Robotics & HRI",
-                desc: "ROS/ROS2, SLAM, MoveIt, sensor fusion, social robots (Pepper, TIAGo, ARI).",
-              },
-              {
-                title: "Machine Learning & CV",
-                desc: "PyTorch, YOLO, object detection & tracking, neural style transfer, edge AI on NVIDIA Jetson.",
-              },
-              {
-                title: "Software & DevOps",
-                desc: "Python, C++, TypeScript, FastAPI, Docker, CI/CD. From prototyping to production.",
-              },
-            ].map((skill, i) => (
-              <div key={i}>
-                <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  {skill.title}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {skill.desc}
-                </p>
-              </div>
-            ))}
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-2">Medical AI Consulting</h3>
+            <p className="text-sm text-gray-600 leading-relaxed mb-3">
+              Building a foundation-model pipeline for gastroenterology imaging. From data ingestion on S3
+              to self-supervised model fine-tuning with experiment tracking, running on cloud GPU clusters.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["DINOv3", "Weights & Biases", "Cloud Computing", "S3 Buckets", "Medical Imaging", "PyTorch"].map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-primary-200 bg-primary-50 px-3 py-0.5 text-xs font-medium text-primary-700"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* What I Do — skills with typewriter descriptions */}
+      <section className="py-10 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
+            I've been playing with
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                Robotics &amp; HRI
+              </h3>
+              <p className="text-sm text-gray-500 leading-relaxed h-5">
+                <Typewriter
+                  words={["ROS2 Humble", "Nav2 & SLAM", "Gazebo & Isaac Sim", "Perception stacks", "Proxemics & social cues", "Sensor fusion"]}
+                  delay={0}
+                />
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                Machine Learning &amp; CV
+              </h3>
+              <p className="text-sm text-gray-500 leading-relaxed h-5">
+                <Typewriter
+                  words={["DINOv3 & ViTs", "Self-supervised learning", "ONNX & TensorRT", "Zero-shot inference", "PyTorch Lightning", "Edge AI on Jetson"]}
+                  delay={4000}
+                />
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                Software &amp; DevOps
+              </h3>
+              <p className="text-sm text-gray-500 leading-relaxed h-5">
+                <Typewriter
+                  words={["FastAPI & gRPC", "Docker & K8s", "W&B & MLflow", "S3 & data lakes", "GPU clusters", "CI/CD & GitHub Actions"]}
+                  delay={8000}
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* Experience */}
       <section className="py-10 border-t border-gray-100">
