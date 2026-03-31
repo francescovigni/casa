@@ -36,40 +36,6 @@ const CopyButton = ({ text, label }) => {
 };
 
 const ContactPage = () => {
-  const [formStatus, setFormStatus] = useState(null);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setFormStatus(null);
-
-    // Replace with your actual endpoint (e.g., Netlify Forms, Formspree)
-    const endpoint = "/api/contact"; // Example for Netlify Functions
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        setFormStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setFormStatus("error");
-      }
-    } catch (err) {
-      setFormStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <Layout>
       <section className="py-12 md:py-16">
@@ -107,7 +73,7 @@ const ContactPage = () => {
               </svg>
               </a>      
           </div>
-          
+
           {/* Contact info grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mb-10">
             {/* Email card (spans 3 columns) */}
@@ -129,7 +95,7 @@ const ContactPage = () => {
               <details className="mt-5 group">
                 <summary className="flex items-center justify-between cursor-pointer select-none outline-none focus:ring-2 focus:ring-primary-300 rounded">
                   <span className="text-xs font-semibold text-primary-600 uppercase tracking-wider">
-                    OpenPGP Public Key
+                    Fancy encrypted email?
                   </span>
                   <span className="text-xs text-gray-400 group-open:rotate-180 transition-transform">
                     ▼
