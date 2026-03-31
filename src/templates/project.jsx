@@ -13,10 +13,10 @@ const ProjectTemplate = ({ data, location }) => {
       <article className="py-10 md:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            to="/projects/"
+            to="/portfolio/"
             className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
           >
-            &larr; Projects
+            &larr; Portfolio
           </Link>
 
           <header className="mt-6 mb-10">
@@ -64,12 +64,24 @@ const ProjectTemplate = ({ data, location }) => {
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
+          <section className="mt-10 rounded-xl border border-gray-200 bg-gray-50 p-5">
+            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-2">
+              Need something similar?
+            </h2>
+            <Link
+              to="/contact/"
+              className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+            >
+              Get in touch &rarr;
+            </Link>
+          </section>
+
           <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between">
             <Link
-              to="/projects/"
+              to="/portfolio/"
               className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
             >
-              &larr; All Projects
+              &larr; All Portfolio Entries
             </Link>
             <ShareButtons
               title={frontmatter.title}

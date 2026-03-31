@@ -3,11 +3,11 @@ import { Link } from "gatsby";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/projects/", label: "Projects" },
-  { to: "/talks/", label: "Talks" },
+  { to: "/portfolio/", label: "Portfolio" },
 ];
 const contactLink = { to: "/contact/", label: "Contact" };
 const insightsLinks = [
+  { to: "/talks/", label: "Talks" },
   { to: "/publications/", label: "Publications" },
   { to: "/blog/", label: "Blog" },
 ];

@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { graphql, useStaticQuery, Link } from "gatsby";
+import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
-import { StaticImage } from "gatsby-plugin-image";
 
 const Typewriter = ({ words, typingSpeed = 120, deletingSpeed = 60, pauseDuration = 2200, delay = 0 }) => {
   const [wordIndex, setWordIndex] = useState(0);
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [started, setStarted] = useState(delay === 0);
-
+    
   useEffect(() => {
     if (delay > 0) {
       const t = setTimeout(() => setStarted(true), delay);
@@ -46,7 +47,7 @@ const Typewriter = ({ words, typingSpeed = 120, deletingSpeed = 60, pauseDuratio
       {text}
       <span className="animate-pulse text-primary-600">|</span>
     </span>
-  );
+  );    
 };
 
 const experience = [
@@ -138,6 +139,7 @@ const education = [
 ];
 
 const milestones = [
+  { date: "Mar 2026", text: "Joined the Commettee of information and electronics engineering, Ordine degli Ingegneri della provincia di Forlì-Cesena.", tag: "Community" },
   { date: "Mar 2026", text: "Attended MECSPE 2026, the international trade fair for the manufacturing industry, held in Bologna, Italy.", tag: "Event" },
   { date: "Feb 2026", text: "Kicked off a new consultancy project applying computer vision and AI to medical imaging.", tag: "Project" },
   { date: "Dec 2025", text: "Won 1st prize at the 2nd Startup Creation Lab — Università di Bologna, hosted at Laboratorio Aperto Forlì.", tag: "Award" },
@@ -243,208 +245,318 @@ const MilestonesSection = () => {
 };
 
 const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query HomeFeaturedProjects {
+      allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/data/projects/" } }
+        sort: { frontmatter: { date: DESC } }
+        limit: 3
+      ) {
+        nodes {
+          fileAbsolutePath
+          frontmatter {
+            title
+            subtitle
+            date(formatString: "MMM YYYY")
+            category
+            skills
+            link
+            img {
+              childImageSharp {
+               gatsbyImageData(
+                  width: 900
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP]
+                  layout: CONSTRAINED
+                  quality: 85
+                )
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  const featuredProjects = data.allMarkdownRemark.nodes.map((node) => {
+    const slug = node.fileAbsolutePath.split("/").pop().replace(".md", "");
+    return {
+      slug,
+      title: node.frontmatter.title,
+      subtitle: node.frontmatter.subtitle,
+      date: node.frontmatter.date,
+      category: node.frontmatter.category || "Other",
+      skills: node.frontmatter.skills || [],
+      link: node.frontmatter.link,
+      img: getImage(node.frontmatter.img) ?? null,
+    };
+  });
+
+  const flagshipProject =
+    featuredProjects.find((project) => project.slug === "medical-ai-consulting") ||
+    featuredProjects[0];
+
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-12 md:py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-10 items-start">
-            <div className="hidden md:block flex-shrink-0">
-              <div className="w-40 h-40 rounded-full overflow-hidden transition-transform duration-300 group hover:scale-[1.3] hover:-rotate-[0.1rad] hover:ring-4 hover:ring-primary-400 hover:shadow-2xl">
-                <StaticImage
-                  src="../images/EC9_8572.jpg"
-                  alt="Francesco Vigni"
-                  className="w-full h-full transition-transform duration-300"
-                  placeholder="blurred"
-                  layout="constrained"
-                  width={160}
-                  height={160}
-                />
+        {/* Hero */}
+        <section className="py-12 md:py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row gap-10 items-start">
+              <div className="hidden md:block flex-shrink-0">
+                <div className="w-40 h-40 rounded-full overflow-hidden transition-transform duration-300 group hover:scale-[1.3] hover:-rotate-[0.1rad] hover:ring-4 hover:ring-primary-400 hover:shadow-2xl">
+                  <StaticImage
+                    src="../images/EC9_8572.jpg"
+                    alt="Francesco Vigni"
+                    className="w-full h-full transition-transform duration-300"
+                    placeholder="blurred"
+                    layout="constrained"
+                    width={160}
+                    height={160}
+                  />
+                </div>
               </div>
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                Francesco Vigni
-              </h1>
-              <p className="text-lg text-primary-600 font-medium mb-4">
-                Robotics &amp; AI Engineer (Ph.D.)
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                I bridge the gap between advanced research and production-grade autonomous systems, 
-                leveraging a Ph.D. from the University of Naples and experience from Disney Research, 
-                TU Munich, and Roboception.
-              </p>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Specializing in perception pipelines, ROS/ROS2, edge AI
-                deployment, and full-stack engineering.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="/projects/"
-                  className="px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
-                >
-                  View Projects
-                </a>
-                <a
-                  href="/VIGNI_resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Resume
-                </a>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                  Francesco Vigni, PhD
+                </h1>
+                <p className="text-lg text-primary-600 font-medium mb-4">
+                  Robotics &amp; AI Engineer
+                </p>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  I build AI systems for robotics, medical imaging, and automation.
+                </p>
+                <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                  Specializing in perception pipelines, ROS/ROS2, edge AI deployment, and full-stack engineering.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    to="/portfolio/"
+                    className="px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+                  >
+                    View Portfolio
+                  </Link>
+                  <a
+                    href="https://calendly.com/francescovigni/15min?utm_source=francescovigni.com&utm_medium=homepage&utm_campaign=free_15min_call"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors"
+                    aria-label="Book a free 15-minute call on Calendly"
+                  >
+                    Book a free 15-min call
+                  </a>
+                  <a
+                    href="/VIGNI_resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Resume
+                  </a>
+                </div>
+                <p className="text-xs text-gray-400 mt-3">
+                  No commitment, just a quick fit check for your project.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Recent: Medical AI */}
-      <section className="py-10 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
-            Recently Working On
-          </h2>
-          <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-            <h3 className="text-base font-semibold text-gray-900 mb-2">Medical AI Consulting</h3>
-            <p className="text-sm text-gray-600 leading-relaxed mb-3">
-              Building a foundation-model pipeline for gastroenterology imaging. From data ingestion on S3
-              to self-supervised model fine-tuning with experiment tracking, running on cloud GPU clusters.
+        {/* About */}
+        <section className="py-10 border-t border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-4">
+              About
+            </h2>
+            <p className="text-sm text-gray-600 leading-relaxed mb-4 max-w-4xl">
+              I am a computer engineer with a background in robotics, ROS, and Human-Robot Interaction research. 
+              My work combines research rigor with pragmatic engineering: clear problem framing, fast prototyping, and measurable outcomes. I collaborate
+              with startups, med-tech teams, and engineering groups that need working systems, not only experiments.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {["DINOv3", "Weights & Biases", "Cloud Computing", "S3 Buckets", "Medical Imaging", "PyTorch"].map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-primary-200 bg-primary-50 px-3 py-0.5 text-xs font-medium text-primary-700"
-                >
-                  {t}
-                </span>
+          </div>
+        </section>
+
+        {/* Featured Project */}
+        <section className="py-10 border-t border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
+              Featured Projects
+            </h2>
+            {flagshipProject && (
+              <article className="rounded-xl border border-gray-200 bg-gray-50 p-6 md:p-7">
+
+                {/* Image + title/subtitle side by side */}
+                <div className="flex flex-col sm:flex-row gap-5 mb-5">
+                 
+                  <div className="flex flex-col justify-between min-w-0">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className="rounded-full border border-primary-200 bg-primary-50 px-2.5 py-0.5 text-[11px] font-medium text-primary-700">
+                          {flagshipProject.category}
+                        </span>
+                        {flagshipProject.date && (
+                          <span className="text-xs text-gray-400">{flagshipProject.date}</span>
+                        )}
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">{flagshipProject.title}</h3>
+                      <p className="text-sm text-gray-500 leading-relaxed">{flagshipProject.subtitle}</p>
+                    </div>
+                  
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {flagshipProject.img && (
+                    <div className=" overflow-hidden rounded-lg"> 
+                      <GatsbyImage
+                        image={flagshipProject.img}
+                        alt={`${flagshipProject.title} preview`}
+                        className="rounded-lg w-full h-full"
+                        imgStyle={{ objectFit: 'cover' }} // Ensures the underlying <img> fills the area
+                      />
+                    </div>
+                  )}
+                  <div className="rounded-lg border border-gray-200 bg-white p-4">
+                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Challenges & Impact</h4>
+                    <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                      <li>High-volume clinical data</li>
+                      <li>Reproducible training under privacy constraints</li>
+                      <li>Cost-efficient pipeline</li>
+                      <li>Production-ready foundation-model pipeline for medical AI within NDA and data governance boundaries</li>
+                    </ul>
+                  </div>
+                    <Link
+                      to={`/projects/${flagshipProject.slug}/`}
+                      className="mt-4 self-start text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+                    >
+                      Read case study →
+                    </Link>
+                </div>
+
+              </article>
+            )}
+          </div>
+        </section>
+        {/* Core Capabilities */}
+        <section className="py-10 border-t border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
+              Core Capabilities
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                  Robotics &amp; HRI
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed h-5">
+                  <Typewriter
+                    words={["ROS2 Humble", "Nav2 & SLAM", "Gazebo & Isaac Sim", "Perception stacks", "Proxemics & social cues", "Sensor fusion"]}
+                    delay={0}
+                  />
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                  Machine Learning &amp; CV
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed h-5">
+                  <Typewriter
+                    words={["DINOv3 & ViTs", "Self-supervised learning", "ONNX & TensorRT", "Zero-shot inference", "PyTorch Lightning", "Edge AI on Jetson"]}
+                    delay={4000}
+                  />
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                  Software &amp; DevOps
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed h-5">
+                  <Typewriter
+                    words={["FastAPI & gRPC", "Docker & K8s", "W&B & MLflow", "S3 & data lakes", "GPU clusters", "CI/CD & GitHub Actions"]}
+                    delay={8000}
+                  />
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Experience */}
+        <section className="py-10 border-t border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
+              Experience
+            </h2>
+            <div className="space-y-3">
+              {experience.map((item, i) => (
+                <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                  <span className="text-sm text-gray-400 whitespace-nowrap min-w-[10rem]">
+                    {item.period}
+                  </span>
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">
+                      {item.url ? (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary-600 transition-colors"
+                        >
+                          {item.title}
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </span>
+                    <span className="text-sm text-gray-500"> · {item.org}</span>
+                    {item.city && <span className="text-sm text-gray-400"> · {item.city}</span>}
+                    {item.highlights?.map((highlight) => (
+                      <p key={highlight} className="text-sm text-gray-500 mt-0.5">{highlight}</p>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* What I Do — skills with typewriter descriptions */}
-      <section className="py-10 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
-            I've been playing with
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                Robotics &amp; HRI
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed h-5">
-                <Typewriter
-                  words={["ROS2 Humble", "Nav2 & SLAM", "Gazebo & Isaac Sim", "Perception stacks", "Proxemics & social cues", "Sensor fusion"]}
-                  delay={0}
-                />
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                Machine Learning &amp; CV
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed h-5">
-                <Typewriter
-                  words={["DINOv3 & ViTs", "Self-supervised learning", "ONNX & TensorRT", "Zero-shot inference", "PyTorch Lightning", "Edge AI on Jetson"]}
-                  delay={4000}
-                />
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                Software &amp; DevOps
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed h-5">
-                <Typewriter
-                  words={["FastAPI & gRPC", "Docker & K8s", "W&B & MLflow", "S3 & data lakes", "GPU clusters", "CI/CD & GitHub Actions"]}
-                  delay={8000}
-                />
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* Experience */}
-      <section className="py-10 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
-            Experience
-          </h2>
-          <div className="space-y-3">
-            {experience.map((item, i) => (
-              <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-                <span className="text-sm text-gray-400 whitespace-nowrap min-w-[10rem]">
-                  {item.period}
-                </span>
-                <div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {item.url ? (
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary-600 transition-colors"
-                      >
-                        {item.title}
-                      </a>
-                    ) : (
-                      item.title
-                    )}
+        {/* Education */}
+        <section className="py-10 border-t border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
+              Education
+            </h2>
+            <div className="space-y-3">
+              {education.map((item, i) => (
+                <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                  <span className="text-sm text-gray-400 whitespace-nowrap min-w-[10rem]">
+                    {item.period}
                   </span>
-                  <span className="text-sm text-gray-500"> · {item.org}</span>
-                  {item.city && <span className="text-sm text-gray-400"> · {item.city}</span>}
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">
+                      {item.url ? (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary-600 transition-colors"
+                        >
+                          {item.title}
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </span>
+                    <span className="text-sm text-gray-500"> · {item.org}</span>
+                    {item.city && <span className="text-sm text-gray-400"> · {item.city}</span>}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Education */}
-      <section className="py-10 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
-            Education
-          </h2>
-          <div className="space-y-3">
-            {education.map((item, i) => (
-              <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-                <span className="text-sm text-gray-400 whitespace-nowrap min-w-[10rem]">
-                  {item.period}
-                </span>
-                <div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {item.url ? (
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary-600 transition-colors"
-                      >
-                        {item.title}
-                      </a>
-                    ) : (
-                      item.title
-                    )}
-                  </span>
-                  <span className="text-sm text-gray-500"> · {item.org}</span>
-                  {item.city && <span className="text-sm text-gray-400"> · {item.city}</span>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Milestones */}
-      <MilestonesSection />
+        {/* Milestones */}
+        <MilestonesSection />
     </Layout>
   );
 };
