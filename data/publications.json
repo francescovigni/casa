@@ -37,7 +37,7 @@
     "img": "./images/publications/too-close.png",
     "attach": {
       "get": "/",
-      "video": ""
+      "video": "https://youtu.be/gLyVn9eg0EA"
     },
     "alternate_link": "https://doi.org/10.1109/RO-MAN60168.2024.10731458",
     "tags": ["humanoid",

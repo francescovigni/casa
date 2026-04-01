@@ -34,6 +34,14 @@ const talks = [
     description:
       "Presentation of the paper exploring how a robot's cheerful communication style impacts user task performance in a game scenario.",
     youtubeId: "VgfcLbxTpK4",
+  },
+  {
+    title: "The Role of Closed-Loop Hand Control in Handshaking Interactions",
+    event: "IEEE ICRA 2019, Montreal, Canada",
+    date: "May 2019",
+    description:
+      "Presentation of the paper on the role of closed-loop hand control in handshaking interactions.",
+    youtubeId: "81vSuxVPW4o",
   }
 ];
 
