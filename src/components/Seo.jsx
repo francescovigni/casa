@@ -44,6 +44,7 @@ const Seo = ({ title, description, image, pathname, keywords, type = "website" }
       <meta name="keywords"           content={metaKeywords} />
       <meta name="viewport"           content="width=device-width, initial-scale=1" />
       <meta name="robots"             content="index, follow" />
+      <meta name="author" content="Francesco Vigni"/>
 
       {/* Canonical */}
       <link rel="canonical" href={canonicalUrl} />
