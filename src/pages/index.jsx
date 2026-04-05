@@ -323,10 +323,10 @@ const IndexPage = () => {
                   Robotics &amp; AI Engineer
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  I build AI systems for robotics, medical imaging, and automation.
+                  I design and deploy intelligent systems that bridge the gap between cutting-edge research and real-world impact.
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                  Specializing in perception pipelines, ROS/ROS2, edge AI deployment, and full-stack engineering.
+                  From medical imaging pipelines to autonomous robot perception, I help teams ship production-ready AI—fast.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
@@ -342,7 +342,7 @@ const IndexPage = () => {
                     className="px-5 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors"
                     aria-label="Book a free 15-minute call on Calendly"
                   >
-                    Book a free 15-min call
+                    Let's talk about your project
                   </a>
                   <a
                     href="/VIGNI_resume.pdf"
@@ -354,7 +354,7 @@ const IndexPage = () => {
                   </a>
                 </div>
                 <p className="text-xs text-gray-400 mt-3">
-                  No commitment, just a quick fit check for your project.
+                  No strings attached—just a quick conversation to see if we're a fit.
                 </p>
               </div>
             </div>
@@ -368,9 +368,12 @@ const IndexPage = () => {
               About
             </h2>
             <p className="text-sm text-gray-600 leading-relaxed mb-4 max-w-4xl">
-              I am a computer engineer with a background in robotics, ROS, and Human-Robot Interaction research. 
-              My work combines research rigor with pragmatic engineering: clear problem framing, fast prototyping, and measurable outcomes. I collaborate
-              with startups, med-tech teams, and engineering groups that need working systems, not only experiments.
+              I'm a computer engineer who thrives at the intersection of robotics, AI, and human-centered design. 
+              My Ph.D. research in Human-Robot Interaction taught me how to build systems that don't just work—they 
+              <em>connect</em> with people. Today, I bring that same rigor to every project: from high-throughput medical 
+              imaging pipelines to autonomous navigation stacks, I deliver solutions that are reproducible, scalable, and 
+              ready for the real world. Whether you're a startup validating an idea or an engineering team scaling a product, 
+              I help you move faster without cutting corners.
             </p>
           </div>
         </section>
@@ -418,10 +421,10 @@ const IndexPage = () => {
                   <div className="rounded-lg border border-gray-200 bg-white p-4">
                     <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Challenges & Impact</h4>
                     <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
-                      <li>High-volume clinical data</li>
-                      <li>Reproducible training under privacy constraints</li>
-                      <li>Cost-efficient pipeline</li>
-                      <li>Production-ready foundation-model pipeline for medical AI within NDA and data governance boundaries</li>
+                      <li>Processing high-volume clinical datasets at scale</li>
+                      <li>Building reproducible training pipelines under strict privacy constraints</li>
+                      <li>Optimizing for cost-efficiency without sacrificing performance</li>
+                      <li>Delivering production-ready foundation models within NDA and data governance boundaries</li>
                     </ul>
                   </div>
                     <Link
@@ -445,33 +448,33 @@ const IndexPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  Robotics &amp; HRI
+                  Robotics &amp; Autonomy
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed h-5">
                   <Typewriter
-                    words={["ROS2 Humble", "Nav2 & SLAM", "Gazebo & Isaac Sim", "Perception stacks", "Proxemics & social cues", "Sensor fusion"]}
+                    words={["ROS2 Humble", "Nav2 & SLAM", "Gazebo & Isaac Sim", "Perception stacks", "Social navigation", "Multi-sensor fusion"]}
                     delay={0}
                   />
                 </p>
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  Machine Learning &amp; CV
+                  Machine Learning &amp; Vision
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed h-5">
                   <Typewriter
-                    words={["DINOv3 & ViTs", "Self-supervised learning", "ONNX & TensorRT", "Zero-shot inference", "PyTorch Lightning", "Edge AI on Jetson"]}
+                    words={["Foundation models (ViTs)", "Self-supervised learning", "ONNX & TensorRT deployment", "Zero-shot inference", "PyTorch Lightning", "Edge AI on Jetson"]}
                     delay={4000}
                   />
                 </p>
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  Software &amp; DevOps
+                  Infrastructure &amp; MLOps
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed h-5">
                   <Typewriter
-                    words={["FastAPI & gRPC", "Docker & K8s", "W&B & MLflow", "S3 & data lakes", "GPU clusters", "CI/CD & GitHub Actions"]}
+                    words={["FastAPI & gRPC services", "Docker & Kubernetes", "W&B & MLflow tracking", "S3 & data lakes", "Multi-GPU training", "CI/CD & GitHub Actions"]}
                     delay={8000}
                   />
                 </p>
