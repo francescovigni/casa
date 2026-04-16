@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 
@@ -45,6 +45,51 @@ const talks = [
   }
 ];
 
+const YouTubeEmbed = ({ youtubeId, title }) => {
+  const [active, setActive] = useState(false);
+  const thumb = `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+
+  if (active) {
+    return (
+      <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+        <iframe
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      onClick={() => setActive(true)}
+      aria-label={`Play: ${title}`}
+      className="relative w-full block group focus:outline-none"
+      style={{ paddingBottom: "56.25%" }}
+    >
+      <img
+        src={thumb}
+        alt={`Thumbnail for ${title}`}
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+      {/* dark overlay */}
+      <span className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+      {/* play button */}
+      <span className="absolute inset-0 flex items-center justify-center">
+        <span className="w-16 h-16 rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center shadow-lg transition-all group-hover:scale-110">
+          <svg className="w-6 h-6 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+      </span>
+    </button>
+  );
+};
+
 const TalksPage = () => {
   return (
     <Layout>
@@ -52,30 +97,19 @@ const TalksPage = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Talks</h1>
           <p className="text-gray-500 mb-10">
-            Invited talks, presentations, and public appearances.
+            Invited talks, conference presentations, and public appearances.
           </p>
 
-          <div className="space-y-12">
+          <div className="space-y-10">
             {talks.map((talk, i) => (
               <article
                 key={i}
                 className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
               >
-                {/* Embedded YouTube player */}
                 {talk.youtubeId && (
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube-nocookie.com/embed/${talk.youtubeId}`}
-                      title={talk.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
+                  <YouTubeEmbed youtubeId={talk.youtubeId} title={talk.title} />
                 )}
 
-                {/* Info */}
                 <div className="p-5 sm:p-6">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <span className="text-xs px-2 py-0.5 rounded-full bg-green-50 text-green-700">
