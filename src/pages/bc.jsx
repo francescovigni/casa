@@ -93,7 +93,7 @@ const BcPage = () => {
 						<p className="text-primary-600 font-medium mt-1">
 							AI Advisor
 						</p>
-						<p className="text-sm text-gray-500 mt-0.5">Forlì · Remote-first</p>
+						<p className="text-sm text-gray-500 mt-0.5">Forlì, Italy</p>
 					</div>
 					{/* Skills pills */}
 					<div className="flex flex-wrap justify-center gap-2">

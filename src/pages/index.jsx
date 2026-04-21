@@ -52,11 +52,18 @@ const Typewriter = ({ words, typingSpeed = 120, deletingSpeed = 60, pauseDuratio
 
 const experience = [
   {
-    title: "Robotics & AI Systems Consultant",
-    org: "Freelance",
-    period: "Sep 2025 – Present",
+    title: "Applied Research Scientist",
+    org: "IRCCS Humanitas Research Hospital",
+    period: "Jan 2026 – Present",
+    city: "Milan, Italy (Remote)",
+    url: "/",
+  },
+  {
+    title: "Member, Commission for Information Engineering",
+    org: "Ordine degli Ingegneri di Forlì-Cesena",
+    period: "Mar 2026 – Present",
     city: "Forlì, Italy",
-    url: "https://apps.francescovigni.com",
+    url: "/",
   },
   {
     title: "Visiting Researcher",
@@ -139,7 +146,7 @@ const education = [
 ];
 
 const milestones = [
-  { date: "Mar 2026", text: "Joined the Commettee of information and electronics engineering, Ordine degli Ingegneri della provincia di Forlì-Cesena.", tag: "Community" },
+  { date: "Mar 2026", text: "Joined the Commission for Information and Electronics Engineering, Ordine degli Ingegneri della provincia di Forlì-Cesena.", tag: "Community" },
   { date: "Mar 2026", text: "Attended MECSPE 2026, the international trade fair for the manufacturing industry, held in Bologna, Italy.", tag: "Event" },
   { date: "Feb 2026", text: "Kicked off a new consultancy project applying computer vision and AI to medical imaging.", tag: "Project" },
   { date: "Dec 2025", text: "Won 1st prize at the 2nd Startup Creation Lab — Università di Bologna, hosted at Laboratorio Aperto Forlì.", tag: "Award" },
@@ -192,7 +199,7 @@ const MilestonesSection = () => {
   const visible = showAll ? milestones : milestones.slice(0, INITIAL_SHOW);
 
   return (
-    <section className="py-10 border-t border-gray-100">
+    <section className="py-12 border-t border-gray-100">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
           Milestones
@@ -320,7 +327,7 @@ const IndexPage = () => {
                   Francesco Vigni, PhD
                 </h1>
                 <p className="text-lg text-primary-600 font-medium mb-4">
-                  Robotics &amp; AI Engineer
+                  Applied Research Scientist · Medical AI
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4">
                   I design and deploy intelligent systems that bridge the gap between cutting-edge research and real-world impact.
@@ -333,7 +340,7 @@ const IndexPage = () => {
                     to="/portfolio/"
                     className="px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
                   >
-                    View Portfolio
+                    Portfolio
                   </Link>
                   <a
                     href="https://calendly.com/francescovigni/15min?utm_source=francescovigni.com&utm_medium=homepage&utm_campaign=free_15min_call"
@@ -342,7 +349,7 @@ const IndexPage = () => {
                     className="px-5 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors"
                     aria-label="Book a free 15-minute call on Calendly"
                   >
-                    Let's talk about your project
+                    Let's Talk
                   </a>
                   <a
                     href="/VIGNI_resume.pdf"
@@ -353,33 +360,28 @@ const IndexPage = () => {
                     Resume
                   </a>
                 </div>
-                <p className="text-xs text-gray-400 mt-3">
-                  No strings attached—just a quick conversation to see if we're a fit.
-                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* About */}
-        <section className="py-10 border-t border-gray-100">
+        <section className="py-12 border-t border-gray-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-4">
               About
             </h2>
             <p className="text-sm text-gray-600 leading-relaxed mb-4 max-w-4xl">
-              I'm a computer engineer who thrives at the intersection of robotics, AI, and human-centered design. 
-              My Ph.D. research in Human-Robot Interaction taught me how to build systems that don't just work—they 
-              <em>connect</em> with people. Today, I bring that same rigor to every project: from high-throughput medical 
-              imaging pipelines to autonomous navigation stacks, I deliver solutions that are reproducible, scalable, and 
-              ready for the real world. Whether you're a startup validating an idea or an engineering team scaling a product, 
-              I help you move faster without cutting corners.
+              I'm an engineer (Ordine degli Ingegneri, Forlì-Cesena) with a Ph.D. in ICT for Health and international experience across medical AI,  human-centered design and robotics.
+              Today I help healthcare institutions to validate, integrate, and maintain AI models for clinical imaging.
+              My work spans foundation models trained on millions of endoscopic frames, EHDS-compliant data governance pipelines, and the engineering infrastructure that keeps them running.
+              Whether you're a hospital deploying your first clinical AI or an engineering team building medical imaging tools, I deliver systems that are technically sound and ready for the real world.
             </p>
           </div>
         </section>
 
         {/* Featured Project */}
-        <section className="py-10 border-t border-gray-100">
+        <section className="py-12 border-t border-gray-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
               Featured Projects
@@ -409,30 +411,32 @@ const IndexPage = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {flagshipProject.img && (
-                    <div className=" overflow-hidden rounded-lg"> 
+                    <div className="overflow-hidden rounded-lg">
                       <GatsbyImage
                         image={flagshipProject.img}
                         alt={`${flagshipProject.title} preview`}
                         className="rounded-lg w-full h-full"
-                        imgStyle={{ objectFit: 'cover' }} // Ensures the underlying <img> fills the area
+                        imgStyle={{ objectFit: 'cover' }}
                       />
                     </div>
                   )}
-                  <div className="rounded-lg border border-gray-200 bg-white p-4">
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Challenges & Impact</h4>
-                    <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
-                      <li>Processing high-volume clinical datasets at scale</li>
-                      <li>Building reproducible training pipelines under strict privacy constraints</li>
-                      <li>Optimizing for cost-efficiency without sacrificing performance</li>
-                      <li>Delivering production-ready foundation models within NDA and data governance boundaries</li>
-                    </ul>
-                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="rounded-lg border border-gray-200 bg-white p-4 flex-1">
+                      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Challenges &amp; Impact</h4>
+                      <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                        <li>Processing high-volume clinical datasets at scale</li>
+                        <li>Building reproducible training pipelines under strict privacy constraints</li>
+                        <li>Optimizing for cost-efficiency without sacrificing performance</li>
+                        <li>Delivering production-ready foundation models within NDA and data governance boundaries</li>
+                      </ul>
+                    </div>
                     <Link
                       to={`/projects/${flagshipProject.slug}/`}
-                      className="mt-4 self-start text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+                      className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
                     >
                       Read case study →
                     </Link>
+                  </div>
                 </div>
 
               </article>
@@ -440,7 +444,7 @@ const IndexPage = () => {
           </div>
         </section>
         {/* Core Capabilities */}
-        <section className="py-10 border-t border-gray-100">
+        <section className="py-12 border-t border-gray-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
               Core Capabilities
@@ -448,23 +452,12 @@ const IndexPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  Robotics &amp; Autonomy
+                  Medical AI &amp; Computer Vision
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed h-5">
                   <Typewriter
-                    words={["ROS2 Humble", "Nav2 & SLAM", "Gazebo & Isaac Sim", "Perception stacks", "Social navigation", "Multi-sensor fusion"]}
+                    words={["Foundation models (ViTs)", "Endoscopic polyp detection", "Self-supervised learning (DINOv3)", "Medical imaging pipelines", "Classification & segmentation", "ONNX & TensorRT deployment"]}
                     delay={0}
-                  />
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  Machine Learning &amp; Vision
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed h-5">
-                  <Typewriter
-                    words={["Foundation models (ViTs)", "Self-supervised learning", "ONNX & TensorRT deployment", "Zero-shot inference", "PyTorch Lightning", "Edge AI on Jetson"]}
-                    delay={4000}
                   />
                 </p>
               </div>
@@ -475,6 +468,17 @@ const IndexPage = () => {
                 <p className="text-sm text-gray-500 leading-relaxed h-5">
                   <Typewriter
                     words={["FastAPI & gRPC services", "Docker & Kubernetes", "W&B & MLflow tracking", "S3 & data lakes", "Multi-GPU training", "CI/CD & GitHub Actions"]}
+                    delay={4000}
+                  />
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                  Healthcare Compliance &amp; EHDS
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed h-5">
+                  <Typewriter
+                    words={["GDPR / DPA compliance", "EHDS readiness assessment", "Data governance & anonymization", "Federated learning setups", "IRCCS / ASL procurement", "Clinical validation protocols"]}
                     delay={8000}
                   />
                 </p>
@@ -484,7 +488,7 @@ const IndexPage = () => {
         </section>
 
         {/* Experience */}
-        <section className="py-10 border-t border-gray-100">
+        <section className="py-12 border-t border-gray-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
               Experience
@@ -523,7 +527,7 @@ const IndexPage = () => {
         </section>
 
         {/* Education */}
-        <section className="py-10 border-t border-gray-100">
+        <section className="py-12 border-t border-gray-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
               Education

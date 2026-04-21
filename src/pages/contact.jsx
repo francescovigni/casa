@@ -40,7 +40,12 @@ const ContactPage = () => {
     <Layout>
       <section className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Contact</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-1">Contact</h1>
+          <p className="text-lg text-gray-600 mb-2">Francesco Vigni, PhD</p>
+          <div className="text-xs text-gray-500 mb-8 space-y-1">
+            <p>Ingegnere dell'Informazione — Ordine degli Ingegneri di Forlì-Cesena n. 2988</p>
+            <p>P.IVA: 04365110404</p>
+          </div>
 
           {/* Introduction cards */}
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-5 mb-10">
