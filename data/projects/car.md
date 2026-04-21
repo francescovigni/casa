@@ -5,6 +5,7 @@ date: 2023-01-02
 skills: ["Carla Simulator", "ROS", "Prototyping", "Python", "Simulation", "Computer Vision"]
 category: "Robotics"
 link: "https://github.com/francescovigni/carla_parking"
+img: ../images/projects/carla.png
 ---
 
 ## Exploring Rule-Based Parking with Carla and ROS

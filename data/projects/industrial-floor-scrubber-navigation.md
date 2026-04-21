@@ -4,6 +4,7 @@ subtitle: Robust indoor SLAM & path-planning on a ride-on scrubber
 date: 2019-01-06
 skills: ["ROS2", "Nav2", "SLAM", "Localization", "Lidar", "IMU", "Docker", "CoppeliaSIM", "C++", "Python"]
 category: "Robotics"
+img: ../images/projects/scrubber.png
 ---
 
 This case study outlines the development of an indoor navigation stack for a commercial ride‑on floor‑scrubber platform. It focuses on the engineering approach, algorithms, and validation methodology. Specific vendor or product affiliations are intentionally omitted.

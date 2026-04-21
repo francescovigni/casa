@@ -1,5 +1,5 @@
 ---
-title: "Applied Research Scientist @ Humanitas Research Hospital"
+title: "Applied Research Scientist: Medical AI Consulting"
 subtitle: "Foundation-model pipeline for gastroenterology imaging with cloud-scale experimentation"
 date: "2026-01-14"
 skills: ["Self-Supervised Learning", "PyTorch", "Medical Imaging", "S3", "Weights & Biases", "Cloud GPU", "DINOv3", "Vision Transformers"]
@@ -8,7 +8,7 @@ link: "https://github.com/francescovigni"
 img: ../images/projects/polip.png
 ---
 
-Architecture design and SSL pretraining strategy for a ViT-based foundation model on 5M+ gastrointestinal video frames for endoscopic polyp detection — in collaboration with IRCCS Humanitas Research Hospital.
+Architecture design and SSL pretraining strategy for a ViT-based foundation model on 5M+ gastrointestinal video frames for endoscopic polyp detection.
 
 ### Scope (NDA-safe)
 

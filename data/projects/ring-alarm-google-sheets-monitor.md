@@ -5,6 +5,7 @@ date: 2026-01-06
 skills: ["TypeScript", "NodeJS", "Docker", "Google Sheets API", "Ring"]
 category: "IoT"
 link: "https://github.com/francescovigni/ring-monitor"
+img: ../images/projects/ring.png
 ---
 
 # Ring Alarm to Google Sheets Monitor

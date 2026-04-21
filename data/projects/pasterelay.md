@@ -5,6 +5,7 @@ date: 2025-10-02
 skills: ["WebRTC", "WebSocket", "Next.js", "NodeJS", "TypeScript", "Docker", "WebDev"]
 category: "Tools"
 link: "https://apps.francescovigni.com/PasteRelay"
+img: ../images/projects/paste_relay.png
 ---
 
 ## PasteRelay

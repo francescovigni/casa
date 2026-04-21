@@ -4,6 +4,7 @@ subtitle: Core perception & grasping software for rc_visard/rc_cube
 date: 2021-09-01
 skills: ["Computer Vision", "ROS2", "Stereo Vision", "C++", "Python", "YOLO"]
 category: "Robotics"
+img: ../images/projects/roboception.png
 ---
 
 Roboception GmbH builds stereo‑based perception solutions for industrial robotics. During my time there, I designed and implemented core software for the flagship products `rc_visard` (smart stereo sensor) and `rc_cube` (edge compute platform), and improved grasping strategies within the proprietary component `rc_reason`.

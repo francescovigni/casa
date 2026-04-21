@@ -4,6 +4,7 @@ subtitle: "Top-view ML tracking and zone-based automation on NVIDIA Jetson"
 date: "2020-01-12"
 skills: ["NVIDIA Jetson", "OpenCV", "PyTorch", "MQTT", "Python", "Computer Vision", "Docker", "C++", "YOLO", "SQLite", "Prototyping"]
 category: "ML"
+img: ../images/projects/edge_ai.png
 ---
 
 This project delivers a ceiling-mounted occupancy monitoring system that detects and tracks people, estimates inter-person distances, and controls bulblights via MQTT when distance violation events occur.

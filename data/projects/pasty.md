@@ -5,6 +5,7 @@ date: 2025-10-01
 skills: ["FastAPI", "Python", "SQLite", "Docker", "WebDev"]
 category: "Tools"
 link: "https://github.com/francescovigni/pasty"
+img: ../images/projects/pasty.png
 ---
 
 <a  class="btn btn-primary m-3" href="https://apps.francescovigni.com/pasty/" target="_blank" rel="noopener">open app</a>

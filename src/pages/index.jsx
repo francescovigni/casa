@@ -53,7 +53,7 @@ const Typewriter = ({ words, typingSpeed = 120, deletingSpeed = 60, pauseDuratio
 const experience = [
   {
     title: "Applied Research Scientist",
-    org: "IRCCS Humanitas Research Hospital",
+    org: "Private Hospital",
     period: "Jan 2026 – Present",
     city: "Milan, Italy (Remote)",
     url: "/",

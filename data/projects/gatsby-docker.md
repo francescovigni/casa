@@ -4,6 +4,7 @@ subtitle: Reproducible, portable static site builds
 date: 2024-10-02
 skills: ["Gatsby", "Docker", "NodeJS"]
 category: "Tools"
+img: ../images/projects/gatsby.png
 ---
 
 # Your gatsby website served by docker

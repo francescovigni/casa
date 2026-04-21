@@ -4,6 +4,7 @@ subtitle: VGG19-based style transfer with a production FastAPI deployment
 date: 2026-01-06
 skills: ["Python", "FastAPI", "PyTorch", "TorchVision", "Docker", "Caddy", "WebDev"]
 category: "ML"
+img: ../images/projects/style.png
 ---
 
 A minimal FastAPI web application to perform neural style transfer using a VGG19‑based optimization loop. Suitable for a demo deployment on a small VPS (with CPU it will be slow; GPU recommended for faster results).
@@ -119,4 +120,4 @@ None required currently.
 
 ### License
 
-MIT (add a LICENSE file if you want explicit licensing).
+MIT
