@@ -44,7 +44,7 @@ const ContactPage = () => {
           <p className="text-lg text-gray-600 mb-2">Francesco Vigni, PhD</p>
           <div className="text-xs text-gray-500 mb-8 space-y-1">
             <p>Ingegnere dell'Informazione — Ordine degli Ingegneri di Forlì-Cesena n. 2988</p>
-            <p>P.IVA: 04365110404</p>
+            <p>P.IVA: 04842020408</p>
           </div>
 
           {/* Introduction cards */}
