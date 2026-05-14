@@ -2,31 +2,11 @@ module.exports = {
   siteMetadata: {
     title: "Francesco Vigni",
     description:
-      "Robotics & AI Engineer (Ph.D.) —  Human-Robot Interaction, Applied AI, Computer Vision.",
+      "Freelance medical AI consultant — IRCCS hospitals and medtech R&D teams. Imaging, endoscopy foundation models, EHDS data governance. PhD in ICT for Health.",
     author: "Francesco Vigni",
     siteUrl: "https://francescovigni.com",
   },
   plugins: [
-    {
-      resolve: 'gatsby-omni-font-loader',
-      options: {
-        enableListener: true,
-        preconnect: [
-          'https://fonts.googleapis.com',
-          'https://fonts.gstatic.com',
-        ],
-        web: [
-          {
-            name: 'Inter',
-            file: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
-          },
-          {
-            name: 'JetBrains Mono',
-            file: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap',
-          },
-        ],
-      },
-    },
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
@@ -79,6 +59,24 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        // Exclude the /projects redirect page; individual /projects/<slug>/
+        // case studies should still be indexed.
+        excludes: ["/projects"],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://francescovigni.com",
+        sitemap: "https://francescovigni.com/sitemap-index.xml",
+        // No disallow here — the /projects redirect page already has a
+        // <meta name="robots" content="noindex"> in its Head.
+        policy: [{ userAgent: "*", allow: "/" }],
       },
     },
   ],

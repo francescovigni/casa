@@ -7,6 +7,7 @@ import ShareButtons from "../components/ShareButtons";
 const ProjectTemplate = ({ data, location }) => {
   const { frontmatter, html } = data.markdownRemark;
   const skills = frontmatter.skills || [];
+  const siteUrl = data.site.siteMetadata.siteUrl;
 
   return (
     <Layout>
@@ -85,7 +86,7 @@ const ProjectTemplate = ({ data, location }) => {
             </Link>
             <ShareButtons
               title={frontmatter.title}
-              url={`https://francescovigni.com${location.pathname}`}
+              url={`${siteUrl}${location.pathname}`}
             />
           </div>
         </div>
@@ -111,6 +112,11 @@ export const Head = ({ data, location }) => {
 
 export const query = graphql`
   query ProjectByID($id: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     markdownRemark(id: { eq: $id }) {
       html
       frontmatter {

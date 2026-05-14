@@ -91,7 +91,7 @@ const BcPage = () => {
 					<div>
 						<h1 className="text-2xl font-bold text-gray-900">Francesco Vigni, PhD</h1>
 						<p className="text-primary-600 font-medium mt-1">
-							Applied Research Scientist
+							Medical AI Consultant
 						</p>
 						<p className="text-sm text-gray-500 mt-0.5">Forlì, Italy</p>
 					</div>

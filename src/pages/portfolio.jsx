@@ -76,7 +76,7 @@ const PortfolioPage = () => {
               <h2 className="text-xs font-semibold text-primary-600 uppercase tracking-wider mb-2">When I am a good fit</h2>
               <ul className="text-sm text-gray-600 space-y-1 list-disc pl-4">
                 <li>You have in mind the result you expect.</li>
-                <li>You need a technical partner for execution and feedbacks.</li>
+                <li>You need a technical partner for execution and feedback.</li>
                 <li>You are ready to go beyond proof of concept.</li>
               </ul>
             </div>
@@ -172,6 +172,6 @@ export default PortfolioPage;
 export const Head = () => (
   <Seo
     title="Portfolio"
-    description="Portfolio of ML, robotics, and web development projects by Francesco Vigni."
+    description="Selected work in medical AI, computer vision, and robotics — from research prototypes to production systems."
   />
 );

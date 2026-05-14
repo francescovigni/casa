@@ -43,11 +43,14 @@ const Typewriter = ({ words, typingSpeed = 120, deletingSpeed = 60, pauseDuratio
   }, [tick, isDeleting, deletingSpeed, typingSpeed, started]);
 
   return (
-    <span>
-      {text}
-      <span className="animate-pulse text-primary-600">|</span>
-    </span>
-  );    
+    <>
+      <span className="sr-only">{words.join(", ")}</span>
+      <span aria-hidden="true">
+        {text}
+        <span className="animate-pulse text-primary-600">|</span>
+      </span>
+    </>
+  );
 };
 
 const experience = [
@@ -110,14 +113,14 @@ const experience = [
   {
     title: "Managing Partner",
     org: "Edilrevi SRL",
-    period: "Ago 2018 – Dec 2023",
+    period: "Aug 2018 – Dec 2023",
     city: "Forlì, Italy",
     url: "/",
   },
   {
     title: "Internship",
     org: "Disney Research Zurich",
-    period: "Ago 2018 – Sep 2018",
+    period: "Aug 2018 – Sep 2018",
     city: "Zurich, Switzerland",
     url: "https://studios.disneyresearch.com/",
   }
@@ -148,7 +151,7 @@ const education = [
 const milestones = [
   { date: "Mar 2026", text: "Joined the Commission for Information and Electronics Engineering, Ordine degli Ingegneri della provincia di Forlì-Cesena.", tag: "Community" },
   { date: "Mar 2026", text: "Attended MECSPE 2026, the international trade fair for the manufacturing industry, held in Bologna, Italy.", tag: "Event" },
-  { date: "Feb 2026", text: "Kicked off a new consultancy project applying computer vision and AI to medical imaging.", tag: "Project" },
+  { date: "Feb 2026", text: "Started a medical imaging consultancy project — foundation-model fine-tuning for endoscopy.", tag: "Project" },
   { date: "Dec 2025", text: "Won 1st prize at the 2nd Startup Creation Lab — Università di Bologna, hosted at Laboratorio Aperto Forlì.", tag: "Award" },
   { date: "Sep 2025", text: "Launched updated portfolio showcasing recent projects, ML demos, and interests.", tag: "Project" },
   { date: "Jul 2025", text: <a href="https://walk.francescovigni.com">Walked about 1000 km along north of Spain through the Camino del Norte. </a>, tag:"Project"},
@@ -327,13 +330,13 @@ const IndexPage = () => {
                   Francesco Vigni, PhD
                 </h1>
                 <p className="text-lg text-primary-600 font-medium mb-4">
-                  Applied Research Scientist · Medical AI
+                  Medical AI Consultant
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  I design and deploy intelligent systems that bridge the gap between cutting-edge research and real-world impact.
+                  I help IRCCS hospitals and R&amp;D teams build solutions that survives real deployment — foundation models, validation pipelines, EHDS-ready data governance.
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                  From medical imaging pipelines to autonomous robot perception, I help teams ship production-ready AI—fast.
+                  Currently: foundation models for gastroenterology endoscopy. PhD in ICT for Health · Ordine degli Ingegneri.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
@@ -372,7 +375,7 @@ const IndexPage = () => {
               About
             </h2>
             <p className="text-sm text-gray-600 leading-relaxed mb-4 max-w-4xl">
-              I'm an engineer (Ordine degli Ingegneri, Forlì-Cesena) with a Ph.D. in ICT for Health and international experience across medical AI,  human-centered design and robotics.
+              I'm an engineer (Ordine degli Ingegneri, Forlì-Cesena) with a Ph.D. in ICT for Health and international experience across medical AI, human-centered design and robotics.
               Today I help healthcare institutions to validate, integrate, and maintain AI models for clinical imaging.
               My work spans foundation models trained on millions of endoscopic frames, EHDS-compliant data governance pipelines, and the engineering infrastructure that keeps them running.
               Whether you're a hospital deploying your first clinical AI or an engineering team building medical imaging tools, I deliver systems that are technically sound and ready for the real world.
@@ -570,4 +573,33 @@ const IndexPage = () => {
 
 export default IndexPage;
 
-export const Head = () => <Seo title="Home" />;
+export const Head = () => {
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Francesco Vigni",
+    "alternateName": "Francesco Vigni, PhD",
+    "url": "https://francescovigni.com",
+    "image": "https://francescovigni.com/og-default.jpg",
+    "jobTitle": "Medical AI Consultant",
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "University of Naples Federico II" },
+      { "@type": "EducationalOrganization", "name": "University of Siena" },
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/francesco-vigni/",
+      "https://github.com/francescovigni",
+      "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en",
+      "https://orcid.org/0000-0001-9918-8485",
+      "https://x.com/fra_cescovigni",
+    ],
+  };
+  return (
+    <>
+      <Seo title="Home" />
+      <script type="application/ld+json">
+        {JSON.stringify(personJsonLd)}
+      </script>
+    </>
+  );
+};

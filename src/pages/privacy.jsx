@@ -9,7 +9,7 @@ const PrivacyPage = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-gray prose-sm">
           <h1>Privacy Policy</h1>
           <p className="text-gray-500 text-sm">
-            Last updated: 15 February 2026
+            Last updated: 14 May 2026
           </p>
 
           <h2>Data Controller</h2>
@@ -107,6 +107,18 @@ const PrivacyPage = () => {
             </a>
             . No YouTube data is loaded until the page containing the embed is
             visited.
+          </p>
+
+          <h2>Third-Party Services and External Links</h2>
+          <p>
+            This site links to and embeds content from third-party services —
+            for example Calendly (scheduling), Google Scholar, GitHub, LinkedIn,
+            ORCID, YouTube, OpenStreetMap, and DOI publishers. When you follow
+            an external link or load a page containing an embed, the third
+            party may receive your IP address and browser information, and may
+            set its own cookies, according to its own privacy policy. No
+            personal data is shared with these services until you interact with
+            the corresponding link or embed.
           </p>
 
           <h2>International Data Transfers</h2>

@@ -26,6 +26,18 @@
     "abstract": "Metrics in Human-Robot Interaction (HRI) are used to monitor the interaction and can be exploited by the robot to react to changes in the environment. The current strategies for defining metrics in HRI are fragmented and heterogenous when it comes to values like engagement. Moreover, it is crucial for a robot to reason, not only about its individual point-of-view but also about the ensemble formed with the user while engaged in an interaction. In this work, we propose an interaction-centric approach for building metrics in social HRI and suggest a closed-loop system perspective on the metrics that might improve the representation of the evolution of the interactions. Characterization of the robot’s personality in terms of target values of engagement is introduced and framed within the negative “stable” feedback loop."
   },
   {
+    "title": "The Unscripted Encounter: Social Cues for Spontaneous Human-Robot Interactions",
+    "date": "2025-02-10",
+    "slug": "phd-thesis",
+    "url": "https://drive.google.com/file/d/1_kec847ygcR6kId2rmPujNkQSnkms1Dv/view",
+    "type": "Ph.D. Thesis",
+    "tags": ["HRI", "social robotics", "thesis"],
+    "details": "ICT for Health — Doctor Europæus label",
+    "venue": "Ph.D. Thesis, University of Naples Federico II",
+    "authors": ["francesco-vigni"],
+    "abstract": ""
+  },
+  {
     "title": "A Closed Loop Approach to Human-Robot Handshake",
     "date": "2018-10-22",
     "slug": "master-thesis",

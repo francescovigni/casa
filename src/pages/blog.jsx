@@ -86,6 +86,6 @@ export default BlogPage;
 export const Head = () => (
   <Seo
     title="Blog"
-    description="Blog posts by Francesco Vigni on robotics, ML, web development, and more."
+    description="Notes on building clinical AI: foundation models, medical imaging pipelines, MLOps, and what actually works in production."
   />
 );

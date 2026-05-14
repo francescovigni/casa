@@ -67,7 +67,7 @@ const YouTubeEmbed = ({ youtubeId, title }) => {
     <button
       onClick={() => setActive(true)}
       aria-label={`Play: ${title}`}
-      className="relative w-full block group focus:outline-none"
+      className="relative w-full block group focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
       style={{ paddingBottom: "56.25%" }}
     >
       <img
@@ -140,4 +140,9 @@ const TalksPage = () => {
 
 export default TalksPage;
 
-export const Head = () => <Seo title="Talks" />;
+export const Head = () => (
+  <Seo
+    title="Talks"
+    description="Conference talks, invited lectures, and public appearances on AI, robotics, and human-robot interaction."
+  />
+);

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "gatsby";
 import Layout from "../components/Layout";
 import Seo from "../components/Seo";
 
@@ -11,22 +12,23 @@ const NotFoundPage = () => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Page Not Found
           </h2>
-            <img
-              src="https://media.giphy.com/media/26n6WywJyh39n1pBu/giphy.gif"
-              alt="Lost in space animation"
-              width="480"
-              height="270"
-              className="mx-auto rounded shadow"
-            />
-          <p className="text-gray-600 mb-8">
-            The page you are looking for doesn't exist or has been moved.
+          <p className="text-gray-600 mb-8 max-w-md mx-auto">
+            This page doesn't exist — or it moved while I was off walking the Camino.
           </p>
-          <a
-            href="/"
-            className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
-          >
-            Go Home
-          </a>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link
+              to="/"
+              className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              Go Home
+            </Link>
+            <Link
+              to="/portfolio/"
+              className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              See Portfolio
+            </Link>
+          </div>
         </div>
       </section>
     </Layout>

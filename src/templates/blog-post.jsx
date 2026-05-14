@@ -6,6 +6,7 @@ import ShareButtons from "../components/ShareButtons";
 
 const BlogPostTemplate = ({ data, location }) => {
   const { frontmatter, html, timeToRead } = data.markdownRemark;
+  const siteUrl = data.site.siteMetadata.siteUrl;
 
   return (
     <Layout>
@@ -56,7 +57,7 @@ const BlogPostTemplate = ({ data, location }) => {
             </Link>
             <ShareButtons
               title={frontmatter.title}
-              url={`https://francescovigni.com${location.pathname}`}
+              url={`${siteUrl}${location.pathname}`}
             />
           </div>
         </div>
@@ -70,28 +71,48 @@ export default BlogPostTemplate;
 
 export const Head = ({ data, location }) => {
   const { frontmatter } = data.markdownRemark;
-  
-  // 1. Get the relative image path
+  const siteUrl = data.site.siteMetadata.siteUrl;
   const imagePath = frontmatter.img?.childImageSharp?.gatsbyImageData?.images?.fallback?.src;
-  
-  // 2. Define your base URL (Better yet, query this from siteMetadata)
-  const siteUrl = "https://francescovigni.com";
-  
-  // 3. Create the absolute URL
   const fullImageUrl = imagePath ? `${siteUrl}${imagePath}` : null;
 
+  const blogPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": frontmatter.title,
+    "description": frontmatter.subtitle || undefined,
+    "datePublished": frontmatter.date,
+    "image": fullImageUrl || undefined,
+    "url": `${siteUrl}${location.pathname}`,
+    "author": {
+      "@type": "Person",
+      "name": "Francesco Vigni",
+      "url": siteUrl,
+    },
+  };
+
   return (
-    <Seo
-      title={frontmatter.title}
-      description={frontmatter.subtitle}
-      image={fullImageUrl} // Now passing the absolute path
-      pathname={location.pathname}
-    />
+    <>
+      <Seo
+        title={frontmatter.title}
+        description={frontmatter.subtitle}
+        image={fullImageUrl}
+        pathname={location.pathname}
+        type="article"
+      />
+      <script type="application/ld+json">
+        {JSON.stringify(blogPostingJsonLd)}
+      </script>
+    </>
   );
 };
 
 export const query = graphql`
   query BlogPostByID($id: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     markdownRemark(id: { eq: $id }) {
       html
       timeToRead
