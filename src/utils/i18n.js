@@ -82,6 +82,7 @@ export const ui = {
       contact: "Contact",
     },
     toggle: { code: "IT", aria: "Passa alla versione italiana" },
+    menu: { open: "Open menu", close: "Close menu" },
     cookie: {
       text: "This site uses cookies for anonymous analytics.",
       policy: "Privacy Policy",
@@ -96,6 +97,7 @@ export const ui = {
       contact: "Contatti",
     },
     toggle: { code: "EN", aria: "Switch to the English version" },
+    menu: { open: "Apri il menu", close: "Chiudi il menu" },
     cookie: {
       text: "Questo sito utilizza cookie per analisi anonime.",
       policy: "Informativa privacy",

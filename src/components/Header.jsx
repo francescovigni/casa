@@ -1,35 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "gatsby";
+import { ui, getCounterpart } from "../utils/i18n";
 
+// Nav entries. `en`/`it` are the link targets per locale.
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/portfolio/", label: "Portfolio" },
-  { to: "/publications/", label: "Publications" },
-];
-const contactLink = { to: "/contact/", label: "Contact" };
-const insightsLinks = [
-  { to: "/talks/", label: "Talks" },
-  { to: "/blog/", label: "Blog" },
+  { key: "home", en: "/", it: "/it/" },
+  { key: "work", en: "/work/", it: "/it/lavoro/" },
+  { key: "contact", en: "/contact/", it: "/it/contatti/" },
 ];
 
-const Header = () => {
+const Header = ({ locale = "en", path }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownTimeout = useRef();
   const headerRef = useRef(null);
 
-  const handleDropdownEnter = () => {
-    clearTimeout(dropdownTimeout.current);
-    setDropdownOpen(true);
-  };
-  const handleDropdownLeave = () => {
-    dropdownTimeout.current = setTimeout(() => setDropdownOpen(false), 100);
-  };
-  const handleDropdownBlur = (e) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      setDropdownOpen(false);
-    }
-  };
+  const t = ui[locale] || ui.en;
+  const other = locale === "en" ? "it" : "en";
+  const toggleTo = getCounterpart(path, other) || (other === "it" ? "/it/" : "/");
+  const homeLink = locale === "it" ? "/it/" : "/";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -58,9 +45,9 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
-            to="/"
-            className="text-xl p-2 font-bold tracking-tight text-primary-700 hover:text-primary-500 transition-colors transform-gpu transition-transform duration-300 hover:scale-150 hover:-rotate-3"
-            style={{ display: 'inline-block' }}
+            to={homeLink}
+            className="text-xl p-2 font-bold tracking-tight text-primary-700 hover:text-primary-500 transition-colors"
+            style={{ display: "inline-block" }}
           >
             FV
           </Link>
@@ -69,61 +56,22 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
-                key={link.to}
-                to={link.to}
+                key={link.key}
+                to={link[locale]}
                 className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
                 activeClassName="text-primary-600"
               >
-                {link.label}
+                {t.nav[link.key]}
               </Link>
             ))}
 
-            {/* Insights dropdown */}
-            <div
-              className="relative"
-              role="presentation"
-              onMouseEnter={handleDropdownEnter}
-              onMouseLeave={handleDropdownLeave}
-              onFocus={handleDropdownEnter}
-              onBlur={handleDropdownBlur}
-            >
-              <button
-                type="button"
-                className={`text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded ${dropdownOpen ? 'text-primary-600' : ''}`}
-                aria-haspopup="true"
-                aria-expanded={dropdownOpen}
-                onClick={() => setDropdownOpen((open) => !open)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') {
-                    setDropdownOpen(false);
-                  }
-                }}
-              >
-                Insights
-                <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-              {dropdownOpen && (
-                <div className="absolute left-0 mt-2 w-40 bg-white border border-gray-100 rounded-lg shadow-lg z-20" role="menu" aria-label="Insights submenu">
-                  {insightsLinks.map((item) => (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg transition-colors focus:outline-none focus-visible:bg-gray-50 focus-visible:text-primary-600"
-                      role="menuitem"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Language toggle */}
             <Link
-              key={contactLink.to}
-              to={contactLink.to}
-              className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
-              activeClassName="text-primary-600"
+              to={toggleTo}
+              className="text-xs font-semibold text-gray-500 hover:text-primary-600 border border-gray-200 rounded px-2 py-1 transition-colors"
+              aria-label={t.toggle.aria}
             >
-              {contactLink.label}
+              {t.toggle.code}
             </Link>
           </nav>
 
@@ -132,15 +80,10 @@ const Header = () => {
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? t.menu.close : t.menu.open}
             aria-expanded={menuOpen}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {menuOpen ? (
                 <path
                   strokeLinecap="round"
@@ -165,17 +108,25 @@ const Header = () => {
       {menuOpen && (
         <nav className="md:hidden border-t border-gray-100 bg-white">
           <div className="px-4 py-3 space-y-1">
-            {[...navLinks, ...insightsLinks, contactLink].map((link) => (
+            {navLinks.map((link) => (
               <Link
-                key={link.to}
-                to={link.to}
+                key={link.key}
+                to={link[locale]}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition"
                 activeClassName="text-primary-600 bg-primary-50"
                 onClick={() => setMenuOpen(false)}
               >
-                {link.label}
+                {t.nav[link.key]}
               </Link>
             ))}
+            <Link
+              to={toggleTo}
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition"
+              aria-label={t.toggle.aria}
+              onClick={() => setMenuOpen(false)}
+            >
+              {t.toggle.code}
+            </Link>
           </div>
         </nav>
       )}
