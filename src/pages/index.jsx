@@ -333,7 +333,7 @@ const IndexPage = () => {
                   Medical AI Consultant
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  I help IRCCS hospitals and R&amp;D teams build solutions that survives real deployment — foundation models, validation pipelines, EHDS-ready data governance.
+                  I help IRCCS hospitals and R&amp;D teams build solutions that survive real deployment — foundation models, validation pipelines, EHDS-ready data governance.
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed mb-6">
                   Currently: foundation models for gastroenterology endoscopy. PhD in ICT for Health · Ordine degli Ingegneri.
