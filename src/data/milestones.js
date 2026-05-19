@@ -9,7 +9,7 @@ const milestones = [
     tag: "Community",
     text: {
       en: "Joined the Commission for Information and Electronics Engineering, Ordine degli Ingegneri della provincia di Forlì-Cesena.",
-      it: "Entrato nella Commissione Ingegneria dell'Informazione ed Elettronica, Ordine degli Ingegneri della provincia di Forlì-Cesena.",
+      it: "Membro nella Commissione Ingegneria dell'Informazione ed Elettronica, Ordine degli Ingegneri della provincia di Forlì-Cesena.",
     },
   },
   {
@@ -60,6 +60,14 @@ const milestones = [
           Norte.{" "}
         </a>
       ),
+    },
+  },
+  {
+    date: "May 2025",
+    tag: "Event",
+    text: {
+      en: "Attended Exposanità 2025, the international healthcare and assistance exhibition, held in Bologna, Italy.",
+      it: "Partecipato a Exposanità 2025, la mostra internazionale al servizio della sanità e dell'assistenza, tenutasi a Bologna.",
     },
   },
   {
