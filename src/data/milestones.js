@@ -5,6 +5,14 @@ import React from "react";
 // render time); `tag` is an English key into tagLabels; `text` is { en, it }.
 const milestones = [
   {
+    date: "May 2026",
+    tag: "Event",
+    text: {
+      en: "Attended Exposanità, the international healthcare and assistance exhibition, held in Bologna, Italy.",
+      it: "Partecipato a Exposanità, la mostra internazionale al servizio della sanità e dell'assistenza, tenutasi a Bologna.",
+    },
+  },
+  {
     date: "Mar 2026",
     tag: "Community",
     text: {
@@ -60,14 +68,6 @@ const milestones = [
           Norte.{" "}
         </a>
       ),
-    },
-  },
-  {
-    date: "May 2025",
-    tag: "Event",
-    text: {
-      en: "Attended Exposanità 2025, the international healthcare and assistance exhibition, held in Bologna, Italy.",
-      it: "Partecipato a Exposanità 2025, la mostra internazionale al servizio della sanità e dell'assistenza, tenutasi a Bologna.",
     },
   },
   {
@@ -272,4 +272,20 @@ const milestones = [
   },
 ];
 
-export default milestones;
+// Sort newest-first automatically from the "Mon YYYY" date, so entries above
+// can be added in any order. Sort is stable — same-month entries keep their
+// authored order.
+const MONTHS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+const dateValue = (date) => {
+  const [month, year] = date.split(" ");
+  return Number(year) * 12 + MONTHS.indexOf(month);
+};
+
+const sortedMilestones = [...milestones].sort(
+  (a, b) => dateValue(b.date) - dateValue(a.date)
+);
+
+export default sortedMilestones;
