@@ -10,6 +10,22 @@ const navLinks = [
   { key: "contact", en: "/contact/", it: "/it/contatti/" },
 ];
 
+// Language-neutral globe mark for the language toggle.
+const GlobeIcon = () => (
+  <svg
+    className="w-3.5 h-3.5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth="2"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <path d="M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18" />
+  </svg>
+);
+
 const Header = ({ locale = "en", path }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef(null);
@@ -69,9 +85,10 @@ const Header = ({ locale = "en", path }) => {
             {/* Language toggle */}
             <Link
               to={toggleTo}
-              className="text-xs font-semibold text-gray-500 hover:text-primary-600 border border-gray-200 rounded px-2 py-1 transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-primary-600 border border-gray-200 rounded px-2 py-1 transition-colors"
               aria-label={t.toggle.aria}
             >
+              <GlobeIcon />
               {t.toggle.code}
             </Link>
           </nav>
@@ -122,10 +139,11 @@ const Header = ({ locale = "en", path }) => {
             ))}
             <Link
               to={toggleTo}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition"
               aria-label={t.toggle.aria}
               onClick={() => setMenuOpen(false)}
             >
+              <GlobeIcon />
               {t.toggle.code}
             </Link>
           </div>
