@@ -1,108 +1,94 @@
-// Homepage prose, per locale. Marketing copy intentionally differs between
-// languages; structural data lives in experience.js / education.js /
-// milestones.js.
+// Homepage copy, per locale. The homepage is an 8-section lead tool;
+// structural data lives in projects.js / engagement.js / fit.js / trust.js.
 const homeStrings = {
   en: {
     name: "Francesco Vigni, PhD",
     role: "Medical AI Consultant",
-    pitch:
-      "I help IRCCS hospitals and R&D teams build solutions that survive real deployment — foundation models, validation pipelines, EHDS-ready data governance.",
-    current:
-      "Currently: foundation models for gastroenterology endoscopy. PhD in ICT for Health · Ordine degli Ingegneri.",
-    btnWork: "Work",
-    btnTalk: "Let's Talk",
-    btnResume: "Resume",
+    headline: "I make AI survive contact with the real world.",
+    convergence:
+      "I've spent my career on the gap between a model that works in a paper and a system that works in the field — first in industrial and human-facing robotics, now in clinical AI imaging.",
+    btnTalk: "Book a call",
+    btnHow: "How I work",
     calendlyAria: "Book a free 15-minute call on Calendly",
-    headingAbout: "About",
-    about:
-      "I'm an engineer (Ordine degli Ingegneri, Forlì-Cesena) with a Ph.D. in ICT for Health and international experience across medical AI, human-centered design and robotics. Today I help healthcare institutions to validate, integrate, and maintain AI models for clinical imaging. My work spans foundation models trained on millions of endoscopic frames, EHDS-compliant data governance pipelines, and the engineering infrastructure that keeps them running. Whether you're a hospital deploying your first clinical AI or an engineering team building medical imaging tools, I deliver systems that are technically sound and ready for the real world.",
-    headingCapabilities: "Core Capabilities",
-    capabilities: [
+
+    whoForHeading: "Who I work with",
+    audiences: [
       {
-        title: "Medical AI & Computer Vision",
-        words: [
-          "Foundation models (ViTs)",
-          "Endoscopic polyp detection",
-          "Self-supervised learning (DINOv3)",
-          "Medical imaging pipelines",
-          "Classification & segmentation",
-          "ONNX & TensorRT deployment",
-        ],
+        title: "Hospitals & IRCCS",
+        body: "You're deploying your first clinical-AI system and need it to pass validation, satisfy GDPR and EHDS, and survive procurement — not just demo well.",
       },
       {
-        title: "Infrastructure & MLOps",
-        words: [
-          "FastAPI & gRPC services",
-          "Docker & Kubernetes",
-          "W&B & MLflow tracking",
-          "S3 & data lakes",
-          "Multi-GPU training",
-          "CI/CD & GitHub Actions",
-        ],
-      },
-      {
-        title: "Healthcare Compliance & EHDS",
-        words: [
-          "GDPR / DPA compliance",
-          "EHDS readiness assessment",
-          "Data governance & anonymization",
-          "Federated learning setups",
-          "IRCCS / ASL procurement",
-          "Clinical validation protocols",
-        ],
+        title: "Medtech R&D teams",
+        body: "You're building medical-imaging AI and need senior depth on model performance, MLOps, and the path from prototype to real deployment.",
       },
     ],
+
+    pedigreeHeading: "Experience from",
+
+    engagementHeading: "How I help",
+    engagementIntro: "Three ways to work together, depending on where you are.",
+
+    fitHeading: "Is this a fit?",
+    fitGood: "We're a good fit if",
+    fitNot: "Probably not a fit if",
+
+    proofHeading: "Selected work",
+    proofIntro:
+      "Deployment stories — the constraints that mattered and what actually shipped.",
+    proofViewAll: "See all work →",
+
+    trustHeading: "Trust & compliance",
+    trustIntro: "How clinical-AI work stays safe, compliant, and accountable.",
+
+    ctaHeading: "Have a clinical-AI problem worth solving?",
+    ctaText:
+      "A 15-minute call is the fastest way to find out if I can help.",
+    ctaButton: "Book a call",
   },
   it: {
     name: "Francesco Vigni, PhD",
     role: "Consulente AI per la Sanità",
-    pitch:
-      "Aiuto IRCCS e team di R&S a costruire soluzioni che reggono alla messa in produzione reale — foundation model, pipeline di validazione, governance dei dati pronta per l'EHDS.",
-    current:
-      "Attualmente: foundation model per l'endoscopia gastroenterologica. Dottorato in ICT for Health · Ordine degli Ingegneri.",
-    btnWork: "Lavoro",
-    btnTalk: "Parliamone",
-    btnResume: "Curriculum",
+    headline: "Faccio in modo che l'AI regga l'impatto con il mondo reale.",
+    convergence:
+      "Ho dedicato la mia carriera al divario tra un modello che funziona in un paper e un sistema che funziona sul campo — prima nella robotica industriale e human-facing, oggi nell'AI per l'imaging clinico.",
+    btnTalk: "Prenota una call",
+    btnHow: "Come lavoro",
     calendlyAria: "Prenota una call gratuita di 15 minuti su Calendly",
-    headingAbout: "Chi sono",
-    about:
-      "Sono un ingegnere (Ordine degli Ingegneri di Forlì-Cesena) con un dottorato in ICT for Health ed esperienza internazionale tra AI medica, progettazione centrata sull'utente e robotica. Oggi aiuto le strutture sanitarie a validare, integrare e mantenere modelli di AI per l'imaging clinico. Il mio lavoro spazia dai foundation model addestrati su milioni di frame endoscopici, alle pipeline di data governance conformi all'EHDS, fino all'infrastruttura ingegneristica che li tiene in funzione. Che tu sia un ospedale al primo sistema di AI clinica o un team di ingegneri che costruisce strumenti di medical imaging, fornisco sistemi tecnicamente solidi e pronti per il mondo reale.",
-    headingCapabilities: "Competenze principali",
-    capabilities: [
+
+    whoForHeading: "Con chi lavoro",
+    audiences: [
       {
-        title: "AI Medica e Computer Vision",
-        words: [
-          "Foundation model (ViT)",
-          "Rilevamento di polipi in endoscopia",
-          "Apprendimento self-supervised (DINOv3)",
-          "Pipeline di medical imaging",
-          "Classificazione e segmentazione",
-          "Deployment ONNX e TensorRT",
-        ],
+        title: "Ospedali e IRCCS",
+        body: "Stai introducendo il tuo primo sistema di AI clinica e hai bisogno che superi la validazione, rispetti GDPR ed EHDS e regga il procurement — non solo che funzioni in demo.",
       },
       {
-        title: "Infrastruttura e MLOps",
-        words: [
-          "Servizi FastAPI e gRPC",
-          "Docker e Kubernetes",
-          "Tracking con W&B e MLflow",
-          "S3 e data lake",
-          "Training multi-GPU",
-          "CI/CD e GitHub Actions",
-        ],
-      },
-      {
-        title: "Compliance Sanitaria ed EHDS",
-        words: [
-          "Conformità GDPR / DPA",
-          "Valutazione di readiness EHDS",
-          "Data governance e anonimizzazione",
-          "Configurazioni di federated learning",
-          "Procurement IRCCS / ASL",
-          "Protocolli di validazione clinica",
-        ],
+        title: "Team di R&S medtech",
+        body: "Stai sviluppando AI per l'imaging medicale e ti serve competenza senior su prestazioni dei modelli, MLOps e il percorso dal prototipo al deployment reale.",
       },
     ],
+
+    pedigreeHeading: "Esperienza presso",
+
+    engagementHeading: "Come posso aiutarti",
+    engagementIntro: "Tre modi di collaborare, a seconda del punto in cui ti trovi.",
+
+    fitHeading: "Siamo compatibili?",
+    fitGood: "Siamo una buona scelta se",
+    fitNot: "Probabilmente non lo siamo se",
+
+    proofHeading: "Lavori selezionati",
+    proofIntro:
+      "Storie di deployment — i vincoli che contavano e ciò che è stato realmente realizzato.",
+    proofViewAll: "Vedi tutti i lavori →",
+
+    trustHeading: "Affidabilità e compliance",
+    trustIntro:
+      "Come il lavoro sull'AI clinica resta sicuro, conforme e responsabile.",
+
+    ctaHeading: "Hai un problema di AI clinica che vale la pena risolvere?",
+    ctaText:
+      "Una call di 15 minuti è il modo più rapido per capire se posso aiutarti.",
+    ctaButton: "Prenota una call",
   },
 };
 
