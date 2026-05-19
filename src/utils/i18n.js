@@ -10,6 +10,8 @@ export const localePairs = [
   { en: "/", it: "/it/" },
   { en: "/work/", it: "/it/lavoro/" },
   { en: "/insights/", it: "/it/approfondimenti/" },
+  { en: "/insights/ehds-readiness/", it: "/it/approfondimenti/ehds-readiness/" },
+  { en: "/insights/clinical-ai-validation/", it: "/it/approfondimenti/clinical-ai-validation/" },
   { en: "/contact/", it: "/it/contatti/" },
 ];
 
