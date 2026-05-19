@@ -8,138 +8,67 @@ import milestones from "../data/milestones";
 import workStrings from "../data/workStrings";
 import { pick, localizeMonth, tagLabel, tagColors } from "../utils/i18n";
 
-import publicationsData from "../../data/publications.json";
-import miscpubsData from "../../data/miscpubs.json";
-import personsData from "../../data/persons.json";
+const SCHOLAR_URL =
+  "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en";
 
-/* ---------- Publications ---------- */
+/* ---------- Projects (deployment stories) ---------- */
 
-const persons = personsData.reduce((acc, p) => {
-  acc[p.slug] = { name: `${p.name} ${p.surname}`.trim(), web: p.web };
-  return acc;
-}, {});
-
-const formatDate = (iso) => {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("en-US", { month: "short", year: "numeric" });
-};
-
-const TYPE_LABEL = {
-  "Master Thesis": "M.Sc. Thesis",
-  "Bachelor Thesis": "B.Sc. Thesis",
-  "Workshop paper": "Workshop",
-};
-
-const normalize = (raw) => ({
-  slug: raw.slug,
-  title: raw.title,
-  rawDate: raw.date,
-  date: formatDate(raw.date),
-  venue: raw.venue,
-  location: raw.location,
-  authors: raw.authors || [],
-  coFirst: !!raw.coFirstAuthors,
-  url: raw.url || raw.alternate_link,
-  video: raw.attach && typeof raw.attach === "object" ? raw.attach.video : "",
-  award: raw.award,
-  type: TYPE_LABEL[raw.type] || raw.type,
-});
-
-const byDateDesc = (a, b) => new Date(b.rawDate || 0) - new Date(a.rawDate || 0);
-const publications = [...publicationsData].map(normalize).sort(byDateDesc);
-const miscPubs = [...miscpubsData].map(normalize).sort(byDateDesc);
-
-const AuthorList = ({ authorSlugs, coFirst }) => (
-  <span className="text-sm text-gray-600">
-    {authorSlugs.map((slug, i) => {
-      const person = persons[slug];
-      if (!person) return slug;
-      const isMe = slug === "francesco-vigni";
-      const showStar = coFirst && i <= 1;
-      const el = isMe ? (
-        <strong key={slug} className="text-gray-900">
-          {person.name}
-          {showStar ? "*" : ""}
-        </strong>
-      ) : person.web ? (
-        <a
-          key={slug}
-          href={person.web}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-primary-600 transition-colors"
-        >
-          {person.name}
-          {showStar ? "*" : ""}
-        </a>
-      ) : (
-        <span key={slug}>
-          {person.name}
-          {showStar ? "*" : ""}
-        </span>
-      );
-      return (
-        <span key={slug}>
-          {i > 0 && ", "}
-          {el}
-        </span>
-      );
-    })}
-    {coFirst && (
-      <span className="text-xs text-gray-400 ml-1">(*equal contribution)</span>
-    )}
-  </span>
+const Field = ({ label, children }) => (
+  <div>
+    <dt className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+      {label}
+    </dt>
+    <dd className="text-sm text-gray-600 leading-relaxed mt-0.5">{children}</dd>
+  </div>
 );
 
-const PubCard = ({ pub, showType }) => (
-  <div className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200">
-    <div className="flex flex-wrap items-center gap-2 mb-2">
-      {showType && pub.type && (
-        <span className="px-2 py-0.5 text-xs font-medium bg-amber-50 text-amber-600 rounded-md">
-          {pub.type}
-        </span>
-      )}
-      <span className="text-xs text-gray-400">{pub.date}</span>
-      {pub.award && (
-        <span className="px-2 py-0.5 text-xs font-medium bg-yellow-50 text-yellow-700 rounded-md">
-          {pub.award}
-        </span>
-      )}
-    </div>
-    <h3 className="text-sm font-semibold text-gray-900 mb-1.5 leading-snug">
-      {pub.url ? (
+const ProjectStory = ({ project, locale, labels }) => (
+  <article className="rounded-xl border border-gray-200 bg-white overflow-hidden md:flex">
+    {project.img && (
+      <div className="md:w-64 md:flex-shrink-0">
+        <img
+          src={project.img}
+          alt={`${project.title} preview`}
+          width={800}
+          height={500}
+          loading="lazy"
+          className="w-full h-48 md:h-full object-cover"
+        />
+      </div>
+    )}
+    <div className="p-5 md:p-6 flex-1">
+      <span className="inline-block rounded-full border border-primary-200 bg-primary-50 px-2.5 py-0.5 text-[11px] font-medium text-primary-700 mb-2">
+        {project.category}
+      </span>
+      <h3 className="text-lg font-semibold text-gray-900 mb-3">{project.title}</h3>
+      <dl className="space-y-3">
+        <Field label={labels.lblContext}>{pick(project.context, locale)}</Field>
+        <Field label={labels.lblConstraints}>{pick(project.constraints, locale)}</Field>
+        <Field label={labels.lblApproach}>{pick(project.whatIDid, locale)}</Field>
+        <Field label={labels.lblOutcome}>{pick(project.outcome, locale)}</Field>
+      </dl>
+      <div className="flex flex-wrap gap-1.5 mt-4">
+        {project.tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      {project.link && (
         <a
-          href={pub.url}
+          href={project.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-primary-600 transition-colors"
+          className="inline-block mt-3 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
         >
-          {pub.title}
+          View project →
         </a>
-      ) : (
-        pub.title
       )}
-    </h3>
-    <p className="text-xs text-gray-500 mb-2">
-      {pub.venue}
-      {pub.location && <span> · {pub.location}</span>}
-    </p>
-    <div className="text-xs">
-      <AuthorList authorSlugs={pub.authors} coFirst={pub.coFirst} />
     </div>
-    {pub.video && (
-      <a
-        href={pub.video}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center mt-2 text-xs text-red-500 hover:text-red-600 transition-colors"
-      >
-        Watch video &rarr;
-      </a>
-    )}
-  </div>
+  </article>
 );
 
 /* ---------- Talks ---------- */
@@ -247,7 +176,7 @@ const MilestonesSection = ({ locale, s }) => {
 
 /* ---------- Timeline (experience / education) ---------- */
 
-const TimelineSection = ({ heading, items, locale }) => (
+const TimelineSection = ({ heading, items, locale, children }) => (
   <section className="py-12 border-t border-gray-100">
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
@@ -285,6 +214,7 @@ const TimelineSection = ({ heading, items, locale }) => (
           </div>
         ))}
       </div>
+      {children}
     </div>
   </section>
 );
@@ -297,13 +227,16 @@ const Work = ({ locale = "en" }) => {
 
   return (
     <>
-      {/* Intro */}
+      {/* Intro + career arc */}
       <section className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             {s.title}
           </h1>
-          <p className="text-gray-600 leading-relaxed max-w-3xl">{s.intro}</p>
+          <p className="text-gray-600 leading-relaxed max-w-3xl mb-5">{s.intro}</p>
+          <p className="text-sm text-gray-600 leading-relaxed max-w-3xl border-l-2 border-primary-200 pl-4">
+            {s.careerArc}
+          </p>
         </div>
       </section>
 
@@ -313,92 +246,49 @@ const Work = ({ locale = "en" }) => {
           <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-6">
             {s.headingProjects}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="space-y-6">
             {projects.map((project) => (
-              <article
+              <ProjectStory
                 key={project.slug}
-                className="rounded-xl border border-gray-200 overflow-hidden bg-white flex flex-col"
-              >
-                <img
-                  src={project.img}
-                  alt={`${project.title} preview`}
-                  width={800}
-                  height={500}
-                  loading="lazy"
-                  className="w-full h-44 object-cover"
-                />
-                <div className="p-5 flex flex-col flex-1">
-                  <span className="self-start rounded-full border border-primary-200 bg-primary-50 px-2.5 py-0.5 text-[11px] font-medium text-primary-700 mb-2">
-                    {project.category}
-                  </span>
-                  <h3 className="text-base font-semibold text-gray-900 mb-1.5">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed flex-1">
-                    {pick(project.blurb, locale)}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
-                    >
-                      View project →
-                    </a>
-                  )}
-                </div>
-              </article>
+                project={project}
+                locale={locale}
+                labels={s}
+              />
             ))}
           </div>
         </div>
       </section>
 
       <TimelineSection heading={s.headingExperience} items={experience} locale={locale} />
-      <TimelineSection heading={s.headingEducation} items={education} locale={locale} />
 
-      {/* Publications */}
+      <TimelineSection heading={s.headingEducation} items={education} locale={locale}>
+        <a
+          href="/VIGNI_resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-5 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+        >
+          {s.cvText} →
+        </a>
+      </TimelineSection>
+
+      {/* Research background */}
       <section className="py-12 border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-            <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider">
-              {s.headingPublications}
-            </h2>
-            <a
-              href="https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 sm:mt-0 inline-flex items-center px-3 py-1.5 text-sm bg-gray-50 text-primary-600 hover:bg-gray-100 rounded-full transition-colors self-start"
-            >
-              {s.scholar}
-            </a>
-          </div>
-          <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
-            {s.pubsConference}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-            {publications.map((pub) => (
-              <PubCard key={pub.slug} pub={pub} />
-            ))}
-          </div>
-          <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
-            {s.pubsMisc}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {miscPubs.map((pub) => (
-              <PubCard key={pub.slug} pub={pub} showType />
-            ))}
-          </div>
+          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wider mb-3">
+            {s.researchHeading}
+          </h2>
+          <p className="text-sm text-gray-600 leading-relaxed max-w-3xl mb-3">
+            {s.researchText}
+          </p>
+          <a
+            href={SCHOLAR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+          >
+            {s.researchLink}
+          </a>
         </div>
       </section>
 
