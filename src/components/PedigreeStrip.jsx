@@ -3,11 +3,11 @@ import React from "react";
 // Institutions Francesco has worked with — credibility signal. Proper nouns,
 // not localized.
 const institutions = [
-  "Technical University of Munich",
-  "Disney Research",
-  "TU Wien",
-  "Roboception",
-  "Università di Napoli Federico II",
+  { name: "Technical University of Munich", url: "https://www.tum.de/" },
+  { name: "Disney Research", url: "https://studios.disneyresearch.com/" },
+  { name: "TU Wien", url: "https://www.tuwien.at/" },
+  { name: "Roboception", url: "https://roboception.com/" },
+  { name: "Università di Napoli Federico II", url: "https://www.unina.it/" },
 ];
 
 const PedigreeStrip = ({ heading }) => (
@@ -17,13 +17,16 @@ const PedigreeStrip = ({ heading }) => (
         {heading}
       </p>
       <div className="flex flex-wrap gap-2">
-        {institutions.map((name) => (
-          <span
-            key={name}
-            className="text-sm font-medium bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-lg"
+        {institutions.map((institution) => (
+          <a
+            key={institution.name}
+            href={institution.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-lg hover:border-primary-300 hover:text-primary-600 transition-colors"
           >
-            {name}
-          </span>
+            {institution.name}
+          </a>
         ))}
       </div>
     </div>
