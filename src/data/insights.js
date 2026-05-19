@@ -43,10 +43,10 @@ const insights = [
         { type: "h2", text: "La checklist di preparazione" },
         { type: "ul", items: [
           "Una finalità chiara e documentata per ogni dataset — l'uso secondario deve essere specifico e lecito.",
-          "Minimizzazione dei dati: raccogliere e conservare solo ciò di cui il modello ha realmente bisogno.",
+          "Minimizzazione dei dati: raccogliere e conservare solo lo stretto necessario al funzionamento del modello.",
           "Tracciamento della provenienza: sapere da dove proviene ogni immagine o record, e su quale base di consenso o legale.",
           "Anonimizzazione o pseudonimizzazione adeguata all'uso, con il rischio di re-identificazione valutato esplicitamente.",
-          "Un ambiente di elaborazione sicuro — training ed esperimenti avvengono dove i dati sono governati, non su laptop estemporanei o bucket cloud non gestiti.",
+          "Un ambiente di elaborazione sicuro — training ed esperimenti avvengono dove i dati sono governati, non su laptop personali o bucket cloud non gestiti.",
           "Controllo degli accessi e log di audit: chi ha toccato i dati, quando e perché.",
           "Un responsabile della data governance dal lato ospedale — la preparazione all'EHDS è un ruolo organizzativo, non solo un'impostazione tecnica.",
         ] },
@@ -72,7 +72,7 @@ const insights = [
       en: [
         { type: "p", text: "Many clinical-AI pilots show strong results in development and then stall — or fail outright — at validation. Often the model was never wrong; the pilot was designed in a way that validation could not survive. Most of these failures are predictable, and designing for them from the start costs very little." },
         { type: "h2", text: "Failure 1: the validation set was never independent" },
-        { type: "p", text: "If the data used to validate a model shares patients, devices, or sites with the training data, the validation overstates performance. Real validation needs data the model has never seen — ideally from a different site or time period. Decide the validation split before training, not after." },
+        { type: "p", text: "If the data used to validate a model shares patients, devices, or sites with the training data, the validation overstates performance. Real validation needs data the model has never seen — ideally from a different site or time period. Define the validation split before training, not after." },
         { type: "h2", text: "Failure 2: the metric did not match the clinical question" },
         { type: "p", text: "A model optimised for overall accuracy can still be useless — or unsafe — for the decision a clinician actually makes. Validation should measure what matters clinically: sensitivity at a usable specificity, performance on the hard cases, and behaviour on the populations the hospital actually serves." },
         { type: "h2", text: "Failure 3: distribution shift was ignored" },
@@ -97,7 +97,7 @@ const insights = [
         { type: "p", text: "Un modello ottimizzato per l'accuratezza complessiva può comunque essere inutile — o non sicuro — per la decisione che un clinico prende davvero. La validazione deve misurare ciò che conta clinicamente: sensibilità a una specificità utilizzabile, prestazioni sui casi difficili e comportamento sulle popolazioni che l'ospedale serve realmente." },
         { type: "h2", text: "Errore 3: il distribution shift è stato ignorato" },
         { type: "p", text: "Un video endoscopico da uno strumento, uno scanner o un operatore diverso appare diverso a un modello. Un pilota validato sui dati di un centro spesso peggiora su quelli di un altro. Progetta il pilota per testarlo esplicitamente, anziché scoprirlo dopo il deployment." },
-        { type: "h2", text: "Errore 4: nessun piano per l'essere umano nel processo" },
+        { type: "h2", text: "Errore 4: nessun piano per l'interazione umana ('human-in-the-loop')" },
         { type: "p", text: "Un modello clinico è parte di un flusso di lavoro, non un suo sostituto. Se il pilota non ha mai definito come un clinico vede, corregge o viene allertato dal modello, la validazione non può valutare il sistema che verrà effettivamente usato." },
         { type: "h2", text: "Progettare per la validazione" },
         { type: "ul", items: [
