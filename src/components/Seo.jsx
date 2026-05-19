@@ -4,7 +4,7 @@ import { localePairs } from "../utils/i18n";
 const SITE = {
   title:        "Francesco Vigni",
   url:          "https://francescovigni.com",
-  description:  "Freelance medical AI consultant — IRCCS hospitals and medtech R&D teams. Imaging, endoscopy foundation models, EHDS data governance. PhD in ICT for Health.",
+  description:  "Freelance medical AI consultant for IRCCS hospitals and medtech R&D teams. Imaging, endoscopy foundation models, EHDS data governance. PhD in ICT for Health.",
   twitterHandle: "@fra_cescovigni",
   defaultImage: "/og-default.jpg",
 };

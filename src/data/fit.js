@@ -3,12 +3,12 @@
 const fit = {
   good: {
     en: [
-      "You have a clear, expected result in mind — not just \"explore AI\".",
+      "You have a clear, expected result in mind, not just \"explore AI\".",
       "You can allocate a technical counterpart on your side.",
       "You're ready to go beyond a proof-of-concept toward something deployable.",
     ],
     it: [
-      "Hai in mente un risultato atteso e chiaro — non solo \"esplorare l'AI\".",
+      "Hai in mente un risultato atteso e chiaro, non solo \"esplorare l'AI\".",
       "Puoi affiancare una controparte tecnica dal tuo lato.",
       "Sei pronto ad andare oltre il proof-of-concept verso qualcosa di utilizzabile.",
     ],

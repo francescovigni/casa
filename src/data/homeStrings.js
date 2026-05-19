@@ -6,7 +6,7 @@ const homeStrings = {
     role: "Medical AI Consultant",
     headline: "I make AI survive contact with the real world.",
     convergence:
-      "I've spent my career on the gap between a model that works in a paper and a system that works in the field — first in industrial and human-facing robotics, now in clinical AI imaging.",
+      "I've spent my career on the gap between a model that works in a paper and a system that works in the field. From industrial and human-facing robotics to clinical AI imaging.",
     btnTalk: "Book a call",
     btnHow: "How I work",
     calendlyAria: "Book a free 15-minute call on Calendly",
@@ -15,11 +15,11 @@ const homeStrings = {
     audiences: [
       {
         title: "Hospitals & IRCCS",
-        body: "You're deploying your first clinical-AI system and need it to pass validation, satisfy GDPR and EHDS, and survive procurement — not just demo well.",
+        body: "You're deploying your first clinical-AI system and need it to pass validation, satisfy GDPR and EHDS, and survive procurement, not just demo well.",
       },
       {
-        title: "Medtech R&D teams",
-        body: "You're building medical-imaging AI and need senior depth on model performance, MLOps, and the path from prototype to real deployment.",
+        title: "R&D teams",
+        body: "You're building technical solutions and need experienced support on model performance, MLOps, and the path from prototype to real deployment.",
       },
     ],
 
@@ -34,7 +34,7 @@ const homeStrings = {
 
     proofHeading: "Selected work",
     proofIntro:
-      "Deployment stories — the constraints that mattered and what actually shipped.",
+      "Deployment stories: the constraints that mattered and what actually shipped.",
     proofViewAll: "See all work →",
 
     trustHeading: "Trust & compliance",
@@ -48,9 +48,9 @@ const homeStrings = {
   it: {
     name: "Francesco Vigni, PhD",
     role: "Consulente AI per la Sanità",
-    headline: "Faccio in modo che l'AI regga l'impatto con il mondo reale.",
+    headline: "IA che regge l'impatto con il mondo reale.",
     convergence:
-      "Ho dedicato la mia carriera al divario tra un modello che funziona in un paper e un sistema che funziona sul campo — prima nella robotica industriale e human-facing, oggi nell'AI per l'imaging clinico.",
+      "Ho dedicato la mia carriera al divario tra un modello che funziona in un paper e un sistema che funziona sul campo. Dalla robotica industriale e human-facing all'IA per l'imaging clinico.",
     btnTalk: "Prenota una call",
     btnHow: "Come lavoro",
     calendlyAria: "Prenota una call gratuita di 15 minuti su Calendly",
@@ -59,11 +59,11 @@ const homeStrings = {
     audiences: [
       {
         title: "Ospedali e IRCCS",
-        body: "Stai introducendo il tuo primo sistema di AI clinica e hai bisogno che superi la validazione, rispetti GDPR ed EHDS e regga il procurement — non solo che funzioni in demo.",
+        body: "Stai introducendo il tuo primo sistema di AI clinica e hai bisogno che superi la validazione, rispetti GDPR ed EHDS e regga il procurement.",
       },
       {
-        title: "Team di R&S medtech",
-        body: "Stai sviluppando AI per l'imaging medicale e ti serve competenza senior su prestazioni dei modelli, MLOps e il percorso dal prototipo al deployment reale.",
+        title: "Team di R&S",
+        body: "Sviluppi soluzioni tecnologiche e ti serve competenza esperta su prestazioni del modello, MLOps e il percorso dal prototipo al deployment reale.",
       },
     ],
 
@@ -78,7 +78,7 @@ const homeStrings = {
 
     proofHeading: "Lavori selezionati",
     proofIntro:
-      "Storie di deployment — i vincoli che contavano e ciò che è stato realmente realizzato.",
+      "Storie di deployment: i vincoli che contavano e ciò che è stato effettivamente realizzato.",
     proofViewAll: "Vedi tutti i lavori →",
 
     trustHeading: "Affidabilità e compliance",

@@ -16,7 +16,7 @@ export const Head = () => (
   <>
     <Seo
       title="Home"
-      description="Freelance medical AI consultant for IRCCS hospitals and medtech R&D teams — endoscopy foundation models, validation pipelines, EHDS-ready data governance."
+      description="Freelance medical AI consultant for IRCCS hospitals and medtech R&D teams. Endoscopy foundation models, validation pipelines, EHDS-ready data governance."
       locale="en"
       pathname="/"
     />

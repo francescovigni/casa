@@ -234,9 +234,11 @@ const Work = ({ locale = "en" }) => {
             {s.title}
           </h1>
           <p className="text-gray-600 leading-relaxed max-w-3xl mb-5">{s.intro}</p>
-          <p className="text-sm text-gray-600 leading-relaxed max-w-3xl border-l-2 border-primary-200 pl-4">
-            {s.careerArc}
-          </p>
+          {s.careerArc && (
+            <p className="text-sm text-gray-600 leading-relaxed max-w-3xl border-l-2 border-primary-200 pl-4">
+              {s.careerArc}
+            </p>
+          )}
         </div>
       </section>
 

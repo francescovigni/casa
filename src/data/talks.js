@@ -24,7 +24,7 @@ const talks = [
     youtubeId: "A2P3OobA_tc",
   },
   {
-    title: "Sweet Robot O'Mine — How a Cheerful Robot Boosts Users' Performance",
+    title: "Sweet Robot O'Mine: How a Cheerful Robot Boosts Users' Performance",
     event: "IEEE RO-MAN 2023, Busan, South Korea",
     date: "Aug 2023",
     description:

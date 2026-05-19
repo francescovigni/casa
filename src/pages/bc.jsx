@@ -164,7 +164,7 @@ export default BcPage;
 export const Head = () => (
   <Seo
     title="Digital Card"
-    description="Digital business card for Francesco Vigni — Medical AI Consultant."
+    description="Digital business card for Francesco Vigni, Medical AI Consultant."
     pathname="/bc/"
     noindex
   />

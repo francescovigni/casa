@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: "Francesco Vigni",
     description:
-      "Freelance medical AI consultant — IRCCS hospitals and medtech R&D teams. Imaging, endoscopy foundation models, EHDS data governance. PhD in ICT for Health.",
+      "Freelance medical AI consultant for IRCCS hospitals and medtech R&D teams. Imaging, endoscopy foundation models, EHDS data governance. PhD in ICT for Health.",
     author: "Francesco Vigni",
     siteUrl: "https://francescovigni.com",
   },

@@ -1,4 +1,4 @@
-// Trust & Compliance points shown on the homepage — a buying factor for
+// Trust & Compliance points shown on the homepage, a buying factor for
 // Italian public-health institutions.
 const trust = [
   {
@@ -25,8 +25,8 @@ const trust = [
   {
     label: { en: "Registered engineer", it: "Ingegnere iscritto all'Ordine" },
     detail: {
-      en: "Member of the Ordine degli Ingegneri di Forlì-Cesena — professional accountability.",
-      it: "Iscritto all'Ordine degli Ingegneri di Forlì-Cesena — responsabilità professionale.",
+      en: "Member of the Ordine degli Ingegneri di Forlì-Cesena, with professional accountability.",
+      it: "Iscritto all'Ordine degli Ingegneri di Forlì-Cesena, con responsabilità professionale.",
     },
   },
   {

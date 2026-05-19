@@ -32,16 +32,16 @@ const milestones = [
     date: "Feb 2026",
     tag: "Project",
     text: {
-      en: "Started a medical imaging consultancy project — foundation-model fine-tuning for endoscopy.",
-      it: "Avviato un progetto di consulenza in medical imaging — fine-tuning di foundation model per l'endoscopia.",
+      en: "Started a medical imaging consultancy project: foundation-model fine-tuning for endoscopy.",
+      it: "Avviato un progetto di consulenza in medical imaging: fine-tuning di foundation model per l'endoscopia.",
     },
   },
   {
     date: "Dec 2025",
     tag: "Award",
     text: {
-      en: "Won 1st prize at the 2nd Startup Creation Lab — Università di Bologna, hosted at Laboratorio Aperto Forlì.",
-      it: "Vinto il 1° premio alla 2ª edizione dello Startup Creation Lab — Università di Bologna, ospitato al Laboratorio Aperto di Forlì.",
+      en: "Won 1st prize at the 2nd Startup Creation Lab, Università di Bologna, hosted at Laboratorio Aperto Forlì.",
+      it: "Vinto il 1° premio alla 2ª edizione dello Startup Creation Lab, Università di Bologna, ospitato al Laboratorio Aperto di Forlì.",
     },
   },
   {
@@ -74,16 +74,16 @@ const milestones = [
     date: "Mar 2025",
     tag: "Milestone",
     text: {
-      en: "Joined the Ordine degli Ingegneri (Forlì-Cesena) — Sector A, Information Engineering.",
-      it: "Iscritto all'Ordine degli Ingegneri (Forlì-Cesena) — Settore A, Ingegneria dell'Informazione.",
+      en: "Joined the Ordine degli Ingegneri (Forlì-Cesena), Sector A, Information Engineering.",
+      it: "Iscritto all'Ordine degli Ingegneri (Forlì-Cesena), Settore A, Ingegneria dell'Informazione.",
     },
   },
   {
     date: "Feb 2025",
     tag: "Education",
     text: {
-      en: 'Defended Ph.D. thesis "The Unscripted Encounter: Social Cues for Spontaneous Human-Robot Interactions" — Doctor Europæus label, University of Naples Federico II.',
-      it: 'Discussa la tesi di dottorato "The Unscripted Encounter: Social Cues for Spontaneous Human-Robot Interactions" — menzione Doctor Europæus, Università di Napoli Federico II.',
+      en: 'Defended Ph.D. thesis "The Unscripted Encounter: Social Cues for Spontaneous Human-Robot Interactions", Doctor Europæus label, University of Naples Federico II.',
+      it: 'Discussa la tesi di dottorato "The Unscripted Encounter: Social Cues for Spontaneous Human-Robot Interactions", menzione Doctor Europæus, Università di Napoli Federico II.',
     },
   },
   {
@@ -146,8 +146,8 @@ const milestones = [
     date: "Jan 2024",
     tag: "Publication",
     text: {
-      en: "Late Breaking Report accepted at ACM/IEEE HRI 2024, Boulder CO — A Rosbag Tool to Improve Dataset Reliability.",
-      it: "Late Breaking Report accettato a ACM/IEEE HRI 2024, Boulder (CO) — uno strumento per rosbag che migliora l'affidabilità dei dataset.",
+      en: "Late Breaking Report accepted at ACM/IEEE HRI 2024, Boulder CO: A Rosbag Tool to Improve Dataset Reliability.",
+      it: "Late Breaking Report accettato a ACM/IEEE HRI 2024, Boulder (CO): uno strumento per rosbag che migliora l'affidabilità dei dataset.",
     },
   },
   {
@@ -162,8 +162,8 @@ const milestones = [
     date: "Jul 2023",
     tag: "Visit",
     text: {
-      en: "Visiting researcher at Noosware NV, Eindhoven (2 months) — emotional-aware mobile robotics.",
-      it: "Ricercatore in visita a Noosware NV, Eindhoven (2 mesi) — robotica mobile sensibile alle emozioni.",
+      en: "Visiting researcher at Noosware NV, Eindhoven (2 months), emotion-aware mobile robotics.",
+      it: "Ricercatore in visita a Noosware NV, Eindhoven (2 mesi), robotica mobile sensibile alle emozioni.",
     },
   },
   {

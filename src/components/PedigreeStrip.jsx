@@ -3,11 +3,13 @@ import React from "react";
 // Institutions Francesco has worked with — credibility signal. Proper nouns,
 // not localized.
 const institutions = [
-  { name: "Technical University of Munich", url: "https://www.tum.de/" },
   { name: "Disney Research", url: "https://studios.disneyresearch.com/" },
-  { name: "TU Wien", url: "https://www.tuwien.at/" },
+  { name: "Università degli Studi di Siena", url: "https://www.unisi.it/" },
+  { name: "TU Munich", url: "https://www.tum.de/" },
   { name: "Roboception", url: "https://roboception.com/" },
+  { name: "TU Wien", url: "https://www.tuwien.at/" },
   { name: "Università di Napoli Federico II", url: "https://www.unina.it/" },
+
 ];
 
 const PedigreeStrip = ({ heading }) => (

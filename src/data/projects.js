@@ -1,5 +1,5 @@
-// Projects shown on the Work page — each told as a deployment story:
-// context -> constraints -> whatIDid -> outcome. Flat data, no detail pages.
+// Projects shown on the Work page, each told as a deployment story:
+// context, constraints, whatIDid, outcome. Flat data, no detail pages.
 // `img` is a pre-optimized WebP imported directly; optional (TIAGo has none).
 import polip from "../images/projects/polip.webp";
 import edgeAi from "../images/projects/edge_ai.webp";
@@ -12,7 +12,7 @@ const projects = [
     slug: "medical-ai-consulting",
     title: "Foundation Model for Gastroenterology Imaging",
     category: "Medical AI",
-    img: polip,
+    img: '',
     tags: ["Self-Supervised Learning", "PyTorch", "Medical Imaging", "Vision Transformers"],
     blurb: {
       en: "SSL pretraining strategy and cloud data pipeline for a ViT foundation model on 5M+ gastrointestinal video frames.",
@@ -39,7 +39,7 @@ const projects = [
     slug: "edge-ai-occupancy",
     title: "Edge AI Occupancy Monitoring System",
     category: "Edge AI",
-    img: edgeAi,
+    img: '',
     tags: ["NVIDIA Jetson", "Computer Vision", "PyTorch", "YOLO"],
     blurb: {
       en: "Real-time people tracking and zone-based automation running on NVIDIA Jetson at the edge.",
@@ -50,8 +50,8 @@ const projects = [
       it: "Un sistema a soffitto per monitorare l'occupazione e la distanza tra le persone, attivando segnali luminosi in caso di violazioni.",
     },
     constraints: {
-      en: "Real-time inference on an NVIDIA Jetson, accurate distance estimation from a single top-view camera, minimal occlusions at 3–6 m mounting height.",
-      it: "Inferenza in tempo reale su NVIDIA Jetson, stima accurata delle distanze da una singola telecamera dall'alto, occlusioni minime a 3–6 m di altezza.",
+      en: "Real-time inference on an NVIDIA Jetson, accurate distance estimation from a single top-view camera, minimal occlusions at 3-6 m mounting height.",
+      it: "Inferenza in tempo reale su NVIDIA Jetson, stima accurata delle distanze da una singola telecamera dall'alto, occlusioni minime a 3-6 m di altezza.",
     },
     whatIDid: {
       en: "Built a compact detection-and-tracking pipeline, calibrated the camera and applied homography to project detections onto the floor plane, and published zone events over MQTT.",
@@ -66,23 +66,23 @@ const projects = [
     slug: "industrial-floor-scrubber-navigation",
     title: "Autonomous Navigation for an Industrial Cleaning Robot",
     category: "Robotics",
-    img: scrubber,
+    img: '',
     tags: ["ROS2", "Nav2", "SLAM", "Lidar"],
     blurb: {
       en: "An indoor autonomous navigation stack for a commercial ride-on floor scrubber.",
       it: "Uno stack di navigazione autonoma indoor per una lavasciuga industriale con operatore a bordo.",
     },
     context: {
-      en: "A commercial ride-on floor scrubber needed an autonomous indoor navigation stack for large facilities — warehouses, retail, airports.",
-      it: "Una lavasciuga industriale con operatore a bordo aveva bisogno di uno stack di navigazione autonoma per grandi strutture — magazzini, retail, aeroporti.",
+      en: "A commercial ride-on floor scrubber needed an autonomous indoor navigation stack for large facilities such as warehouses, retail spaces, and airports.",
+      it: "Una lavasciuga industriale con operatore a bordo aveva bisogno di uno stack di navigazione autonoma per grandi strutture come magazzini, spazi retail e aeroporti.",
     },
     constraints: {
       en: "Robustness to floor sheen, reflective obstacles and mixed lighting; human-safe behaviour; repeatable coverage routes; simple operator workflows.",
       it: "Robustezza a pavimenti riflettenti, ostacoli speculari e illuminazione mista; comportamento sicuro per le persone; percorsi di copertura ripetibili; flussi operativi semplici.",
     },
     whatIDid: {
-      en: "Developed the ROS2/Nav2 navigation stack — SLAM, localization, and coverage path-planning — and validated it in simulation (CoppeliaSIM) and on the platform.",
-      it: "Ho sviluppato lo stack di navigazione ROS2/Nav2 — SLAM, localizzazione e pianificazione dei percorsi di copertura — validandolo in simulazione (CoppeliaSIM) e sulla piattaforma reale.",
+      en: "Developed the ROS2/Nav2 navigation stack (SLAM, localization, and coverage path-planning) and validated it in simulation (CoppeliaSIM) and on the platform.",
+      it: "Ho sviluppato lo stack di navigazione ROS2/Nav2 (SLAM, localizzazione e pianificazione dei percorsi di copertura) e l'ho validato in simulazione (CoppeliaSIM) e sulla piattaforma reale.",
     },
     outcome: {
       en: "Reliable autonomous navigation with repeatable coverage paths and smooth, human-safe motion in large indoor environments.",
@@ -93,7 +93,7 @@ const projects = [
     slug: "bin-picking-reliability",
     title: "Reliability Uplift in Industrial Bin-Picking",
     category: "Robotics",
-    img: binpicking,
+    img: '',
     tags: ["Computer Vision", "Stereo Vision", "C++", "ROS2"],
     link: "https://roboception.com/",
     blurb: {
@@ -101,8 +101,8 @@ const projects = [
       it: "Software di percezione e grasping per i prodotti industriali rc_visard e rc_cube di Roboception.",
     },
     context: {
-      en: "Roboception's stereo-based perception products — the rc_visard smart sensor and rc_cube edge-compute platform — power industrial pick-and-place; grasping needed to be more reliable in real factory conditions.",
-      it: "I prodotti di percezione stereo di Roboception — il sensore rc_visard e la piattaforma di calcolo edge rc_cube — alimentano il pick-and-place industriale; il grasping doveva diventare più affidabile in condizioni reali di fabbrica.",
+      en: "Roboception's stereo-based perception products, the rc_visard smart sensor and the rc_cube edge-compute platform, power industrial pick-and-place. Grasping needed to be more reliable in real factory conditions.",
+      it: "I prodotti di percezione stereo di Roboception, il sensore rc_visard e la piattaforma di calcolo edge rc_cube, alimentano il pick-and-place industriale. Il grasping doveva diventare più affidabile in condizioni reali di fabbrica.",
     },
     constraints: {
       en: "Challenging factory lighting and clutter, tight latency budgets, and deterministic production-ready behaviour for integration teams.",
@@ -127,16 +127,16 @@ const projects = [
       it: "Un motore di interazione che coordina sguardo e movimento del braccio per rendere leggibili le intenzioni del robot.",
     },
     context: {
-      en: "A TU Wien research study on whether a robot's non-verbal behaviour — coordinated gaze and arm motion — makes its intentions legible to people during a collaborative task.",
-      it: "Uno studio di ricerca alla TU Wien su come il comportamento non verbale di un robot — sguardo e braccio coordinati — renda leggibili le sue intenzioni in un compito collaborativo.",
+      en: "A TU Wien research study on whether a robot's non-verbal behaviour, coordinated gaze and arm motion, makes its intentions legible to people during a collaborative task.",
+      it: "Uno studio di ricerca alla TU Wien su come il comportamento non verbale di un robot, con sguardo e braccio coordinati, renda leggibili le sue intenzioni in un compito collaborativo.",
     },
     constraints: {
       en: "Safe, collision-free motion around people; precise temporal coordination of head and arm; a controlled within-subject experimental design.",
       it: "Movimento sicuro e privo di collisioni vicino alle persone; coordinazione temporale precisa di testa e braccio; un disegno sperimentale within-subject controllato.",
     },
     whatIDid: {
-      en: "Built the interaction engine on the bi-manual TIAGo robot — MoveIt motion planning, synchronized gaze control, and ROS state machines — and ran the user study.",
-      it: "Ho costruito il motore di interazione sul robot bi-manuale TIAGo — pianificazione del movimento con MoveIt, controllo sincronizzato dello sguardo e macchine a stati ROS — e condotto lo studio con gli utenti.",
+      en: "Built the interaction engine on the bi-manual TIAGo robot, using MoveIt motion planning, synchronized gaze control, and ROS state machines, then ran the user study.",
+      it: "Ho costruito il motore di interazione sul robot bi-manuale TIAGo, con pianificazione del movimento MoveIt, controllo sincronizzato dello sguardo e macchine a stati ROS, e ho condotto lo studio con gli utenti.",
     },
     outcome: {
       en: "Coordinated gaze-and-arm behaviour measurably improved perceived intention clarity, engagement, and interaction fluency.",
@@ -145,17 +145,17 @@ const projects = [
   },
   {
     slug: "emotion-aware-robot",
-    title: "Emotion-Aware Mobile Robot — Motion & SLAM",
+    title: "Emotion-Aware Mobile Robot: Motion & SLAM",
     category: "Robotics",
-    img: emotionRobot,
+    img: '',
     tags: ["ROS2", "SLAM", "Python", "Sensor Sync"],
     blurb: {
       en: "ROS2 motion behaviours, SLAM, and synchronized affective audio cues on a mobile research robot.",
       it: "Comportamenti di movimento ROS2, SLAM e segnali audio affettivi sincronizzati su un robot mobile di ricerca.",
     },
     context: {
-      en: "A Noosware research platform — an emotion-aware mobile robot — supporting a study on how affective cues shape social distance and navigation comfort.",
-      it: "Una piattaforma di ricerca Noosware — un robot mobile emotion-aware — a supporto di uno studio su come i segnali affettivi influenzino la distanza sociale e il comfort di navigazione.",
+      en: "A Noosware research platform, an emotion-aware mobile robot, supporting a study on how affective cues shape social distance and navigation comfort.",
+      it: "Una piattaforma di ricerca Noosware, un robot mobile emotion-aware, a supporto di uno studio su come i segnali affettivi influenzino la distanza sociale e il comfort di navigazione.",
     },
     constraints: {
       en: "Consistent localization across trials; eliminating clock-drift and TF extrapolation errors; non-blocking audio so navigation stayed responsive.",
@@ -166,8 +166,8 @@ const projects = [
       it: "Ho implementato i comportamenti di movimento ROS2 e uno stack SLAM, una sincronizzazione temporale rigorosa (NTP, ordine di avvio, validazione TF) e una pipeline audio Bluetooth per i segnali affettivi.",
     },
     outcome: {
-      en: "Robust, repeatable runs with consistent localization — no SLAM resets from time drift — and motion and audio cues that participants found legible and engaging.",
-      it: "Esecuzioni robuste e ripetibili con localizzazione coerente — nessun reset di SLAM dovuto al time drift — e segnali di movimento e audio percepiti come leggibili e coinvolgenti.",
+      en: "Robust, repeatable runs with consistent localization and no SLAM resets from time drift, with motion and audio cues that participants found legible and engaging.",
+      it: "Esecuzioni robuste e ripetibili con localizzazione coerente e senza reset di SLAM dovuti al time drift, con segnali di movimento e audio percepiti come leggibili e coinvolgenti.",
     },
   },
 ];

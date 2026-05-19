@@ -3,7 +3,7 @@ const contactStrings = {
   en: {
     title: "Contact",
     name: "Francesco Vigni, PhD",
-    credentials: "Ingegnere dell'Informazione — Ordine degli Ingegneri di Forlì-Cesena n. 2988",
+    credentials: "Ingegnere dell'Informazione, Ordine degli Ingegneri di Forlì-Cesena n. 2988",
     piva: "P.IVA: 04842020408",
     reasonsTitle: "Good reasons to contact me",
     reasons: [
@@ -34,7 +34,7 @@ const contactStrings = {
   it: {
     title: "Contatti",
     name: "Francesco Vigni, PhD",
-    credentials: "Ingegnere dell'Informazione — Ordine degli Ingegneri di Forlì-Cesena n. 2988",
+    credentials: "Ingegnere dell'Informazione, Ordine degli Ingegneri di Forlì-Cesena n. 2988",
     piva: "P.IVA: 04842020408",
     reasonsTitle: "Buoni motivi per contattarmi",
     reasons: [

@@ -12,7 +12,6 @@ import TrustBlock from "./TrustBlock";
 const Home = ({ locale = "en" }) => {
   const s = homeStrings[locale] || homeStrings.en;
   const workPath = locale === "it" ? "/it/lavoro/" : "/work/";
-  const contactPath = locale === "it" ? "/it/contatti/" : "/contact/";
   const calendly = `https://calendly.com/francescovigni/15min?utm_source=francescovigni.com&utm_medium=homepage&utm_campaign=free_15min_call&lang=${locale}`;
   const proofProjects = projects.slice(0, 3);
 

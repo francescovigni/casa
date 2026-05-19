@@ -1,5 +1,5 @@
-// The engagement ladder shown on the homepage — how working together looks.
-// Mirrors the consulting pipeline stages: Pilot -> Support -> Transition.
+// The engagement ladder shown on the homepage: how working together looks.
+// Mirrors the consulting pipeline stages: Pilot, Support, Transition.
 const engagement = [
   {
     key: "pilot",
@@ -9,8 +9,8 @@ const engagement = [
       it: "Un incarico a perimetro definito per dimostrare la fattibilità prima di impegni maggiori.",
     },
     youGet: {
-      en: "A scoped deliverable with a clear expected result — for example an EHDS-ready data pipeline plus a baseline model.",
-      it: "Un deliverable circoscritto con un risultato atteso chiaro — ad esempio una pipeline dati pronta per l'EHDS e un modello di base.",
+      en: "A scoped deliverable with a clear expected result, for example an EHDS-ready data pipeline plus a baseline model.",
+      it: "Un deliverable circoscritto con un risultato atteso chiaro, ad esempio una pipeline dati pronta per l'EHDS e un modello di base.",
     },
     suits: {
       en: "Teams testing whether a clinical-AI idea is worth a larger investment.",
@@ -25,8 +25,8 @@ const engagement = [
       it: "Un incarico continuativo come partner tecnico integrato nel team.",
     },
     youGet: {
-      en: "Hands-on work through development, validation, and iteration — architecture, training, MLOps, and review.",
-      it: "Lavoro operativo lungo sviluppo, validazione e iterazione — architettura, training, MLOps e revisione.",
+      en: "Hands-on work through development, validation, and iteration: architecture, training, MLOps, and review.",
+      it: "Lavoro operativo lungo sviluppo, validazione e iterazione: architettura, training, MLOps e revisione.",
     },
     suits: {
       en: "Teams building a clinical-AI system that needs senior depth they don't have in-house.",
@@ -41,8 +41,8 @@ const engagement = [
       it: "Un incarico di passaggio di consegne che rende il team autonomo.",
     },
     youGet: {
-      en: "Productionized systems, documentation, and training for your in-house team — with a clean exit.",
-      it: "Sistemi messi in produzione, documentazione e formazione per il team interno — con un'uscita netta.",
+      en: "Productionized systems, documentation, and training for your in-house team, with a clean exit.",
+      it: "Sistemi messi in produzione, documentazione e formazione per il team interno, con un'uscita netta.",
     },
     suits: {
       en: "Teams ready to own a working system and run it without external dependency.",
