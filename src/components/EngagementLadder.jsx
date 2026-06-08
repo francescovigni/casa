@@ -26,10 +26,12 @@ const EngagementLadder = ({ locale, heading, intro }) => (
             <p className="text-sm text-gray-600 leading-relaxed mb-3">
               {pick(step.summary, locale)}
             </p>
-            <p className="text-sm text-gray-500 leading-relaxed mb-3 flex-1">
-              {pick(step.youGet, locale)}
-            </p>
-            <p className="text-xs text-gray-400 leading-relaxed border-t border-gray-100 pt-3">
+            {step.youGet && (
+              <p className="text-sm text-gray-500 leading-relaxed mb-3 flex-1">
+                {pick(step.youGet, locale)}
+              </p>
+            )}
+            <p className="text-xs text-gray-400 leading-relaxed border-t border-gray-100 pt-3 mt-auto">
               {pick(step.suits, locale)}
             </p>
           </div>

@@ -11,10 +11,12 @@ const experience = [
     city: { en: "Forlì, Italy", it: "Forlì, Italia" },
   },
   {
-    title: { en: "Applied Research Scientist", it: "Ricercatore Applicato" },
-    org: { en: "Private Hospital", it: "Ospedale privato" },
+    title: {
+      en: "Founder, Independent Practice",
+      it: "Titolare, studio professionale",
+    },
     period: { en: "Jan 2026 - Present", it: "Gen 2026 - Oggi" },
-    city: { en: "Milan, Italy (Remote)", it: "Milano, Italia (Da remoto)" },
+    city: { en: "Forlì, Italy", it: "Forlì, Italia" },
   },
   {
     title: { en: "Visiting Researcher", it: "Ricercatore in Visita" },

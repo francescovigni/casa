@@ -9,9 +9,6 @@ export const DEFAULT_LOCALE = "en";
 export const localePairs = [
   { en: "/", it: "/it/" },
   { en: "/work/", it: "/it/lavoro/" },
-  { en: "/insights/", it: "/it/approfondimenti/" },
-  { en: "/insights/ehds-readiness/", it: "/it/approfondimenti/ehds-readiness/" },
-  { en: "/insights/clinical-ai-validation/", it: "/it/approfondimenti/clinical-ai-validation/" },
   { en: "/contact/", it: "/it/contatti/" },
 ];
 
@@ -82,7 +79,6 @@ export const ui = {
     nav: {
       home: "Home",
       work: "Work",
-      insights: "Insights",
       contact: "Contact",
     },
     toggle: { code: "IT", aria: "Passa alla versione italiana" },
@@ -98,7 +94,6 @@ export const ui = {
     nav: {
       home: "Home",
       work: "Lavoro",
-      insights: "Approfondimenti",
       contact: "Contatti",
     },
     toggle: { code: "EN", aria: "Switch to the English version" },

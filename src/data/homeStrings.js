@@ -3,7 +3,7 @@
 const homeStrings = {
   en: {
     name: "Francesco Vigni, PhD",
-    role: "Medical AI Consultant",
+    role: "AI Consultant",
     headline: "I make AI survive contact with the real world.",
     convergence:
       "I've spent my career on the gap between a model that works in a paper and a system that works in the field. From industrial and human-facing robotics to clinical AI imaging.",
@@ -47,7 +47,7 @@ const homeStrings = {
   },
   it: {
     name: "Francesco Vigni, PhD",
-    role: "Consulente AI per la Sanità",
+    role: "Consulente AI",
     headline: "IA che regge l'impatto con il mondo reale.",
     convergence:
       "Ho dedicato la mia carriera al divario tra un modello che funziona in un paper e un sistema che funziona sul campo. Dalla robotica industriale e human-facing all'IA per l'imaging clinico.",

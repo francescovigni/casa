@@ -6,7 +6,6 @@ import { ui, getCounterpart } from "../utils/i18n";
 const navLinks = [
   { key: "home", en: "/", it: "/it/" },
   { key: "work", en: "/work/", it: "/it/lavoro/" },
-  { key: "insights", en: "/insights/", it: "/it/approfondimenti/" },
   { key: "contact", en: "/contact/", it: "/it/contatti/" },
 ];
 

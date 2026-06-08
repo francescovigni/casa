@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import homeStrings from "../data/homeStrings";
 import projects from "../data/projects";
 import { pick } from "../utils/i18n";
-import meSquare from "../images/me_square.webp";
+import meSquare from "../images/me.webp";
 import PedigreeStrip from "./PedigreeStrip";
 import EngagementLadder from "./EngagementLadder";
 import FitQualifier from "./FitQualifier";

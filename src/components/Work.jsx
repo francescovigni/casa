@@ -206,7 +206,9 @@ const TimelineSection = ({ heading, items, locale, children }) => (
                   pick(item.title, locale)
                 )}
               </span>
-              <span className="text-sm text-gray-500"> · {pick(item.org, locale)}</span>
+              {item.org && (
+                <span className="text-sm text-gray-500"> · {pick(item.org, locale)}</span>
+              )}
               {item.city && (
                 <span className="text-sm text-gray-400"> · {pick(item.city, locale)}</span>
               )}
