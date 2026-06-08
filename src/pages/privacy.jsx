@@ -22,7 +22,7 @@ const PrivacyPage = () => {
           <h2>Analytics</h2>
           <p>
             This site uses <strong>Google Analytics 4</strong> (provided by
-            Google LLC / Google Ireland Limited) to collect usage statistics —
+            Google LLC / Google Ireland Limited) to collect usage statistics,
             such as pages visited, session duration, referral source, and
             approximate geographic region. This helps me understand how the site
             is used and improve its content.
@@ -37,7 +37,7 @@ const PrivacyPage = () => {
           <p>
             If you <strong>accept</strong> the cookie banner, analytics storage
             is upgraded to <em>granted</em>, and Google Analytics operates
-            normally — setting cookies to distinguish users and sessions. IP
+            normally, setting cookies to distinguish users and sessions. IP
             anonymization is enabled and no advertising features are used.
           </p>
           <p>
@@ -111,7 +111,7 @@ const PrivacyPage = () => {
 
           <h2>Third-Party Services and External Links</h2>
           <p>
-            This site links to and embeds content from third-party services —
+            This site links to and embeds content from third-party services,
             for example Calendly (scheduling), Google Scholar, GitHub, LinkedIn,
             ORCID, YouTube, OpenStreetMap, and DOI publishers. When you follow
             an external link or load a page containing an embed, the third
@@ -130,7 +130,7 @@ const PrivacyPage = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              EU–U.S. Data Privacy Framework
+              EU-U.S. Data Privacy Framework
             </a>
             , which provides appropriate safeguards for such transfers. Google's
             data processing terms are available at{" "}
@@ -171,7 +171,7 @@ const PrivacyPage = () => {
           </ul>
           <p>
             To withdraw consent, clear your browser cookies for this site and
-            reload the page — the consent banner will reappear. Since analytics
+            reload the page and the consent banner will reappear. Since analytics
             data is anonymous, there is typically no personally identifiable
             information stored that can be linked back to you.
           </p>

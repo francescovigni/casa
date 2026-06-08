@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
+import { ui } from "../utils/i18n";
 
 const COOKIE_NAME = "gatsby-gdpr-google-analytics";
 
@@ -15,8 +16,9 @@ function setCookie(name, value, days = 365) {
   document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/;SameSite=Lax;Secure`;
 }
 
-const CookieBanner = () => {
+const CookieBanner = ({ locale = "en" }) => {
   const [visible, setVisible] = useState(false);
+  const t = (ui[locale] || ui.en).cookie;
 
   useEffect(() => {
     const consent = getCookie(COOKIE_NAME);
@@ -48,12 +50,12 @@ const CookieBanner = () => {
       <div className="max-w-xl mx-auto bg-white border border-gray-200 rounded-xl shadow-lg p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex-1">
           <p className="text-sm text-gray-700 leading-relaxed">
-            This site uses cookies for anonymous analytics.{" "}
+            {t.text}{" "}
             <Link
               to="/privacy/"
               className="text-primary-600 hover:text-primary-700 underline"
             >
-              Privacy&nbsp;Policy
+              {t.policy}
             </Link>
           </p>
         </div>
@@ -62,13 +64,13 @@ const CookieBanner = () => {
             onClick={handleDecline}
             className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            Decline
+            {t.decline}
           </button>
           <button
             onClick={handleAccept}
             className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors"
           >
-            Accept
+            {t.accept}
           </button>
         </div>
       </div>

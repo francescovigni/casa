@@ -13,7 +13,7 @@ const NotFoundPage = () => {
             Page Not Found
           </h2>
           <p className="text-gray-600 mb-8 max-w-md mx-auto">
-            This page doesn't exist — or it moved while I was off walking the Camino.
+            This page doesn't exist, or it moved while I was off walking the Camino.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link
@@ -23,10 +23,10 @@ const NotFoundPage = () => {
               Go Home
             </Link>
             <Link
-              to="/portfolio/"
+              to="/work/"
               className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
             >
-              See Portfolio
+              See my work
             </Link>
           </div>
         </div>
