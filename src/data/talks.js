@@ -1,6 +1,14 @@
 // Talks shown on the Work page. Titles/venues stay in their original language.
 const talks = [
   {
+    title: "Intervista su IA e sviluppi tecnologici",
+    event: "Story-Time, Canale Italia, Bologna",
+    date: "May 2026",
+    description:
+      "Una breve intervista su Intelligenza Artificiale e sviluppi tecnologici. Il modo in cui il mondo reale e il mondo virtuale si uniscono.",
+    youtubeId: "ZYs1o6c4G5Q",
+  },
+  {
     title: "Datemi un bit e solleverò il mondo",
     event: "Istituto Salesiano Sacro Cuore, Naples",
     date: "Mar 2024",
