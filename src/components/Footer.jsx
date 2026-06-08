@@ -16,6 +16,13 @@ const Footer = () => {
           >
             Privacy
           </Link>
+          <span className="text-gray-200">·</span>
+          <Link
+            to="/trasparenza/"
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            Trasparenza
+          </Link>
         </div>
         <div className="flex items-center gap-5">
           <a

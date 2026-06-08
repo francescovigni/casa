@@ -2,8 +2,8 @@
 const education = [
   {
     title: {
-      en: "Ph.D. in ICT for Health - HRI - MSCA Fellow",
-      it: "Dottorato in ICT for Health - HRI - MSCA Fellow",
+      en: "Ph.D. in ICT for Health - Human-Robot Interaction · Marie Skłodowska-Curie ESR-12, PERSEO network (EU)",
+      it: "Dottorato in ICT for Health - Human-Robot Interaction · Marie Skłodowska-Curie ESR-12, rete PERSEO (UE)",
     },
     org: {
       en: "University of Naples Federico II",
