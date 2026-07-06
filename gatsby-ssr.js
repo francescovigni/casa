@@ -7,6 +7,18 @@ export const onRenderBody = ({ setHeadComponents }) => {
 
   setHeadComponents([
     <script
+      key="umami"
+      defer
+      src="https://analytics.trenigarantiti.org/script.js"
+      data-website-id="fdadd935-2c9c-42d1-aa44-6b32ed196fd9"
+    />,
+    <script
+      key="umami-recorder"
+      defer
+      src="https://analytics.trenigarantiti.org/recorder.js"
+      data-website-id="fdadd935-2c9c-42d1-aa44-6b32ed196fd9"
+    />,
+    <script
       key="gtag-src"
       async
       src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
