@@ -1,19 +1,12 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-interface ImportMetaEnv {
-  /** Twenty CRM REST base, e.g. https://crm.example.com/rest — placeholder until live */
-  readonly TWENTY_API_URL: string;
-  /** Twenty CRM API token — server-only secret, never committed */
-  readonly TWENTY_API_TOKEN: string;
-  /** Opportunity stage new leads land in */
-  readonly TWENTY_LEAD_STAGE?: string;
-  /** SMTP URL for the email fallback, e.g. smtp://user:pass@host:587 */
-  readonly SMTP_URL?: string;
-  /** Where lead-capture failures are emailed */
-  readonly LEAD_FALLBACK_EMAIL?: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
+// Runtime secrets are read via process.env (injected by the k8s Secret at
+// container start), so they are NOT declared on ImportMetaEnv here — that would
+// wrongly inline them at build time. See src/lib/twenty.ts and src/lib/notify.ts.
+//
+//   TWENTY_API_URL     Twenty CRM REST base, e.g. https://crm.example.com
+//   TWENTY_API_TOKEN   Twenty CRM API token (secret)
+//   TWENTY_LEAD_STAGE  Opportunity stage for new leads (default "NEW")
+//   SMTP_URL           smtp://user:pass@host:587 for the email fallback
+//   LEAD_FALLBACK_EMAIL  where lead-capture fallbacks are emailed

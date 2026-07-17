@@ -31,9 +31,11 @@ function rateLimited(ip, now = Date.now()) {
   return recent.length > MAX_PER_WINDOW;
 }
 
+const PLACEHOLDER = /* @__PURE__ */ new Set(["", "changeme", "placeholder", "REPLACE_ME"]);
 function isConfigured() {
-  const url = undefined                              ;
-  return Boolean(url);
+  const url = process.env.TWENTY_API_URL;
+  const token = process.env.TWENTY_API_TOKEN;
+  return Boolean(url && token && !PLACEHOLDER.has(token));
 }
 function splitName(full) {
   const parts = full.trim().split(/\s+/);
@@ -41,11 +43,11 @@ function splitName(full) {
   return { firstName: parts[0], lastName: parts.slice(1).join(" ") };
 }
 async function post(path, body) {
-  const base = undefined                              .replace(/\/$/, "");
+  const base = (process.env.TWENTY_API_URL || "").replace(/\/$/, "");
   const res = await fetch(`${base}${path}`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${undefined                                }`,
+      Authorization: `Bearer ${process.env.TWENTY_API_TOKEN}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify(body)
@@ -58,7 +60,7 @@ async function post(path, body) {
 }
 async function createLead(lead) {
   const { firstName, lastName } = splitName(lead.name);
-  const stage = "NEW";
+  const stage = process.env.TWENTY_LEAD_STAGE || "NEW";
   const person = await post("/rest/people", {
     name: { firstName, lastName },
     emails: { primaryEmail: lead.email },
@@ -75,12 +77,36 @@ async function createLead(lead) {
   });
 }
 
+const FALLBACK_TO = () => process.env.LEAD_FALLBACK_EMAIL || "hello@francescovigni.com";
 async function notifyFallback(lead, reason) {
   console.error(
     "[lead-fallback]",
     JSON.stringify({ reason, lead, at: (/* @__PURE__ */ new Date()).toISOString() })
   );
-  return;
+  const smtp = process.env.SMTP_URL;
+  if (!smtp) return;
+  try {
+    const nodemailer = await import('nodemailer');
+    const transport = nodemailer.createTransport(smtp);
+    await transport.sendMail({
+      to: FALLBACK_TO(),
+      from: FALLBACK_TO(),
+      replyTo: lead.email,
+      subject: `New lead (${lead.intent}) — ${lead.name}`,
+      text: [
+        `Name: ${lead.name}`,
+        `Email: ${lead.email}`,
+        `Org: ${lead.org || "-"}`,
+        `Intent: ${lead.intent}`,
+        `Locale: ${lead.locale}`,
+        `Reason for fallback: ${reason}`,
+        "",
+        lead.message
+      ].join("\n")
+    });
+  } catch (e) {
+    console.error("[lead-fallback] email failed", e);
+  }
 }
 
 const prerender = false;

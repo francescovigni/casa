@@ -1,6 +1,6 @@
 import { f as createComponent, k as renderComponent, r as renderTemplate } from '../chunks/astro/server_DHcPpfwo.mjs';
 import 'piccolore';
-import { $ as $$Base } from '../chunks/Base_Bwvt2ILF.mjs';
+import { $ as $$Base } from '../chunks/Base_CCNvbngQ.mjs';
 import { $ as $$Hero, a as $$Pillars, b as $$Pedigree, c as $$WaysToWork, d as $$Proof, e as $$Trust, f as $$Close } from '../chunks/Close_BtPJONJu.mjs';
 import { $ as $$Qualifier } from '../chunks/Qualifier_D9Eguz4z.mjs';
 export { renderers } from '../renderers.mjs';

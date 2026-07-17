@@ -2,7 +2,7 @@
 // (captured by container logs) and, if SMTP is configured, email it too.
 import type { Lead } from "./twenty";
 
-const FALLBACK_TO = () => import.meta.env.LEAD_FALLBACK_EMAIL || "hello@francescovigni.com";
+const FALLBACK_TO = () => process.env.LEAD_FALLBACK_EMAIL || "hello@francescovigni.com";
 
 export async function notifyFallback(lead: Lead, reason: string): Promise<void> {
   // Always log — this is the guaranteed capture path.
@@ -11,7 +11,7 @@ export async function notifyFallback(lead: Lead, reason: string): Promise<void> 
     JSON.stringify({ reason, lead, at: new Date().toISOString() }),
   );
 
-  const smtp = import.meta.env.SMTP_URL;
+  const smtp = process.env.SMTP_URL;
   if (!smtp) return; // logging is enough when no mailer is configured
 
   try {

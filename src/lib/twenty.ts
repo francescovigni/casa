@@ -15,9 +15,11 @@ export interface Lead {
 
 const PLACEHOLDER = new Set(["", "changeme", "placeholder", "REPLACE_ME"]);
 
+// Runtime secrets are read from process.env (injected by the k8s Secret at
+// container start), NOT import.meta.env — the latter is inlined at build time.
 export function isConfigured(): boolean {
-  const url = import.meta.env.TWENTY_API_URL;
-  const token = import.meta.env.TWENTY_API_TOKEN;
+  const url = process.env.TWENTY_API_URL;
+  const token = process.env.TWENTY_API_TOKEN;
   return Boolean(url && token && !PLACEHOLDER.has(token));
 }
 
@@ -28,11 +30,11 @@ function splitName(full: string): { firstName: string; lastName: string } {
 }
 
 async function post(path: string, body: unknown): Promise<any> {
-  const base = import.meta.env.TWENTY_API_URL.replace(/\/$/, "");
+  const base = (process.env.TWENTY_API_URL || "").replace(/\/$/, "");
   const res = await fetch(`${base}${path}`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${import.meta.env.TWENTY_API_TOKEN}`,
+      Authorization: `Bearer ${process.env.TWENTY_API_TOKEN}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
@@ -51,7 +53,7 @@ async function post(path: string, body: unknown): Promise<any> {
  */
 export async function createLead(lead: Lead): Promise<void> {
   const { firstName, lastName } = splitName(lead.name);
-  const stage = import.meta.env.TWENTY_LEAD_STAGE || "NEW";
+  const stage = process.env.TWENTY_LEAD_STAGE || "NEW";
 
   const person = await post("/rest/people", {
     name: { firstName, lastName },

@@ -1,52 +1,53 @@
-# Personal Website
+# francescovigni.com
 
-A static personal website built with **Gatsby** and **TailwindCSS**, containerized with **Docker**.
+Personal website of **Francesco Vigni, PhD** — built with **Astro** + **Tailwind CSS**,
+self-hosted as a Node container on k3s behind Caddy + Cloudflare.
 
-## Pages
+Positioned as a versatile engineer-researcher across three capability pillars —
+**AI/ML research · Robotics & edge · DevOps & infrastructure** — open to hire,
+with research collaboration and select consulting as secondary paths.
 
-- **Home** — Introduction, about section, and skills overview
-- **Projects** — Portfolio grid with placeholder images
-- **Blog** — Blog post listings with lorem ipsum content
-- **Contact** — Contact info and a form
+## Highlights
 
-## Local Development
+- **Editorial / Swiss-minimal** design, ships ~zero client JS.
+- **Bilingual (EN/IT)** with `hreflang`; **auto-Italian** for Italian IPs via
+  Cloudflare's `CF-IPCountry` header, with a sticky manual toggle.
+- **Lead capture:** a qualifier gates the CTA; qualified submissions create a
+  Person + Opportunity in a self-hosted **Twenty CRM**, with a guaranteed
+  log + email fallback so no lead is ever lost.
 
-### Without Docker
+## Local development
 
 ```bash
 npm install
-npm run develop    # → http://localhost:8000
+npm run dev        # → http://localhost:4321  (/it/ for Italian)
 ```
 
-### With Docker
+## Build & preview
 
 ```bash
-# Development (hot-reload)
-docker compose up dev          # → http://localhost:8000
-
-# Production (Nginx)
-docker compose up production   # → http://localhost:80
+npm run build      # Astro node standalone server → ./dist
+npm run preview    # serve the production build
+npm test           # vitest unit tests (lead validation, CRM mapping)
 ```
 
-## Build
-
-```bash
-npm run build      # outputs to ./public
-npm run serve      # preview production build at http://localhost:9000
-```
-
-## Project Structure
+## Structure
 
 ```
-├── src/
-│   ├── components/    # Layout, Header, Footer, Seo
-│   ├── pages/         # index, projects, blog, contact, 404
-│   ├── styles/        # global.css (Tailwind directives)
-│   └── images/        # static images
-├── Dockerfile         # multi-stage: dev → build → nginx
-├── docker-compose.yml # dev & production services
-├── nginx.conf         # production Nginx config
-├── gatsby-config.js
-├── tailwind.config.js
-└── postcss.config.js
+src/
+  layouts/Base.astro         # <head>, SEO, hreflang, header, footer
+  components/                # Hero, Pillars, Pedigree, WaysToWork,
+                             #   Qualifier (island), Proof, Trust, Close, …
+  data/                      # {en,it} content modules (home, projects)
+  lib/                       # lead validation, Twenty CRM client, notify fallback
+  pages/                     # EN routes + it/ tree + api/lead.ts
+  middleware.ts              # CF-IPCountry auto-Italian redirect
+  i18n.ts                    # locale core (pick, localePairs, ui)
+Dockerfile                   # multi-stage, Node 22, non-root
+deploy/                      # Helm chart + deploy/cutover docs
+legacy/                      # previous Gatsby site (reference; superseded)
+docs/superpowers/specs/      # design spec of record
 ```
+
+See [`deploy/README.md`](deploy/README.md) for build, Helm install, runtime env,
+and the Gatsby → Astro cutover.

@@ -1,0 +1,41 @@
+image:
+  repository: ghcr.io/francescovigni/website
+  # Pin by digest in production for reproducible, rollback-safe deploys.
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: NodePort
+  port: 4321
+  # Scoped to loopback by a kube-proxy policy; Caddy is the retained TLS edge.
+  nodePort: 30080
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 96Mi
+  limits:
+    cpu: "500m"
+    memory: 256Mi
+
+# Non-secret runtime config (ConfigMap).
+config:
+  TWENTY_LEAD_STAGE: "NEW"
+  LEAD_FALLBACK_EMAIL: "hello@francescovigni.com"
+
+# Secrets — PLACEHOLDERS. Provide the real values at install time, e.g.
+#   helm upgrade --install web ./deploy/helm \
+#     --set-string secrets.TWENTY_API_URL=https://crm.francescovigni.com \
+#     --set-string secrets.TWENTY_API_TOKEN=... \
+#     --set-string secrets.SMTP_URL=smtp://...
+# or with a separate values file kept out of git. Never commit real tokens.
+secrets:
+  TWENTY_API_URL: ""
+  TWENTY_API_TOKEN: "changeme"
+  SMTP_URL: ""
+
+probes:
+  path: /
+  port: 4321

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: francescovigni-web
+description: Personal website (Astro node server) for francescovigni.com
+type: application
+version: 0.1.0
+appVersion: "2.0.0"
