@@ -1,0 +1,51 @@
+---
+import { pick, type Locale } from "../i18n";
+import { hero } from "../data/home";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<section class="relative overflow-hidden">
+  <div class="wrap grid gap-10 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+    <div>
+      <p class="kicker mb-6">{pick(hero.kicker, locale)} · AI Researcher &amp; Engineer</p>
+      <h1
+        class="display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
+        set:html={pick(hero.title, locale)}
+      />
+      <p class="lead mt-6 max-w-prose text-lg">{pick(hero.lead, locale)}</p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href={locale === "it" ? "/it/contatti/" : "/contact/"} class="btn-primary">
+          {pick(hero.primary, locale)} <span aria-hidden="true">→</span>
+        </a>
+        <a href={hero.cvHref} class="btn-ghost" download>
+          {pick(hero.secondary, locale)}
+        </a>
+      </div>
+    </div>
+
+    <dl class="grid grid-cols-3 gap-6 border-t border-line pt-6 lg:border-none lg:pt-0">
+      <div>
+        <dt class="font-serif text-3xl text-ink">10<span class="text-accent">+</span></dt>
+        <dd class="mt-1 text-xs leading-snug text-faint">
+          {locale === "it" ? "anni ricerca + industria" : "yrs research + industry"}
+        </dd>
+      </div>
+      <div>
+        <dt class="font-serif text-3xl text-ink">8</dt>
+        <dd class="mt-1 text-xs leading-snug text-faint">
+          {locale === "it" ? "pubblicazioni peer-reviewed" : "peer-reviewed papers"}
+        </dd>
+      </div>
+      <div>
+        <dt class="font-serif text-3xl text-ink">4</dt>
+        <dd class="mt-1 text-xs leading-snug text-faint">
+          {locale === "it" ? "paesi: IT · DE · AT · CH" : "countries: IT · DE · AT · CH"}
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import { type Locale } from "../i18n";
+import { pedigree } from "../data/home";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<section class="border-y border-line bg-canvas">
+  <div class="wrap flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:gap-10">
+    <p class="kicker shrink-0">
+      {locale === "it" ? "Dieci anni, ricerca e industria" : "Ten years, research & industry"}
+    </p>
+    <ul class="flex flex-wrap gap-x-7 gap-y-2">
+      {
+        pedigree.map((org) => (
+          <li class="text-sm font-medium tracking-tight text-faint">{org}</li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

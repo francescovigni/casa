@@ -1,0 +1,48 @@
+---
+import { type Locale } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const year = 2026;
+const privacyHref = locale === "it" ? "/it/privacy/" : "/privacy/";
+const links = [
+  { href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en", label: "Google Scholar" },
+  { href: "https://www.linkedin.com/in/francesco-vigni/", label: "LinkedIn" },
+  { href: "https://github.com/francescovigni", label: "GitHub" },
+  { href: "https://orcid.org/0000-0001-9918-8485", label: "ORCID" },
+];
+---
+
+<footer class="mt-24 border-t border-line">
+  <div class="wrap flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+    <div class="text-sm text-faint">
+      <p class="font-serif text-base text-ink">Francesco Vigni, PhD</p>
+      <p class="mt-1">
+        © {year} ·
+        <a href={privacyHref} class="underline-offset-2 hover:underline">
+          {locale === "it" ? "Privacy" : "Privacy"}
+        </a>
+        ·
+        <a href="mailto:hello@francescovigni.com" class="underline-offset-2 hover:underline"
+          >hello@francescovigni.com</a
+        >
+      </p>
+    </div>
+    <nav class="flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="Elsewhere">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            rel="me noopener"
+            target="_blank"
+            class="text-muted transition-colors hover:text-ink"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>

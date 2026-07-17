@@ -1,0 +1,57 @@
+---
+import { ui, getCounterpart, type Locale } from "../i18n";
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+const { locale, pathname } = Astro.props;
+const t = ui[locale];
+const base = locale === "it" ? "/it" : "";
+const nav = [
+  { href: `${base}/`, label: t.nav.home },
+  { href: locale === "it" ? "/it/lavoro/" : "/work/", label: t.nav.work },
+  { href: locale === "it" ? "/it/contatti/" : "/contact/", label: t.nav.contact },
+];
+const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur">
+  <div class="wrap flex h-16 items-center justify-between">
+    <a href={`${base}/`} class="font-serif text-lg font-medium tracking-tight text-ink">
+      Francesco&nbsp;Vigni
+    </a>
+
+    <nav class="flex items-center gap-6" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="hidden text-sm font-medium text-muted transition-colors hover:text-ink sm:inline"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={toggleHref}
+        data-lang-set={locale === "it" ? "en" : "it"}
+        aria-label={t.toggle.aria}
+        class="rounded-full border border-line px-3 py-1 text-xs font-semibold text-faint transition-colors hover:border-ink hover:text-ink"
+      >
+        {t.toggle.code}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Persist an explicit language choice so the geo middleware stops
+  // auto-redirecting on future visits.
+  document.querySelectorAll<HTMLAnchorElement>("[data-lang-set]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const lang = el.getAttribute("data-lang-set");
+      document.cookie = `lang=${lang}; path=/; max-age=31536000; samesite=lax`;
+    });
+  });
+</script>

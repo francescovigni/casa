@@ -1,0 +1,38 @@
+---
+import { pick, type Locale } from "../i18n";
+import { pillars } from "../data/home";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<section class="wrap py-16 sm:py-20">
+  <p class="kicker mb-3">{locale === "it" ? "Cosa faccio" : "What I do"}</p>
+  <h2 class="display mb-10 max-w-prose text-2xl sm:text-3xl">
+    {
+      locale === "it"
+        ? "Tre aree, un filo conduttore: far arrivare l'AI in produzione."
+        : "Three areas, one throughline: getting AI to production."
+    }
+  </h2>
+
+  <div class="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
+    {
+      pillars.map((p) => (
+        <article class="flex flex-col bg-canvas p-6">
+          <div class="mb-3 flex items-center gap-2">
+            <h3 class="font-sans text-base font-semibold text-ink">{pick(p.label, locale)}</h3>
+            {p.flagship && (
+              <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
+                {locale === "it" ? "Punta di diamante" : "Flagship"}
+              </span>
+            )}
+          </div>
+          <p class="text-sm leading-relaxed text-muted">{pick(p.body, locale)}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

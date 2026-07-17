@@ -1,0 +1,23 @@
+---
+import { pick, type Locale } from "../i18n";
+import { close, hero } from "../data/home";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const contactHref = locale === "it" ? "/it/contatti/" : "/contact/";
+---
+
+<section class="wrap py-20 sm:py-28">
+  <div class="max-w-prose">
+    <h2 class="display text-3xl sm:text-4xl">{pick(close.title, locale)}</h2>
+    <p class="lead mt-4 text-lg">{pick(close.body, locale)}</p>
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a href={contactHref} class="btn-primary">
+        {pick(hero.primary, locale)} <span aria-hidden="true">→</span>
+      </a>
+      <a href={hero.cvHref} class="btn-ghost" download>{pick(hero.secondary, locale)}</a>
+    </div>
+  </div>
+</section>

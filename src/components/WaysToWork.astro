@@ -1,0 +1,51 @@
+---
+import { pick, type Locale } from "../i18n";
+import { waysToWork } from "../data/home";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<section class="wrap py-16 sm:py-20">
+  <p class="kicker mb-3">{pick(waysToWork.kicker, locale)}</p>
+  <h2 class="display mb-10 max-w-prose text-2xl sm:text-3xl">
+    {pick(waysToWork.title, locale)}
+  </h2>
+
+  <div class="grid gap-4 sm:grid-cols-3">
+    {
+      waysToWork.cards.map((c) => (
+        <article
+          class:list={[
+            "rounded-lg border p-6",
+            c.primary ? "border-ink bg-ink text-canvas" : "border-line bg-canvas",
+          ]}
+        >
+          {c.primary && (
+            <span class="mb-3 inline-block rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-canvas">
+              {locale === "it" ? "In cerca attiva" : "Actively looking"}
+            </span>
+          )}
+          <h3
+            class:list={[
+              "font-serif text-xl",
+              c.primary ? "text-canvas" : "text-ink",
+            ]}
+          >
+            {pick(c.title, locale)}
+          </h3>
+          <p
+            class:list={[
+              "mt-2 text-sm leading-relaxed",
+              c.primary ? "text-canvas/80" : "text-muted",
+            ]}
+          >
+            {pick(c.body, locale)}
+          </p>
+        </article>
+      ))
+    }
+  </div>
+</section>

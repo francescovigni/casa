@@ -1,0 +1,24 @@
+---
+export const prerender = true;
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Pillars from "../components/Pillars.astro";
+import Pedigree from "../components/Pedigree.astro";
+import WaysToWork from "../components/WaysToWork.astro";
+import Proof from "../components/Proof.astro";
+import Trust from "../components/Trust.astro";
+import Close from "../components/Close.astro";
+---
+
+<Base
+  title="Francesco Vigni, PhD — AI Researcher & Engineer"
+  description="Engineer and researcher building machine learning that survives deployment — medical-imaging foundation models, robotics, and the infrastructure to run it in production. Open to research, engineering, and infrastructure roles."
+>
+  <Hero locale="en" />
+  <Pillars locale="en" />
+  <Pedigree locale="en" />
+  <WaysToWork locale="en" />
+  <Proof locale="en" />
+  <Trust locale="en" />
+  <Close locale="en" />
+</Base>
