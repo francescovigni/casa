@@ -4,8 +4,8 @@
 export const hero = {
   kicker: { en: "Francesco Vigni, PhD", it: "Francesco Vigni, PhD" },
   title: {
-    en: "Machine learning that <em>survives</em> deployment.",
-    it: "Machine learning che <em>sopravvive</em> al deployment.",
+    en: 'Machine learning that <em class="accent-draw">survives</em> deployment.',
+    it: 'Machine learning che <em class="accent-draw">sopravvive</em> al deployment.',
   },
   lead: {
     en: "Engineer and researcher building AI that has to work outside the lab — from medical-imaging foundation models to robots on the factory floor — and the infrastructure to run it in production.",

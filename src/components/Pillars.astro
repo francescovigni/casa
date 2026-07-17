@@ -1,6 +1,7 @@
 ---
 import { pick, type Locale } from "../i18n";
 import { pillars } from "../data/home";
+import PillarIcon from "./PillarIcon.astro";
 
 interface Props {
   locale: Locale;
@@ -20,9 +21,14 @@ const { locale } = Astro.props;
 
   <div class="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
     {
-      pillars.map((p) => (
-        <article class="flex flex-col bg-canvas p-6">
-          <div class="mb-3 flex items-center gap-2">
+      pillars.map((p, i) => (
+        <article
+          class="group flex flex-col bg-canvas p-6"
+          data-reveal
+          style={`--reveal-delay:${i}`}
+        >
+          <PillarIcon id={p.id as "research" | "robotics" | "infra"} />
+          <div class="mb-3 mt-4 flex items-center gap-2">
             <h3 class="font-sans text-base font-semibold text-ink">{pick(p.label, locale)}</h3>
             {p.flagship && (
               <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">

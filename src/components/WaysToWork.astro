@@ -16,8 +16,10 @@ const { locale } = Astro.props;
 
   <div class="grid gap-4 sm:grid-cols-3">
     {
-      waysToWork.cards.map((c) => (
+      waysToWork.cards.map((c, i) => (
         <article
+          data-reveal
+          style={`--reveal-delay:${i}`}
           class:list={[
             "rounded-lg border p-6",
             c.primary ? "border-ink bg-ink text-canvas" : "border-line bg-canvas",

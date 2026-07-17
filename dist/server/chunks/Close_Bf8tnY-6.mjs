@@ -1,4 +1,4 @@
-import { e as createAstro, f as createComponent, m as maybeRenderHead, u as unescapeHTML, h as addAttribute, r as renderTemplate } from './astro/server_DHcPpfwo.mjs';
+import { e as createAstro, f as createComponent, m as maybeRenderHead, u as unescapeHTML, h as addAttribute, r as renderTemplate, s as spreadAttributes, k as renderComponent } from './astro/server_DHcPpfwo.mjs';
 import 'piccolore';
 import 'clsx';
 import { p as pick } from './i18n_ClCD8eWO.mjs';
@@ -7,8 +7,8 @@ import { p as projects } from './projects_Dddaukeh.mjs';
 const hero = {
   kicker: { en: "Francesco Vigni, PhD", it: "Francesco Vigni, PhD" },
   title: {
-    en: "Machine learning that <em>survives</em> deployment.",
-    it: "Machine learning che <em>sopravvive</em> al deployment."
+    en: 'Machine learning that <em class="accent-draw">survives</em> deployment.',
+    it: 'Machine learning che <em class="accent-draw">sopravvive</em> al deployment.'
   },
   lead: {
     en: "Engineer and researcher building AI that has to work outside the lab — from medical-imaging foundation models to robots on the factory floor — and the infrastructure to run it in production.",
@@ -106,20 +106,40 @@ const close = {
   }
 };
 
-const $$Astro$6 = createAstro("https://francescovigni.com");
+const $$Astro$7 = createAstro("https://francescovigni.com");
 const $$Hero = createComponent(($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro$6, $$props, $$slots);
+  const Astro2 = $$result.createAstro($$Astro$7, $$props, $$slots);
   Astro2.self = $$Hero;
   const { locale } = Astro2.props;
-  return renderTemplate`${maybeRenderHead()}<section class="relative overflow-hidden"> <div class="wrap grid gap-10 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1.4fr_1fr] lg:items-end"> <div> <p class="kicker mb-6">${pick(hero.kicker, locale)} · AI Researcher &amp; Engineer</p> <h1 class="display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">${unescapeHTML(pick(hero.title, locale))}</h1> <p class="lead mt-6 max-w-prose text-lg">${pick(hero.lead, locale)}</p> <div class="mt-9 flex flex-wrap items-center gap-3"> <a${addAttribute(locale === "it" ? "/it/contatti/" : "/contact/", "href")} class="btn-primary"> ${pick(hero.primary, locale)} <span aria-hidden="true">→</span> </a> <a${addAttribute(hero.cvHref, "href")} class="btn-ghost" download> ${pick(hero.secondary, locale)} </a> </div> </div> <dl class="grid grid-cols-3 gap-6 border-t border-line pt-6 lg:border-none lg:pt-0"> <div> <dt class="font-serif text-3xl text-ink">10<span class="text-accent">+</span></dt> <dd class="mt-1 text-xs leading-snug text-faint"> ${locale === "it" ? "anni ricerca + industria" : "yrs research + industry"} </dd> </div> <div> <dt class="font-serif text-3xl text-ink">8</dt> <dd class="mt-1 text-xs leading-snug text-faint"> ${locale === "it" ? "pubblicazioni peer-reviewed" : "peer-reviewed papers"} </dd> </div> <div> <dt class="font-serif text-3xl text-ink">4</dt> <dd class="mt-1 text-xs leading-snug text-faint"> ${locale === "it" ? "paesi: IT \xB7 DE \xB7 AT \xB7 CH" : "countries: IT \xB7 DE \xB7 AT \xB7 CH"} </dd> </div> </dl> </div> </section>`;
+  return renderTemplate`${maybeRenderHead()}<section class="relative overflow-hidden"> <div class="wrap grid gap-10 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1.4fr_1fr] lg:items-end"> <div> <p class="kicker mb-6">${pick(hero.kicker, locale)} · AI Researcher &amp; Engineer</p> <h1 class="display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">${unescapeHTML(pick(hero.title, locale))}</h1> <p class="lead mt-6 max-w-prose text-lg">${pick(hero.lead, locale)}</p> <div class="mt-9 flex flex-wrap items-center gap-3"> <a${addAttribute(locale === "it" ? "/it/contatti/" : "/contact/", "href")} class="btn-primary"> ${pick(hero.primary, locale)} <span aria-hidden="true">→</span> </a> <a${addAttribute(hero.cvHref, "href")} class="btn-ghost" download> ${pick(hero.secondary, locale)} </a> </div> </div> <dl class="grid grid-cols-3 gap-6 border-t border-line pt-6 lg:border-none lg:pt-0" data-reveal> <div> <dt class="font-serif text-3xl text-ink"><span data-count="10">0</span><span class="text-accent">+</span></dt> <dd class="mt-1 text-xs leading-snug text-faint"> ${locale === "it" ? "anni ricerca + industria" : "yrs research + industry"} </dd> </div> <div> <dt class="font-serif text-3xl text-ink"><span data-count="8">0</span></dt> <dd class="mt-1 text-xs leading-snug text-faint"> ${locale === "it" ? "pubblicazioni peer-reviewed" : "peer-reviewed papers"} </dd> </div> <div> <dt class="font-serif text-3xl text-ink"><span data-count="4">0</span></dt> <dd class="mt-1 text-xs leading-snug text-faint"> ${locale === "it" ? "paesi: IT \xB7 DE \xB7 AT \xB7 CH" : "countries: IT \xB7 DE \xB7 AT \xB7 CH"} </dd> </div> </dl> </div> </section>`;
 }, "/Users/fra/Tech/new-home/src/components/Hero.astro", void 0);
+
+const $$Astro$6 = createAstro("https://francescovigni.com");
+const $$PillarIcon = createComponent(($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro$6, $$props, $$slots);
+  Astro2.self = $$PillarIcon;
+  const { id } = Astro2.props;
+  const common = {
+    class: "icon-draw",
+    width: "40",
+    height: "40",
+    viewBox: "0 0 40 40",
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "1.5",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+    "aria-hidden": "true"
+  };
+  return renderTemplate`${id === "research" && renderTemplate`${maybeRenderHead()}<svg${spreadAttributes(common)}><line x1="9.2" y1="11.6" x2="18.9" y2="14.4"></line><line x1="9.2" y1="19.3" x2="18.9" y2="15.6"></line><line x1="9.2" y1="28.4" x2="18.9" y2="25.6"></line><line x1="9.2" y1="20.7" x2="18.9" y2="24.4"></line><line x1="23.2" y1="15.6" x2="31.9" y2="19.3"></line><line x1="23.2" y1="24.4" x2="31.9" y2="20.7"></line><circle class="node" cx="7" cy="11" r="2.4"></circle><circle class="node" cx="7" cy="20" r="2.4"></circle><circle class="node" cx="7" cy="29" r="2.4"></circle><circle class="node" cx="21" cy="15" r="2.4"></circle><circle class="node" cx="21" cy="25" r="2.4"></circle><circle class="node node-out" cx="34" cy="20" r="2.4"></circle></svg>`}${id === "robotics" && renderTemplate`<svg${spreadAttributes(common)}><line x1="20" y1="5" x2="20" y2="9"></line><rect x="9" y="9" width="22" height="18" rx="4"></rect><line x1="16" y1="27" x2="16" y2="31"></line><line x1="24" y1="27" x2="24" y2="31"></line><line x1="6" y1="16" x2="6" y2="21"></line><line x1="34" y1="16" x2="34" y2="21"></line><circle class="eye" cx="15.5" cy="18" r="2"></circle><circle class="eye" cx="24.5" cy="18" r="2"></circle><circle class="ant" cx="20" cy="4" r="1.6"></circle></svg>`}${id === "infra" && renderTemplate`<svg${spreadAttributes(common)}><rect x="7" y="8" width="26" height="7" rx="2"></rect><rect x="7" y="17" width="26" height="7" rx="2"></rect><rect x="7" y="26" width="26" height="7" rx="2"></rect><line x1="17" y1="11.5" x2="28" y2="11.5"></line><line x1="17" y1="20.5" x2="28" y2="20.5"></line><line x1="17" y1="29.5" x2="28" y2="29.5"></line><circle class="led led-1" cx="11.5" cy="11.5" r="1"></circle><circle class="led led-2" cx="11.5" cy="20.5" r="1"></circle><circle class="led led-3" cx="11.5" cy="29.5" r="1"></circle></svg>`}`;
+}, "/Users/fra/Tech/new-home/src/components/PillarIcon.astro", void 0);
 
 const $$Astro$5 = createAstro("https://francescovigni.com");
 const $$Pillars = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$5, $$props, $$slots);
   Astro2.self = $$Pillars;
   const { locale } = Astro2.props;
-  return renderTemplate`${maybeRenderHead()}<section class="wrap py-16 sm:py-20"> <p class="kicker mb-3">${locale === "it" ? "Cosa faccio" : "What I do"}</p> <h2 class="display mb-10 max-w-prose text-2xl sm:text-3xl"> ${locale === "it" ? "Tre aree, un filo conduttore: far arrivare l'AI in produzione." : "Three areas, one throughline: getting AI to production."} </h2> <div class="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3"> ${pillars.map((p) => renderTemplate`<article class="flex flex-col bg-canvas p-6"> <div class="mb-3 flex items-center gap-2"> <h3 class="font-sans text-base font-semibold text-ink">${pick(p.label, locale)}</h3> ${p.flagship && renderTemplate`<span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent"> ${locale === "it" ? "Punta di diamante" : "Flagship"} </span>`} </div> <p class="text-sm leading-relaxed text-muted">${pick(p.body, locale)}</p> </article>`)} </div> </section>`;
+  return renderTemplate`${maybeRenderHead()}<section class="wrap py-16 sm:py-20"> <p class="kicker mb-3">${locale === "it" ? "Cosa faccio" : "What I do"}</p> <h2 class="display mb-10 max-w-prose text-2xl sm:text-3xl"> ${locale === "it" ? "Tre aree, un filo conduttore: far arrivare l'AI in produzione." : "Three areas, one throughline: getting AI to production."} </h2> <div class="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3"> ${pillars.map((p, i) => renderTemplate`<article class="group flex flex-col bg-canvas p-6" data-reveal${addAttribute(`--reveal-delay:${i}`, "style")}> ${renderComponent($$result, "PillarIcon", $$PillarIcon, { "id": p.id })} <div class="mb-3 mt-4 flex items-center gap-2"> <h3 class="font-sans text-base font-semibold text-ink">${pick(p.label, locale)}</h3> ${p.flagship && renderTemplate`<span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent"> ${locale === "it" ? "Punta di diamante" : "Flagship"} </span>`} </div> <p class="text-sm leading-relaxed text-muted">${pick(p.body, locale)}</p> </article>`)} </div> </section>`;
 }, "/Users/fra/Tech/new-home/src/components/Pillars.astro", void 0);
 
 const $$Astro$4 = createAstro("https://francescovigni.com");
@@ -135,7 +155,7 @@ const $$WaysToWork = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$3, $$props, $$slots);
   Astro2.self = $$WaysToWork;
   const { locale } = Astro2.props;
-  return renderTemplate`${maybeRenderHead()}<section class="wrap py-16 sm:py-20"> <p class="kicker mb-3">${pick(waysToWork.kicker, locale)}</p> <h2 class="display mb-10 max-w-prose text-2xl sm:text-3xl"> ${pick(waysToWork.title, locale)} </h2> <div class="grid gap-4 sm:grid-cols-3"> ${waysToWork.cards.map((c) => renderTemplate`<article${addAttribute([
+  return renderTemplate`${maybeRenderHead()}<section class="wrap py-16 sm:py-20"> <p class="kicker mb-3">${pick(waysToWork.kicker, locale)}</p> <h2 class="display mb-10 max-w-prose text-2xl sm:text-3xl"> ${pick(waysToWork.title, locale)} </h2> <div class="grid gap-4 sm:grid-cols-3"> ${waysToWork.cards.map((c, i) => renderTemplate`<article data-reveal${addAttribute(`--reveal-delay:${i}`, "style")}${addAttribute([
     "rounded-lg border p-6",
     c.primary ? "border-ink bg-ink text-canvas" : "border-line bg-canvas"
   ], "class:list")}> ${c.primary && renderTemplate`<span class="mb-3 inline-block rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-canvas"> ${locale === "it" ? "In cerca attiva" : "Actively looking"} </span>`} <h3${addAttribute([
@@ -154,7 +174,7 @@ const $$Proof = createComponent(($$result, $$props, $$slots) => {
   const { locale } = Astro2.props;
   const featured = projects.slice(0, 3);
   const workHref = locale === "it" ? "/it/lavoro/" : "/work/";
-  return renderTemplate`${maybeRenderHead()}<section class="wrap py-16 sm:py-20"> <div class="mb-10 flex items-end justify-between gap-6"> <div> <p class="kicker mb-3">${locale === "it" ? "Lavori selezionati" : "Selected work"}</p> <h2 class="display max-w-prose text-2xl sm:text-3xl"> ${locale === "it" ? "Prove, non slide." : "Evidence, not slideware."} </h2> </div> <a${addAttribute(workHref, "href")} class="hidden shrink-0 text-sm font-semibold text-accent underline-offset-4 hover:underline sm:inline"> ${locale === "it" ? "Tutti i lavori \u2192" : "All work \u2192"} </a> </div> <div class="grid gap-4 md:grid-cols-3"> ${featured.map((p) => renderTemplate`<article class="flex flex-col rounded-lg border border-line bg-canvas p-6"> <p class="kicker mb-3 text-accent">${p.category}</p> <h3 class="font-serif text-lg leading-snug text-ink">${p.title}</h3> <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">${pick(p.blurb, locale)}</p> <ul class="mt-4 flex flex-wrap gap-1.5"> ${p.tags.slice(0, 3).map((tag) => renderTemplate`<li class="rounded border border-line px-2 py-0.5 font-mono text-[11px] text-faint"> ${tag} </li>`)} </ul> </article>`)} </div> <a${addAttribute(workHref, "href")} class="mt-6 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline sm:hidden"> ${locale === "it" ? "Tutti i lavori \u2192" : "All work \u2192"} </a> </section>`;
+  return renderTemplate`${maybeRenderHead()}<section class="wrap py-16 sm:py-20"> <div class="mb-10 flex items-end justify-between gap-6"> <div> <p class="kicker mb-3">${locale === "it" ? "Lavori selezionati" : "Selected work"}</p> <h2 class="display max-w-prose text-2xl sm:text-3xl"> ${locale === "it" ? "Prove, non slide." : "Evidence, not slideware."} </h2> </div> <a${addAttribute(workHref, "href")} class="hidden shrink-0 text-sm font-semibold text-accent underline-offset-4 hover:underline sm:inline"> ${locale === "it" ? "Tutti i lavori \u2192" : "All work \u2192"} </a> </div> <div class="grid gap-4 md:grid-cols-3"> ${featured.map((p, i) => renderTemplate`<article data-reveal${addAttribute(`--reveal-delay:${i}`, "style")} class="flex flex-col rounded-lg border border-line bg-canvas p-6"> <p class="kicker mb-3 text-accent">${p.category}</p> <h3 class="font-serif text-lg leading-snug text-ink">${p.title}</h3> <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">${pick(p.blurb, locale)}</p> <ul class="mt-4 flex flex-wrap gap-1.5"> ${p.tags.slice(0, 3).map((tag) => renderTemplate`<li class="rounded border border-line px-2 py-0.5 font-mono text-[11px] text-faint"> ${tag} </li>`)} </ul> </article>`)} </div> <a${addAttribute(workHref, "href")} class="mt-6 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline sm:hidden"> ${locale === "it" ? "Tutti i lavori \u2192" : "All work \u2192"} </a> </section>`;
 }, "/Users/fra/Tech/new-home/src/components/Proof.astro", void 0);
 
 const $$Astro$1 = createAstro("https://francescovigni.com");

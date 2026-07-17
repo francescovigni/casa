@@ -27,21 +27,21 @@ const { locale } = Astro.props;
       </div>
     </div>
 
-    <dl class="grid grid-cols-3 gap-6 border-t border-line pt-6 lg:border-none lg:pt-0">
+    <dl class="grid grid-cols-3 gap-6 border-t border-line pt-6 lg:border-none lg:pt-0" data-reveal>
       <div>
-        <dt class="font-serif text-3xl text-ink">10<span class="text-accent">+</span></dt>
+        <dt class="font-serif text-3xl text-ink"><span data-count="10">0</span><span class="text-accent">+</span></dt>
         <dd class="mt-1 text-xs leading-snug text-faint">
           {locale === "it" ? "anni ricerca + industria" : "yrs research + industry"}
         </dd>
       </div>
       <div>
-        <dt class="font-serif text-3xl text-ink">8</dt>
+        <dt class="font-serif text-3xl text-ink"><span data-count="8">0</span></dt>
         <dd class="mt-1 text-xs leading-snug text-faint">
           {locale === "it" ? "pubblicazioni peer-reviewed" : "peer-reviewed papers"}
         </dd>
       </div>
       <div>
-        <dt class="font-serif text-3xl text-ink">4</dt>
+        <dt class="font-serif text-3xl text-ink"><span data-count="4">0</span></dt>
         <dd class="mt-1 text-xs leading-snug text-faint">
           {locale === "it" ? "paesi: IT · DE · AT · CH" : "countries: IT · DE · AT · CH"}
         </dd>

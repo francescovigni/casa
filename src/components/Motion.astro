@@ -1,0 +1,75 @@
+---
+// Client-side motion controller: scroll-reveal, line-icon draw, and count-up.
+// No-ops gracefully under prefers-reduced-motion (elements shown immediately).
+---
+
+<script>
+  const GEO = "path, line, circle, polyline, polygon, rect, ellipse";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Prime line icons: measure each shape and hide its stroke until drawn.
+  const primeIcons = (scope: ParentNode) => {
+    scope.querySelectorAll<SVGElement>(".icon-draw").forEach((svg) => {
+      svg.querySelectorAll<SVGGeometryElement>(GEO).forEach((el) => {
+        const len = typeof el.getTotalLength === "function" ? el.getTotalLength() : 0;
+        if (!len) return;
+        el.style.strokeDasharray = String(len);
+        el.style.strokeDashoffset = reduce ? "0" : String(len);
+      });
+    });
+  };
+
+  const drawIcons = (scope: ParentNode) => {
+    scope.querySelectorAll<SVGGeometryElement>(`.icon-draw ${GEO.split(", ").join(", .icon-draw ")}`).forEach(
+      (el) => {
+        el.style.strokeDashoffset = "0";
+      },
+    );
+  };
+
+  const countUp = (el: HTMLElement) => {
+    if (el.dataset.done) return;
+    el.dataset.done = "1";
+    const target = parseFloat(el.dataset.count || "0");
+    const suffix = el.dataset.suffix || "";
+    if (reduce) {
+      el.textContent = `${target}${suffix}`;
+      return;
+    }
+    const dur = 1100;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  primeIcons(document);
+
+  const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]");
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveals.forEach((el) => {
+      el.classList.add("is-visible");
+      drawIcons(el);
+      el.querySelectorAll<HTMLElement>("[data-count]").forEach(countUp);
+    });
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const el = entry.target as HTMLElement;
+          el.classList.add("is-visible");
+          drawIcons(el);
+          el.querySelectorAll<HTMLElement>("[data-count]").forEach(countUp);
+          io.unobserve(el);
+        }
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+    );
+    reveals.forEach((el) => io.observe(el));
+  }
+</script>

@@ -1,0 +1,74 @@
+---
+// Thin line icons for the three capability pillars. Stroke-based so they can
+// draw themselves in (see Motion.astro / .icon-draw). Inherit color via CSS.
+interface Props {
+  id: "research" | "robotics" | "infra";
+}
+const { id } = Astro.props;
+const common = {
+  class: "icon-draw",
+  width: "40",
+  height: "40",
+  viewBox: "0 0 40 40",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": "1.5",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "aria-hidden": "true",
+};
+---
+
+{
+  id === "research" && (
+    <svg {...common}>
+      {/* neural-net: three inputs → two hidden → one output */}
+      <line x1="9.2" y1="11.6" x2="18.9" y2="14.4" />
+      <line x1="9.2" y1="19.3" x2="18.9" y2="15.6" />
+      <line x1="9.2" y1="28.4" x2="18.9" y2="25.6" />
+      <line x1="9.2" y1="20.7" x2="18.9" y2="24.4" />
+      <line x1="23.2" y1="15.6" x2="31.9" y2="19.3" />
+      <line x1="23.2" y1="24.4" x2="31.9" y2="20.7" />
+      <circle class="node" cx="7" cy="11" r="2.4" />
+      <circle class="node" cx="7" cy="20" r="2.4" />
+      <circle class="node" cx="7" cy="29" r="2.4" />
+      <circle class="node" cx="21" cy="15" r="2.4" />
+      <circle class="node" cx="21" cy="25" r="2.4" />
+      <circle class="node node-out" cx="34" cy="20" r="2.4" />
+    </svg>
+  )
+}
+
+{
+  id === "robotics" && (
+    <svg {...common}>
+      {/* robot head with antenna + eyes */}
+      <line x1="20" y1="5" x2="20" y2="9" />
+      <rect x="9" y="9" width="22" height="18" rx="4" />
+      <line x1="16" y1="27" x2="16" y2="31" />
+      <line x1="24" y1="27" x2="24" y2="31" />
+      <line x1="6" y1="16" x2="6" y2="21" />
+      <line x1="34" y1="16" x2="34" y2="21" />
+      <circle class="eye" cx="15.5" cy="18" r="2" />
+      <circle class="eye" cx="24.5" cy="18" r="2" />
+      <circle class="ant" cx="20" cy="4" r="1.6" />
+    </svg>
+  )
+}
+
+{
+  id === "infra" && (
+    <svg {...common}>
+      {/* stacked server layers with status LEDs */}
+      <rect x="7" y="8" width="26" height="7" rx="2" />
+      <rect x="7" y="17" width="26" height="7" rx="2" />
+      <rect x="7" y="26" width="26" height="7" rx="2" />
+      <line x1="17" y1="11.5" x2="28" y2="11.5" />
+      <line x1="17" y1="20.5" x2="28" y2="20.5" />
+      <line x1="17" y1="29.5" x2="28" y2="29.5" />
+      <circle class="led led-1" cx="11.5" cy="11.5" r="1" />
+      <circle class="led led-2" cx="11.5" cy="20.5" r="1" />
+      <circle class="led led-3" cx="11.5" cy="29.5" r="1" />
+    </svg>
+  )
+}
