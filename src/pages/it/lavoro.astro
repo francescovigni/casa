@@ -1,0 +1,24 @@
+---
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+import ProjectStory from "../../components/ProjectStory.astro";
+import { projects } from "../../data/projects";
+---
+
+<Base
+  title="Lavoro — Francesco Vigni, PhD"
+  description="Lavori selezionati di ingegneria e ricerca, ciascuno raccontato come una storia di deployment: contesto, vincoli, cosa ho fatto e il risultato. AI medica, robotica e infrastruttura."
+>
+  <section class="wrap pt-16 sm:pt-20">
+    <p class="kicker mb-4">Lavori selezionati</p>
+    <h1 class="display max-w-prose text-4xl sm:text-5xl">Prove, non slide.</h1>
+    <p class="lead mt-5 max-w-prose text-lg">
+      Ognuno di questi è un sistema reale che doveva funzionare sotto vincoli reali — il
+      contesto, cosa lo rendeva difficile, cosa ho fatto e cosa ne è venuto fuori.
+    </p>
+  </section>
+
+  <section class="wrap pb-8 pt-10">
+    {projects.map((project) => <ProjectStory project={project} locale="it" />)}
+  </section>
+</Base>

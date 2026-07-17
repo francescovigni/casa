@@ -1,0 +1,219 @@
+---
+import { type Locale } from "../i18n";
+
+interface Props {
+  locale: Locale;
+  /** "section" on the homepage (dark panel), "page" on the contact page. */
+  variant?: "section" | "page";
+}
+const { locale, variant = "section" } = Astro.props;
+
+const t = {
+  en: {
+    kicker: "Is this a fit?",
+    title: "Tell me what brings you here.",
+    lead: "One tap routes you to the right next step.",
+    intents: [
+      { id: "hiring", label: "Hiring for a role", qualified: true },
+      { id: "collaboration", label: "Research collaboration", qualified: true },
+      { id: "project", label: "A project or consulting", qualified: true },
+      { id: "exploring", label: "Just exploring", qualified: false },
+    ],
+    form: {
+      name: "Your name",
+      email: "Email",
+      org: "Organization (optional)",
+      message: "A sentence or two on what you have in mind",
+      send: "Send",
+      sending: "Sending…",
+      back: "← change",
+    },
+    explore: {
+      title: "No pitch — just have a look.",
+      body: "Here's my work, my research, and a way to reach me directly.",
+      links: [
+        { label: "Download CV", href: "/Francesco-Vigni-CV.pdf" },
+        { label: "Google Scholar", href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en" },
+        { label: "Email me", href: "mailto:hello@francescovigni.com" },
+      ],
+    },
+    ok: "Thanks — I've got it and I'll reply personally, usually within a day or two.",
+    err: "Something went wrong. Please email hello@francescovigni.com and I'll come straight back to you.",
+  },
+  it: {
+    kicker: "C'è un match?",
+    title: "Dimmi cosa ti porta qui.",
+    lead: "Un tap ti indirizza al passo giusto.",
+    intents: [
+      { id: "hiring", label: "Sto assumendo per un ruolo", qualified: true },
+      { id: "collaboration", label: "Collaborazione di ricerca", qualified: true },
+      { id: "project", label: "Un progetto o consulenza", qualified: true },
+      { id: "exploring", label: "Sto solo esplorando", qualified: false },
+    ],
+    form: {
+      name: "Il tuo nome",
+      email: "Email",
+      org: "Organizzazione (facoltativo)",
+      message: "Una o due frasi su cosa hai in mente",
+      send: "Invia",
+      sending: "Invio…",
+      back: "← cambia",
+    },
+    explore: {
+      title: "Nessun pitch — dai un'occhiata.",
+      body: "Ecco il mio lavoro, la mia ricerca e un modo per contattarmi direttamente.",
+      links: [
+        { label: "Scarica il CV", href: "/Francesco-Vigni-CV.pdf" },
+        { label: "Google Scholar", href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en" },
+        { label: "Scrivimi", href: "mailto:hello@francescovigni.com" },
+      ],
+    },
+    ok: "Grazie — ho ricevuto e ti rispondo personalmente, di solito entro un paio di giorni.",
+    err: "Qualcosa è andato storto. Scrivimi a hello@francescovigni.com e ti rispondo subito.",
+  },
+}[locale];
+
+const dark = variant === "section";
+---
+
+<section class:list={[variant === "section" ? "wrap py-16 sm:py-20" : ""]}>
+  <div
+    class:list={[
+      "rounded-2xl p-8 sm:p-10",
+      dark ? "bg-ink text-canvas" : "border border-line bg-canvas",
+    ]}
+    data-qualifier
+    data-locale={locale}
+  >
+    <p class:list={["kicker mb-3", dark ? "text-canvas/60" : ""]}>{t.kicker}</p>
+    <h2 class:list={["display text-2xl sm:text-3xl", dark ? "text-canvas" : ""]}>{t.title}</h2>
+    <p class:list={["mt-3 text-sm", dark ? "text-canvas/70" : "text-muted"]}>{t.lead}</p>
+
+    {/* Step 1 — intent chips */}
+    <div class="mt-7 flex flex-wrap gap-2.5" data-step="intent">
+      {
+        t.intents.map((intent) => (
+          <button
+            type="button"
+            data-intent={intent.id}
+            data-qualified={String(intent.qualified)}
+            class:list={[
+              "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+              dark
+                ? "border-canvas/25 text-canvas hover:border-accent hover:bg-accent hover:text-canvas"
+                : "border-line text-ink hover:border-accent hover:text-accent",
+            ]}
+          >
+            {intent.label}
+          </button>
+        ))
+      }
+    </div>
+
+    {/* Step 2a — qualified form (hidden until an intent is chosen) */}
+    <form class="mt-7 hidden" data-step="form" data-sending={t.form.sending} novalidate>
+      <button type="button" data-back class:list={["mb-4 text-xs font-semibold", dark ? "text-canvas/60 hover:text-canvas" : "text-faint hover:text-ink"]}>{t.form.back}</button>
+      <input type="hidden" name="intent" value="" />
+      <input type="hidden" name="locale" value={locale} />
+      {/* Honeypot: bots fill this; humans never see it. */}
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="absolute left-[-9999px]" aria-hidden="true" />
+      <div class="grid gap-3 sm:grid-cols-2">
+        <input required name="name" placeholder={t.form.name} class:list={["rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+        <input required type="email" name="email" placeholder={t.form.email} class:list={["rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+      </div>
+      <input name="org" placeholder={t.form.org} class:list={["mt-3 w-full rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+      <textarea required name="message" rows="3" placeholder={t.form.message} class:list={["mt-3 w-full rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]}></textarea>
+      <button type="submit" class:list={["btn mt-4", dark ? "bg-accent text-canvas" : "bg-ink text-canvas"]} data-submit>
+        <span data-label>{t.form.send}</span>
+      </button>
+    </form>
+
+    {/* Step 2b — explorer links */}
+    <div class="mt-7 hidden" data-step="explore">
+      <button type="button" data-back class:list={["mb-4 text-xs font-semibold", dark ? "text-canvas/60 hover:text-canvas" : "text-faint hover:text-ink"]}>{t.form.back}</button>
+      <h3 class:list={["font-serif text-xl", dark ? "text-canvas" : "text-ink"]}>{t.explore.title}</h3>
+      <p class:list={["mt-2 text-sm", dark ? "text-canvas/70" : "text-muted"]}>{t.explore.body}</p>
+      <div class="mt-4 flex flex-wrap gap-2.5">
+        {
+          t.explore.links.map((l) => (
+            <a href={l.href} class:list={["rounded-full border px-4 py-2 text-sm font-medium", dark ? "border-canvas/25 text-canvas hover:bg-canvas hover:text-ink" : "border-line text-ink hover:border-accent hover:text-accent"]}>
+              {l.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Result messages */}
+    <p class="mt-6 hidden text-sm font-medium text-green-400" data-ok>{t.ok}</p>
+    <p class="mt-6 hidden text-sm font-medium text-accent-soft" data-err>{t.err}</p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-qualifier]").forEach((root) => {
+    const steps = {
+      intent: root.querySelector<HTMLElement>('[data-step="intent"]'),
+      form: root.querySelector<HTMLFormElement>('[data-step="form"]'),
+      explore: root.querySelector<HTMLElement>('[data-step="explore"]'),
+    };
+    const ok = root.querySelector<HTMLElement>("[data-ok]");
+    const err = root.querySelector<HTMLElement>("[data-err]");
+
+    const show = (el: HTMLElement | null) => el?.classList.remove("hidden");
+    const hide = (el: HTMLElement | null) => el?.classList.add("hidden");
+
+    const reset = () => {
+      show(steps.intent);
+      hide(steps.form);
+      hide(steps.explore);
+      hide(ok);
+      hide(err);
+    };
+
+    root.querySelectorAll<HTMLButtonElement>("[data-intent]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        hide(err);
+        const qualified = btn.dataset.qualified === "true";
+        hide(steps.intent);
+        if (qualified) {
+          const hidden = steps.form?.querySelector<HTMLInputElement>('input[name="intent"]');
+          if (hidden) hidden.value = btn.dataset.intent || "";
+          show(steps.form);
+          steps.form?.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
+        } else {
+          show(steps.explore);
+        }
+      });
+    });
+
+    root.querySelectorAll<HTMLButtonElement>("[data-back]").forEach((b) =>
+      b.addEventListener("click", reset),
+    );
+
+    steps.form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hide(err);
+      const form = steps.form!;
+      const submit = form.querySelector<HTMLButtonElement>("[data-submit]")!;
+      const label = form.querySelector<HTMLElement>("[data-label]")!;
+      const original = label.textContent;
+      submit.disabled = true;
+      label.textContent = form.dataset.sending || "Sending…";
+      try {
+        const res = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form) as any)),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        hide(steps.form);
+        show(ok);
+      } catch {
+        show(err);
+        submit.disabled = false;
+        label.textContent = original;
+      }
+    });
+  });
+</script>

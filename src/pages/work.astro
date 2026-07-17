@@ -1,0 +1,25 @@
+---
+// On-demand so the geo middleware can redirect Italian IPs to /it/lavoro/.
+export const prerender = false;
+import Base from "../layouts/Base.astro";
+import ProjectStory from "../components/ProjectStory.astro";
+import { projects } from "../data/projects";
+---
+
+<Base
+  title="Work — Francesco Vigni, PhD"
+  description="Selected engineering and research work, each told as a deployment story: context, constraints, what I did, and the outcome. Medical AI, robotics, and infrastructure."
+>
+  <section class="wrap pt-16 sm:pt-20">
+    <p class="kicker mb-4">Selected work</p>
+    <h1 class="display max-w-prose text-4xl sm:text-5xl">Evidence, not slideware.</h1>
+    <p class="lead mt-5 max-w-prose text-lg">
+      Each of these is a real system that had to work under real constraints — context, what
+      made it hard, what I did, and what came of it.
+    </p>
+  </section>
+
+  <section class="wrap pb-8 pt-10">
+    {projects.map((project) => <ProjectStory project={project} locale="en" />)}
+  </section>
+</Base>

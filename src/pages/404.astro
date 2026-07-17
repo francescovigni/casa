@@ -1,0 +1,18 @@
+---
+export const prerender = true;
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Not found — Francesco Vigni" description="This page could not be found.">
+  <section class="wrap flex min-h-[50vh] flex-col items-start justify-center py-20">
+    <p class="kicker mb-4 text-accent">404</p>
+    <h1 class="display text-4xl sm:text-5xl">This page took a wrong turn.</h1>
+    <p class="lead mt-4 max-w-prose text-lg">
+      The page you're after doesn't exist — or moved during the site's rebuild.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/" class="btn-primary">Back home <span aria-hidden="true">→</span></a>
+      <a href="/work/" class="btn-ghost">See my work</a>
+    </div>
+  </section>
+</Base>

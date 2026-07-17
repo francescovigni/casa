@@ -1,0 +1,41 @@
+---
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+import Qualifier from "../../components/Qualifier.astro";
+---
+
+<Base
+  title="Contatti — Francesco Vigni, PhD"
+  description="Scrivimi per un ruolo, una collaborazione di ricerca o un progetto. Rispondo personalmente."
+>
+  <section class="wrap grid gap-10 py-16 sm:py-20 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+    <div>
+      <p class="kicker mb-4">Contatti</p>
+      <h1 class="display text-4xl sm:text-5xl">Parliamone.</h1>
+      <p class="lead mt-5 text-lg">
+        Di un ruolo, una collaborazione di ricerca o un progetto circoscritto. Rispondo
+        personalmente, di solito entro un paio di giorni.
+      </p>
+      <dl class="mt-8 space-y-4 text-sm">
+        <div>
+          <dt class="kicker mb-1">Email</dt>
+          <dd><a href="mailto:hello@francescovigni.com" class="text-ink underline-offset-2 hover:underline">hello@francescovigni.com</a></dd>
+        </div>
+        <div>
+          <dt class="kicker mb-1">Sede</dt>
+          <dd class="text-muted">Forlì, Italia · disponibile a trasferimento e remoto</dd>
+        </div>
+        <div>
+          <dt class="kicker mb-1">Altrove</dt>
+          <dd class="text-muted">
+            <a href="https://www.linkedin.com/in/francesco-vigni/" class="hover:text-ink">LinkedIn</a> ·
+            <a href="https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en" class="hover:text-ink">Scholar</a> ·
+            <a href="https://github.com/francescovigni" class="hover:text-ink">GitHub</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <Qualifier locale="it" variant="page" />
+  </section>
+</Base>

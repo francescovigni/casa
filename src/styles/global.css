@@ -69,4 +69,19 @@
   .hairline {
     @apply border-t border-line;
   }
+  .legal {
+    @apply max-w-prose text-[15px] leading-relaxed text-muted;
+  }
+  .legal h2 {
+    @apply mb-2 mt-9 font-serif text-xl text-ink;
+  }
+  .legal p {
+    @apply mb-4;
+  }
+  .legal a {
+    @apply text-ink underline underline-offset-2;
+  }
+  .legal ul {
+    @apply mb-4 list-disc space-y-1 pl-5;
+  }
 }
