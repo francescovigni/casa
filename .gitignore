@@ -1,6 +1,9 @@
 node_modules/
 .cache/
-public/
+# public/ assets are local-only (CV, photos, generated model files) except
+# the committed QA embeddings, which tests hash-check against src/data/qa.ts.
+public/*
+!public/qa-embeddings.json
 .env*
 *.log
 .DS_Store

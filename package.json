@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "embed": "node scripts/embed-qa.mjs",
+    "build": "npm run embed && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run"
@@ -15,6 +16,7 @@
   "dependencies": {
     "@astrojs/node": "^9.1.3",
     "@astrojs/tailwind": "^6.0.2",
+    "@huggingface/transformers": "^3.8.1",
     "@types/nodemailer": "^8.0.1",
     "astro": "^5.4.2",
     "fuse.js": "^7.5.0",
