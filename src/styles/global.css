@@ -208,3 +208,163 @@
   color: theme(colors.accent.DEFAULT);
 }
 
+
+/* --- Research case studies --------------------------------------------------
+   Ported from the standalone portfolio site's style.css. Same structure —
+   card, stats, tables, figures — re-expressed in this site's tokens so the
+   two read as one artefact rather than two. Prose here is serif and the
+   section headings sans, deliberately inverted from the rest of the site:
+   these are the reading-heavy pages. */
+@layer components {
+  /* ---------- card (index + the strip on /work/) ---------- */
+  .research-card {
+    @apply relative flex flex-col rounded-[10px] border border-line bg-white p-6 transition-colors duration-150;
+  }
+  .research-card:hover {
+    @apply border-accent;
+  }
+  .research-card h2,
+  .research-eyebrow {
+    @apply mb-2.5 font-sans text-[12px] font-semibold uppercase tracking-kicker text-faint;
+  }
+  .research-card .finding {
+    @apply mb-3 font-serif text-[19px] leading-[1.42] tracking-[-0.006em] text-ink;
+  }
+  .research-card .finding strong {
+    @apply font-medium;
+    box-shadow: inset 0 -0.42em 0 theme(colors.accent.DEFAULT / 14%);
+  }
+  .research-card > p {
+    @apply mb-3 font-serif leading-relaxed text-muted;
+  }
+  .research-card em {
+    @apply italic;
+  }
+  /* The whole card follows the detail link; the repo link sits above it. */
+  .research-card .go {
+    @apply mb-0 mt-auto font-sans text-[13px] font-medium;
+  }
+  .research-card .go a {
+    @apply text-accent;
+  }
+  .research-card .go a::after {
+    content: "";
+    @apply absolute inset-0 rounded-[10px];
+  }
+  .research-card:hover .go a {
+    @apply underline underline-offset-2;
+  }
+  .research-card .aside {
+    @apply relative z-10 mb-0 mt-2 font-sans text-[13px];
+  }
+  .research-card .aside a {
+    @apply text-faint hover:text-accent;
+  }
+
+  /* ---------- three numbers ---------- */
+  .stats {
+    @apply mb-4 mt-0 grid list-none grid-cols-3 gap-x-4 gap-y-2 border-t border-line pt-3 font-sans;
+  }
+  .stats li {
+    @apply flex flex-col;
+  }
+  .stats b {
+    @apply text-[19px] font-semibold leading-tight tracking-[-0.015em] text-ink;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats li:first-child b {
+    @apply text-accent;
+  }
+  .stats span {
+    @apply mt-0.5 text-[11px] leading-snug text-faint;
+  }
+
+  /* ---------- detail page ---------- */
+  .study {
+    @apply mx-auto w-full max-w-[38rem] font-serif text-[17px] leading-[1.62] text-ink;
+    font-variant-numeric: tabular-nums;
+  }
+  .study .crumb {
+    @apply mb-6 font-sans text-[13px];
+  }
+  .study .crumb a {
+    @apply text-faint hover:text-accent;
+  }
+  .study h1 {
+    @apply mb-5 font-serif text-[clamp(1.6rem,4vw,2.1rem)] font-medium leading-[1.22] tracking-[-0.011em];
+  }
+  .study .lede {
+    @apply mb-6 font-sans text-base leading-relaxed text-muted;
+  }
+  .study h2 {
+    @apply mb-2.5 mt-7 border-t border-line pt-3 font-sans text-base font-semibold text-ink;
+  }
+  .study p {
+    @apply mb-4;
+  }
+  .study em {
+    @apply italic;
+  }
+  .study strong {
+    @apply font-medium;
+  }
+  .study a {
+    @apply text-accent hover:underline hover:underline-offset-2;
+  }
+
+  /* ---------- tables of numbers ---------- */
+  .study table {
+    @apply mb-5 w-full border-collapse font-sans text-[13px];
+  }
+  .study th {
+    @apply border-b border-line pb-2 pl-3 text-right align-bottom text-[11px] font-semibold uppercase tracking-[0.05em] text-faint;
+  }
+  .study th:first-child {
+    @apply pl-0 text-left;
+  }
+  .study th span {
+    @apply block text-[11px] font-normal normal-case italic tracking-normal;
+  }
+  .study td {
+    @apply border-b border-line py-1.5 text-muted;
+  }
+  .study tr:last-child td {
+    @apply border-b-0;
+  }
+  .study td.n {
+    @apply whitespace-nowrap pl-3 text-right font-semibold text-ink;
+  }
+  .study td.n.hi {
+    @apply text-accent;
+  }
+
+  /* ---------- figures ---------- */
+  .study figure,
+  .research-card figure {
+    @apply mb-4;
+  }
+  .study figure img,
+  .research-card figure img {
+    @apply block h-auto w-full rounded-md bg-white p-2;
+  }
+  .study figcaption {
+    @apply mt-2 font-sans text-xs leading-normal text-faint;
+  }
+
+  /* ---------- limitations, links, tail ---------- */
+  .study .not-shown {
+    @apply mb-5 border-l-2 border-line pl-3 font-sans text-[12.5px] leading-snug text-faint;
+  }
+  .study .links {
+    @apply mt-6 font-sans text-[13px];
+  }
+  .study .links a {
+    @apply mr-6;
+  }
+  .study .tail {
+    @apply mt-9 border-t border-line pt-6 font-sans text-sm text-muted;
+  }
+  .study .tail .contact a {
+    @apply mr-6;
+  }
+}

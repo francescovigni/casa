@@ -1,0 +1,42 @@
+---
+import { pick, type Locale } from "../i18n";
+import { story } from "../data/home";
+import Portrait from "./Portrait.astro";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const paragraphs = pick(story.paragraphs, locale);
+const bold = (s: string) =>
+  s.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-ink">$1</strong>');
+---
+
+<section class="border-t border-line bg-[#f4f1ea]">
+  <div class="wrap grid gap-10 py-16 sm:py-20 lg:grid-cols-[300px_1fr] lg:gap-16">
+    <div class="lg:sticky lg:top-24 lg:self-start" data-reveal>
+      <Portrait
+        alt="Francesco Vigni"
+        class="aspect-square w-full max-w-[300px] rounded-2xl shadow-sm"
+        textClass="text-6xl"
+      />
+    </div>
+
+    <div>
+      <p class="kicker mb-3">{pick(story.kicker, locale)}</p>
+      <h2 class="display mb-8 max-w-prose text-2xl sm:text-3xl">{pick(story.title, locale)}</h2>
+      <div class="max-w-prose space-y-5">
+        {
+          paragraphs.map((p, i) => (
+            <p
+              class="text-[15px] leading-relaxed text-muted"
+              data-reveal
+              style={`--reveal-delay:${i}`}
+              set:html={bold(p)}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

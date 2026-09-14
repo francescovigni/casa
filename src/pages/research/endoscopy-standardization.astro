@@ -1,0 +1,233 @@
+---
+// Ported from portfolio.francescovigni.com/endoscopy-standardization.html.
+// Hand-written rather than templated: at two studies a template would own less
+// than it costs. Revisit when this passes roughly six pages.
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="Acquisition shortcuts in endoscopy — Francesco Vigni"
+  description="Nine numbers describing only the frame the equipment drew identify which of five colonoscopy datasets an image came from, 0.961 of the time. The standard fix moves it to 0.859."
+>
+  <section class="wrap py-10 sm:py-12">
+    <article class="study">
+      <p class="crumb"><a href="/research/">&larr; Research</a></p>
+      <p class="research-eyebrow">Endoscopy · acquisition shortcuts</p>
+
+      <h1>You can tell which hospital a colonoscopy frame came from without looking at the anatomy.</h1>
+
+      <p class="lede">
+        An endoscope hands you tissue inside a frame the <em>equipment</em> drew: black letterboxing,
+        an octagonal field-of-view mask, the exam date burned into the pixels, the processor's
+        settings. None of it is anatomy. All of it identifies the machine — and the machine
+        correlates with the answer. Five public colonoscopy datasets, three centres.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/endoscopy-pipelines-2026-09-01.png"
+          alt="The same endoscopic frame shown through each preprocessing pipeline: as acquired, resized, cropped to the field of view and padded, and reduced to the inscribed square"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          The same frame through each pipeline. Left to right, progressively less of the canvas the
+          equipment drew — and progressively less of the tissue with it.
+        </figcaption>
+      </figure>
+
+      <h2>1 · A frame announces where it came from</h2>
+
+      <p>
+        Nine descriptors of the canvas geometry — aspect ratio, mask area fraction, letterbox
+        extents, centroid offset — and <strong>no anatomy pixels at all</strong>. A classifier on
+        those nine numbers picks the right dataset out of five:
+      </p>
+
+      <table>
+        <tr><td>as acquired</td><td class="n hi">0.961</td></tr>
+        <tr><td>resize only</td><td class="n">0.899</td></tr>
+        <tr><td>crop to the field of view + pad — <em>the standard recipe</em></td><td class="n">0.859</td></tr>
+        <tr><td>inscribed square — <em>geometry removed</em></td><td class="n">0.477</td></tr>
+        <tr><td>chance</td><td class="n">0.200</td></tr>
+      </table>
+
+      <p>
+        The standard fix barely works. Cropping to the imaging area and padding to a square — what
+        most pipelines do — moves it 0.90 to 0.86, because padding preserves the aspect ratio
+        <em>deliberately</em>, so as not to distort anatomy, and carries the signature along with it.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/endoscopy-fingerprint-2026-08-31.png"
+          alt="Bar chart of source identification accuracy per preprocessing pipeline for geometry, border and anatomy feature sets"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <h2>2 · Self-supervision makes it structural</h2>
+
+      <p>
+        A contrastive loss pushes apart different images. If the source is identifiable, the cheapest
+        way to push two images apart is to notice they came from different equipment — so the pretext
+        task gets solved on the letterbox. And self-supervision exists in order to <em>pool</em>
+        sources, so the exposure grows with the very thing that makes it worth doing.
+      </p>
+
+      <p>A small encoder pretrained on pooled frames, frozen, then linearly probed:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>pipeline</th>
+            <th>source identity<br /><span>chance 0.33</span></th>
+            <th>polyp presence<br /><span>chance 0.78</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>resize only</td><td class="n hi">0.957</td><td class="n">0.895</td></tr>
+          <tr><td>crop to the field of view + pad</td><td class="n">0.937</td><td class="n">0.889</td></tr>
+          <tr><td>inscribed square</td><td class="n">0.891</td><td class="n">0.873</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        The learned encoder recovers almost everything cropping removed: 0.86 to 0.48 for hand-made
+        features, but only 0.96 to 0.89 here. It reads colour, illumination and texture — not border
+        shape. Removing the geometry does not remove the confound, it moves it.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/endoscopy-ssl-2026-09-01.png"
+          alt="Source identity and polyp-presence accuracy from a frozen self-supervised encoder across the three pipelines"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          Utility falls a little; source identity falls much less. The gap is the cost nobody reports.
+        </figcaption>
+      </figure>
+
+      <h2>3 · The non-anatomical part predicts the diagnosis</h2>
+
+      <p>HyperKvasir, restricted to the lower GI tract so that scope type cannot act as a confound:</p>
+
+      <table>
+        <tr><td>geometry only</td><td class="n">0.488</td></tr>
+        <tr><td>border pixels — <em>no anatomy</em></td><td class="n hi">0.674</td></tr>
+        <tr><td>anatomy colour statistics</td><td class="n">0.666</td></tr>
+        <tr><td>majority class</td><td class="n">0.172</td></tr>
+      </table>
+
+      <p>
+        The border region beats the anatomy's own colour statistics. What leaks is the
+        <em>session</em> — dye, illumination settings, timestamp — and the session correlates with why
+        the procedure was done in the first place. Upper against lower GI is 99.5% predictable from
+        geometry alone.
+      </p>
+
+      <h2>4 · Removing the shortcut does not buy generalisation</h2>
+
+      <p>
+        This is the part that did not work, and it is the most informative one. Polyp segmentation
+        trained on the Norwegian data, Dice on frames that contain a polyp:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>pipeline</th>
+            <th>Kvasir<br /><span>same centre</span></th>
+            <th>CVC-<br />ClinicDB</th>
+            <th>CVC-<br />ColonDB</th>
+            <th>Polyp-<br />Gen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>resize only</td><td class="n hi">0.820</td><td class="n">0.681</td><td class="n">0.537</td><td class="n">0.448</td></tr>
+          <tr><td>crop + pad</td><td class="n">0.819</td><td class="n hi">0.729</td><td class="n hi">0.540</td><td class="n">0.456</td></tr>
+          <tr><td>inscribed square</td><td class="n">0.719</td><td class="n">0.618</td><td class="n">0.494</td><td class="n hi">0.491</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        Crop-and-pad is free and mildly helpful. The inscribed square removes the most signature,
+        loses 10 Dice in-distribution, and wins only on the most heterogeneous target.
+      </p>
+
+      <p>
+        <strong>Three explanations fit, and this experiment separates none of them.</strong> The model
+        may never have used the shortcut. Losing 24% of the imaged area may simply cost more than the
+        shortcut was worth. Or — found only afterwards — the crop removes the polyp entirely from 6.3%
+        of Kvasir and 15.3% of PolypGen frames, so part of the training is on corrupted labels. The
+        last explanation is the dullest and probably the largest.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/endoscopy-segmentation-2026-09-01.png"
+          alt="Polyp segmentation Dice per pipeline across four target datasets"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <h2>A curation confound underneath all of it</h2>
+
+      <table>
+        <thead>
+          <tr><th>dataset</th><th>distinct<br />resolutions</th><th>median<br />coverage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Kvasir-SEG · Norway · n=1,000</td><td class="n hi">98</td><td class="n">0.825</td></tr>
+          <tr><td>HyperKvasir · Norway · n=10,662</td><td class="n">58</td><td class="n">0.935</td></tr>
+          <tr><td>CVC-ClinicDB · Barcelona · n=612</td><td class="n hi">1</td><td class="n">0.720</td></tr>
+          <tr><td>CVC-ColonDB · Barcelona · n=380</td><td class="n hi">1</td><td class="n">0.837</td></tr>
+          <tr><td>PolypGen · multi-centre · n=2,225</td><td class="n">8</td><td class="n">0.834</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        Kvasir keeps the native acquisition resolution; the CVC sets were normalised to exactly one
+        before release. That is curation, not biology, and it is baked into every benchmark that
+        trains on one and tests on the other.
+      </p>
+
+      <h2>What this does not show</h2>
+
+      <p class="not-shown">
+        That any published model took the shortcut — every result here is correlational. Three
+        centres, not six. One training centre for the segmentation arm. The self-supervised encoder is
+        small and trained from scratch, not a foundation model. No clinical claim of any kind.
+      </p>
+
+      <h2>Reproduce it</h2>
+
+      <p>
+        Everything runs from public data: five colonoscopy datasets, a single command per experiment,
+        29 tests in CI on Python 3.11–3.13. The negative result in section 4 is in the repository with
+        the code that produced it.
+      </p>
+
+      <p class="links">
+        <a href="https://github.com/francescovigni/endoscopy-standardization">Repository</a>
+        <a href="https://github.com/francescovigni/endoscopy-standardization/blob/main/docs/article.md"
+          >Full write-up</a
+        >
+        <a href="/research/">Back</a>
+      </p>
+
+      <div class="tail">
+        <p class="contact">
+          <a href="/work/">Full background</a>
+          <a href="mailto:hello@francescovigni.com">hello@francescovigni.com</a>
+          <a href="https://github.com/francescovigni">GitHub</a>
+        </p>
+      </div>
+    </article>
+  </section>
+</Base>

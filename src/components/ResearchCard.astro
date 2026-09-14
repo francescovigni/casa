@@ -1,0 +1,39 @@
+---
+// One research card: eyebrow, the finding, three numbers, one figure, and the
+// link that earns the click. Used on /research/ and in the strip on /work/.
+import type { ResearchStudy } from "../data/research";
+
+interface Props {
+  study: ResearchStudy;
+  /** Reveal order, for the staggered scroll animation. */
+  index?: number;
+}
+const { study, index = 0 } = Astro.props;
+---
+
+<article class="research-card" data-reveal style={`--reveal-delay:${index}`}>
+  <h2>{study.eyebrow}</h2>
+
+  <p class="finding" set:html={study.finding} />
+  <p set:html={study.detail} />
+
+  <ul class="stats">
+    {
+      study.stats.map((stat) => (
+        <li>
+          <b>{stat.value}</b>
+          <span>{stat.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <figure>
+    <img src={study.figure.src} alt={study.figure.alt} loading="lazy" decoding="async" />
+  </figure>
+
+  <p class="go">
+    <a href={`/research/${study.slug}/`}>{study.cta} &rarr;</a>
+  </p>
+  <p class="aside"><a href={study.repo}>Repository</a></p>
+</article>

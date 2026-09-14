@@ -1,0 +1,49 @@
+---
+// Unpaired with /it/, so the geo middleware never touches it and the page can
+// be fully static. See i18n.ts localePairs.
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+import ResearchCard from "../../components/ResearchCard.astro";
+import { research } from "../../data/research";
+---
+
+<Base
+  title="Research — Francesco Vigni, PhD"
+  description="Medical imaging, and the evidence that says when the model is wrong. Recent work on public data, with the negative results left in."
+>
+  <section class="wrap pt-10 sm:pt-12">
+    <p class="kicker mb-4">Research</p>
+    <h1 class="display max-w-prose text-4xl sm:text-5xl">
+      Medical imaging, and the evidence that says <em>when the model is wrong</em>.
+    </h1>
+    <p class="lead mt-4 max-w-prose text-lg">
+      Two recent pieces of work, both on public data, both with the negative results left in.
+      Each card carries one finding; the detail page carries the argument, and the repository
+      stays the source of record.
+    </p>
+  </section>
+
+  <section class="wrap pb-2 pt-6">
+    <div class="grid gap-6 md:grid-cols-2 md:gap-7">
+      {research.map((study, i) => <ResearchCard study={study} index={i} />)}
+    </div>
+  </section>
+
+  <section class="wrap pb-12 pt-2">
+    <div class="max-w-prose border-t border-line pt-6 text-sm leading-relaxed text-muted">
+      <p class="mb-4">
+        Previously: self-supervised pretraining of a medical-imaging foundation model on a large
+        clinical video corpus under NDA, multi-GPU — with the cross-vendor standardisation and
+        evaluation harness underneath it. Before that, seven years of computer vision and robotics
+        in industry in Germany.
+      </p>
+      <p>
+        <a class="link-underline mr-6 text-ink" href="/work/">Full background</a>
+        <a class="link-underline mr-6 text-ink" href="mailto:hello@francescovigni.com"
+          >hello@francescovigni.com</a
+        >
+        <a class="link-underline text-ink" href="https://github.com/francescovigni">GitHub</a>
+      </p>
+    </div>
+  </section>
+</Base>

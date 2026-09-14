@@ -1,0 +1,222 @@
+---
+// Ported from portfolio.francescovigni.com/fetal-cardiac-orientation.html.
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="Fetal cardiac orientation — Francesco Vigni"
+  description="Closed-form geometry estimates fetal cardiac orientation to 0.28° from a mask; a trained landmark model reaches 7.04° from a box alone. The useful part is knowing when the shortcut breaks."
+>
+  <section class="wrap py-10 sm:py-12">
+    <article class="study">
+      <p class="crumb"><a href="/research/">&larr; Research</a></p>
+      <p class="research-eyebrow">Fetal ultrasound · orientation</p>
+
+      <h1>Estimating fetal cardiac orientation does not need a trained model.</h1>
+
+      <p class="lede">
+        How tilted the heart sits in the chest is a quantity clinicians measure on the standard
+        four-chamber scan, and an unusual tilt is one of the signals that prompts a closer look. This
+        estimates it two ways and compares them. If something already outlines the heart, the tilt
+        follows from basic geometry — two orders of magnitude more accurately, and an order of
+        magnitude more cheaply, than the model trained to do the same job. The useful part is knowing
+        when that shortcut breaks.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/cardiac-orientation-2026-08-31.png"
+          alt="Six fetal four-chamber ultrasound frames with annotated and predicted heart axes overlaid, labelled best, median and worst"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Best, median and worst test cases — never only the flattering ones.</figcaption>
+      </figure>
+
+      <h2>The pipeline</h2>
+
+      <p>
+        A YOLOv5s detector fine-tuned on 200 images finds the cardiac and thoracic regions: mAP@50
+        0.995 on the held-out split, 29.6 ms per image. Two numbers matter more than the mAP — on a
+        <em>different hospital's</em> data it still fires on 93% of thorax images at 0.75 confidence,
+        and the mAP itself is table stakes for one organ, one view, centred and always present.
+        Anything below about 0.98 would signal a labelling problem, not a modelling one.
+      </p>
+
+      <p>
+        Then: take the highest-confidence cardiac box, expand it by 35%, compose any rotation and the
+        crop into <strong>one</strong> affine matrix, and apply that same matrix to the image and to
+        the landmarks so they cannot drift apart. Warp to 192×192, regress four points, reconstruct
+        the angle geometrically, emit abstention flags. Both axes vote — the major endpoints give the
+        axis directly, the minor endpoints give it rotated by 90°, which is a negation in
+        doubled-angle space, so the two average as unit vectors.
+      </p>
+
+      <h2>Three routes, measured against each other</h2>
+
+      <table>
+        <thead>
+          <tr><th>route</th><th>median<br />error</th><th>tail</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>second-order moments — <em>needs a mask, no training</em></td><td class="n hi">0.28°</td><td class="n">0% beyond 10°</td></tr>
+          <tr><td>minimum-area rectangle — <em>needs a mask</em></td><td class="n">4.95°</td><td class="n hi">44% beyond 10°</td></tr>
+          <tr><td>trained landmark model — <em>needs only a box</em></td><td class="n">7.04°</td><td class="n">p90 12.92°</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        The minimum-area rectangle is bimodal on elliptical shapes, which is why its median looks
+        respectable and nearly half its errors are large. And the 0.28° is a
+        <strong>floor, not a result</strong>: those masks are rasterised from the same ellipse
+        annotations the angle is scored against.
+      </p>
+
+      <h2>How much you should trust the learned route</h2>
+
+      <table>
+        <tr><td>median absolute error</td><td class="n hi">7.04°</td></tr>
+        <tr><td>95% CI on the median</td><td class="n">4.84–9.26°</td></tr>
+        <tr><td>Bland–Altman bias</td><td class="n">−0.55°</td></tr>
+        <tr><td>95% limits of agreement</td><td class="n hi">±18°</td></tr>
+        <tr><td>ICC(2,1)</td><td class="n">0.980</td></tr>
+      </table>
+
+      <p>
+        Essentially unbiased, and ±18° against a clinical normal band roughly 40° wide. A working
+        method with an honest error bar — not an instrument.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/cardiac-agreement-2026-09-01.png"
+          alt="Bland-Altman plot and error distribution for the learned orientation route"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <h2>Why landmarks rather than a scalar angle</h2>
+
+      <p>The alternative was implemented and measured. A second head predicts the doubled angle directly:</p>
+
+      <table>
+        <thead>
+          <tr><th>head</th><th>median</th><th>p90</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>landmarks → geometric reconstruction</td><td class="n">7.04°</td><td class="n">12.92°</td></tr>
+          <tr><td>direct doubled-angle head</td><td class="n hi">5.64°</td><td class="n hi">11.43°</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        The direct head is <em>better</em>, so landmarks are not justified by accuracy. They are
+        justified by an output a reviewer can reject point by point, an oriented box and aspect ratio
+        for free, and two votes whose disagreement is a signal. With one caveat, reported rather than
+        buried: the two heads' errors correlate at r = +0.79 — they share a backbone and fail
+        together, which makes head disagreement a weak abstention signal.
+      </p>
+
+      <p>
+        Two architecture choices came from measured failures, not from taste. Heatmap regression
+        plateaued at 28°, because an ellipse axis endpoint has no distinctive <em>local</em>
+        appearance — it is defined by a global property of the shape. Global average pooling plateaued
+        at 21°, because it discards exactly the spatial layout that encodes the angle. A 3×3 pooled
+        grid is what fixed it.
+      </p>
+
+      <p>
+        Direction is deliberately not predicted. Apex-left against apex-right is levocardia against
+        dextrocardia — a diagnosis that needs the spine or the stomach bubble, not something to infer
+        from a cropped heart.
+      </p>
+
+      <h2>What the angle is worth</h2>
+
+      <p>
+        Against axis-aligned boxes, the oriented box reaches a median rotated IoU of
+        <strong>0.83</strong> versus <strong>0.51</strong>. Collapsing the annotation to axis-aligned
+        costs ×1.97 the box area — and the annotations cluster at 45° and 135°, which is where a fetal
+        heart sits in a correct four-chamber view. The near-worst case is the ordinary case.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/cardiac-obb-cost-2026-09-01.png"
+          alt="Rotated IoU and box-area cost of dropping the orientation, and what the orientation head recovers"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <h2>Where the shortcut breaks</h2>
+
+      <p>
+        Not where the quality score says it should. A mask scoring Dice 0.87 can produce a 46° error,
+        while one at 0.77 produces 0.22°. What matters is <em>how</em> the segmentation fails, not how
+        well it scores: symmetric erosion barely moves the axis, while a one-sided truncation of a
+        chamber rotates it hard. Any gate built on Dice alone will pass the cases that hurt.
+      </p>
+
+      <p>
+        On a second hospital's data the p90 of the orientation error triples. That number, not the
+        median on the training centre, is the one that describes the model.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/cardiac-external-2026-09-01.png"
+          alt="Error distribution on external data compared with the in-distribution test split"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <h2>Validated mostly without labels</h2>
+
+      <p>
+        Rotate the input and the axis must rotate with it. Change the brightness and it must not move.
+        Detect, crop to the predicted oriented box, and detect again — the original detection must
+        survive its own geometry. These tests need no ground truth, so they transfer to any dataset,
+        and they caught a real defect: two pipeline stages augmenting over inconsistent rotation
+        ranges, which took re-detection from 52% to 100% once fixed. No accuracy number was ever going
+        to surface that.
+      </p>
+
+      <h2>What this does not show</h2>
+
+      <p class="not-shown">
+        The clinical cardiac axis, which needs a spine landmark this dataset does not carry. ±18°
+        limits of agreement are not clinically useful. Segmentation failures were simulated, not
+        sampled from a real segmenter. 50 held-out images. Not a medical device, and no clinical
+        claim.
+      </p>
+
+      <h2>Reproduce it</h2>
+
+      <p>
+        Public CC-BY-4.0 data (FOCUS and FETAL_PLANES_DB), released weights, 63 tests in CI on Python
+        3.11–3.13, one command per figure in this page.
+      </p>
+
+      <p class="links">
+        <a href="https://github.com/francescovigni/fetal-cardiac-orientation">Repository</a>
+        <a
+          href="https://github.com/francescovigni/fetal-cardiac-orientation/blob/main/docs/article.md"
+          >Full write-up</a
+        >
+        <a href="/research/">Back</a>
+      </p>
+
+      <div class="tail">
+        <p class="contact">
+          <a href="/work/">Full background</a>
+          <a href="mailto:hello@francescovigni.com">hello@francescovigni.com</a>
+          <a href="https://github.com/francescovigni">GitHub</a>
+        </p>
+      </div>
+    </article>
+  </section>
+</Base>

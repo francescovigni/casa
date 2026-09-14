@@ -1,0 +1,26 @@
+---
+// Portrait with a graceful monogram fallback: until public/francesco.jpg
+// exists, a tasteful "FV" block shows; the photo overlays it once added.
+interface Props {
+  src?: string;
+  alt: string;
+  class?: string;
+  textClass?: string;
+}
+const { src = "/francesco.jpg", alt, class: cls = "", textClass = "text-4xl" } = Astro.props;
+---
+
+<div class:list={["relative grid place-items-center overflow-hidden bg-ink", cls]}>
+  <span class:list={["select-none font-serif text-canvas/90", textClass]}>FV</span>
+  {
+    src && (
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        class="absolute inset-0 h-full w-full object-cover"
+        onerror="this.remove()"
+      />
+    )
+  }
+</div>

@@ -3,7 +3,9 @@
 export const prerender = false;
 import Base from "../layouts/Base.astro";
 import ProjectStory from "../components/ProjectStory.astro";
+import ResearchCard from "../components/ResearchCard.astro";
 import { projects } from "../data/projects";
+import { research } from "../data/research";
 ---
 
 <Base
@@ -19,7 +21,22 @@ import { projects } from "../data/projects";
     </p>
   </section>
 
+  <!-- Research first: public data, reproducible, negative results left in. The
+       deployment stories below are the client work those methods came out of. -->
+  <section class="wrap pt-8">
+    <div class="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-7">
+      <h2 class="display text-2xl">Research, on public data</h2>
+      <a class="link-underline text-sm font-medium text-accent" href="/research/">
+        All research &rarr;
+      </a>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2 md:gap-7">
+      {research.map((study, i) => <ResearchCard study={study} index={i} />)}
+    </div>
+  </section>
+
   <section class="wrap pb-8 pt-10">
+    <h2 class="display mb-2 border-t border-line pt-7 text-2xl">Deployment stories</h2>
     {projects.map((project) => <ProjectStory project={project} locale="en" />)}
   </section>
 </Base>

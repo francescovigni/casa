@@ -1,5 +1,6 @@
 ---
 import { ui, getCounterpart, type Locale } from "../i18n";
+import Portrait from "./Portrait.astro";
 
 interface Props {
   locale: Locale;
@@ -18,7 +19,8 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
 
 <header class="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur">
   <div class="wrap flex h-16 items-center justify-between">
-    <a href={`${base}/`} class="font-serif text-lg font-medium tracking-tight text-ink">
+    <a href={`${base}/`} class="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight text-ink">
+      <Portrait alt="Francesco Vigni" class="h-8 w-8 rounded-full" textClass="text-[11px]" />
       Francesco&nbsp;Vigni
     </a>
 
