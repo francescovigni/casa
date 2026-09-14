@@ -4,20 +4,26 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Motion from "../components/Motion.astro";
 import { localeFromPath, getCounterpart, type Locale } from "../i18n";
+import { SITE } from "../data/site";
 
 interface Props {
   title: string;
   description: string;
   /** Path without locale-agnostic trailing concerns, e.g. "/work/". */
   ogImage?: string;
+  /** Keep the page out of search results (the digital business card). */
+  noindex?: boolean;
+  /** Render the page without site header, footer or skip link. */
+  bare?: boolean;
 }
 
-const { title, description, ogImage = "/og-default.jpg" } = Astro.props;
+const { title, description, ogImage = "/og-default.jpg", noindex = false, bare = false } = Astro.props;
 const pathname = Astro.url.pathname;
 const locale: Locale = localeFromPath(pathname);
-const canonical = new URL(pathname, Astro.site).href;
-const enHref = new URL(locale === "en" ? pathname : getCounterpart(pathname, "en"), Astro.site).href;
-const itHref = new URL(locale === "it" ? pathname : getCounterpart(pathname, "it"), Astro.site).href;
+const site = Astro.site ?? new URL(SITE.url);
+const canonical = new URL(pathname, site).href;
+const enHref = new URL(locale === "en" ? pathname : getCounterpart(pathname, "en"), site).href;
+const itHref = new URL(locale === "it" ? pathname : getCounterpart(pathname, "it"), site).href;
 ---
 
 <!doctype html>
@@ -28,6 +34,7 @@ const itHref = new URL(locale === "it" ? pathname : getCounterpart(pathname, "it
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={enHref} />
     <link rel="alternate" hreflang="it" href={itHref} />
@@ -37,23 +44,34 @@ const itHref = new URL(locale === "it" ? pathname : getCounterpart(pathname, "it
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image" content={new URL(ogImage, site).href} />
     <meta property="og:locale" content={locale === "it" ? "it_IT" : "en_US"} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <slot name="head" />
   </head>
   <body>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas"
-      >Skip to content</a
-    >
-    <Header locale={locale} pathname={pathname} />
-    <main id="main">
-      <slot />
-    </main>
-    <Footer locale={locale} />
+    {
+      bare ? (
+        <main id="main">
+          <slot />
+        </main>
+      ) : (
+        <>
+          <a
+            href="#main"
+            class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas"
+          >
+            Skip to content
+          </a>
+          <Header locale={locale} pathname={pathname} />
+          <main id="main">
+            <slot />
+          </main>
+          <Footer locale={locale} />
+        </>
+      )
+    }
     <Motion />
   </body>
 </html>

@@ -1,14 +1,14 @@
-// Curated Q&A for the /ask page. Embedded at build by scripts/embed-qa.mjs —
-// run `npm run embed` after editing, or the qa-embeddings sync test fails.
+// Curated Q&A for the /ask page. Embedded at build by scripts/embed-qa.mjs.
+// Run `npm run embed` after editing, or the qa-embeddings sync test fails.
 // Facts must stay within what the public site already states (NDA: the
 // clinical partner is "an IRCCS research hospital", never named).
 export interface QAEntry {
   id: string;
-  question: string; // canonical phrasing — embedded, and shown in the noscript FAQ
-  aliases: string[]; // paraphrases — also embedded
+  question: string; // canonical phrasing: embedded, and shown in the noscript FAQ
+  aliases: string[]; // paraphrases: also embedded
   answer: string; // plain text, first person, typed out in the chat
   links?: { label: string; href: string }[];
-  chip?: string; // short label — renders as a suggested-question chip
+  chip?: string; // short label: renders as a suggested-question chip
 }
 
 export const qa: QAEntry[] = [
@@ -22,7 +22,7 @@ export const qa: QAEntry[] = [
       "Experience with clinical machine learning?",
     ],
     answer:
-      "I lead the technical development of a self-supervised foundation model for medical imaging with an IRCCS research hospital — from the cloud data pipeline to distributed ViT pre-training and fine-tuning protocols for classification, segmentation, and detection. It's the work I most want to keep doing.",
+      "I lead the technical development of a self-supervised foundation model for medical imaging with an IRCCS research hospital, from the cloud data pipeline to distributed ViT pre-training and fine-tuning protocols for classification, segmentation, and detection. It's the work I most want to keep doing.",
     links: [{ label: "Work", href: "/work/" }],
     chip: "Healthcare AI work",
   },
@@ -35,7 +35,7 @@ export const qa: QAEntry[] = [
       "Details of your medical foundation model project?",
     ],
     answer:
-      "The goal is a foundation model for endoscopic polyp detection, pre-trained on more than 5 million gastrointestinal video frames. I designed the SSL pretraining strategy — masked image modelling with DINOv3-style self-distillation — built the cloud data ingestion pipeline, and set up experiment tracking and fine-tuning protocols, all under strict GDPR and NDA constraints.",
+      "The goal is a foundation model for endoscopic polyp detection, pre-trained on more than 5 million gastrointestinal video frames. I designed the SSL pretraining strategy: masked image modelling with DINOv3-style self-distillation, built the cloud data ingestion pipeline, and set up experiment tracking and fine-tuning protocols, all under strict GDPR and NDA constraints.",
     links: [{ label: "Work", href: "/work/" }],
   },
   {
@@ -58,7 +58,7 @@ export const qa: QAEntry[] = [
       "How do you manage ML experiments?",
     ],
     answer:
-      "Reproducibility is a hard requirement in my current project: experiment tracking, versioned fine-tuning protocols per downstream task, and cost-conscious training runs that can be compared across model architectures. The same discipline shows up in my infrastructure work — digest-pinned images and reversible deploys.",
+      "Reproducibility is a hard requirement in my current project: experiment tracking, versioned fine-tuning protocols per downstream task, and cost-conscious training runs that can be compared across model architectures. The same discipline shows up in my infrastructure work: digest-pinned images and reversible deploys.",
   },
   {
     id: "medical-data",
@@ -68,7 +68,7 @@ export const qa: QAEntry[] = [
       "Can you work with patient data?",
     ],
     answer:
-      "The foundation-model work runs under strict GDPR compliance and NDA boundaries, with EHDS-ready data governance built into the pipeline. I'm comfortable operating where data can't leave a controlled environment — this chat itself runs entirely in your browser for the same reason.",
+      "The foundation-model work runs under strict GDPR compliance and NDA boundaries, with EHDS-ready data governance built into the pipeline. I'm comfortable operating where data can't leave a controlled environment. This chat itself runs entirely in your browser for the same reason.",
   },
   // ---- Robotics ----
   {
@@ -92,7 +92,7 @@ export const qa: QAEntry[] = [
       "Autonomous navigation projects?",
     ],
     answer:
-      "I developed the autonomous indoor navigation stack for a commercial ride-on floor scrubber — ROS2/Nav2 with SLAM, localization, and coverage path-planning — validated in CoppeliaSIM and on the real platform. The hard parts were reflective floors, mixed lighting, and human-safe motion in warehouses, retail spaces, and airports.",
+      "I developed the autonomous indoor navigation stack for a commercial ride-on floor scrubber (ROS2/Nav2 with SLAM, localization, and coverage path-planning), validated in CoppeliaSIM and on the real platform. The hard parts were reflective floors, mixed lighting, and human-safe motion in warehouses, retail spaces, and airports.",
     links: [{ label: "Work", href: "/work/" }],
   },
   {
@@ -103,7 +103,7 @@ export const qa: QAEntry[] = [
       "Real-time inference on embedded hardware?",
     ],
     answer:
-      "Yes — for example a ceiling-mounted occupancy system doing real-time people tracking on an NVIDIA Jetson: a compact detection-and-tracking pipeline, camera calibration with homography to project detections onto the floor plane, and zone events published over MQTT. Constrained hardware, real-time budgets.",
+      "Yes. For example, a ceiling-mounted occupancy system doing real-time people tracking on an NVIDIA Jetson: a compact detection-and-tracking pipeline, camera calibration with homography to project detections onto the floor plane, and zone events published over MQTT. Constrained hardware, real-time budgets.",
     links: [{ label: "Work", href: "/work/" }],
   },
   {
@@ -126,7 +126,7 @@ export const qa: QAEntry[] = [
       "Tell me about the TIAGo robot work",
     ],
     answer:
-      "How robots make their intentions legible to people. At TU Wien I built an interaction engine on a bi-manual TIAGo — MoveIt motion planning, synchronized gaze control, ROS state machines — and ran a user study showing that coordinated gaze-and-arm behaviour measurably improves perceived intention clarity and interaction fluency. Published with IEEE.",
+      "How robots make their intentions legible to people. At TU Wien I built an interaction engine on a bi-manual TIAGo (MoveIt motion planning, synchronized gaze control, ROS state machines) and ran a user study showing that coordinated gaze-and-arm behaviour measurably improves perceived intention clarity and interaction fluency. Published with IEEE.",
     links: [{ label: "Scholar", href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en" }],
   },
   // ---- Infrastructure ----
@@ -139,7 +139,7 @@ export const qa: QAEntry[] = [
       "Can you run production systems?",
     ],
     answer:
-      "I run my own single-node Kubernetes (k3s) platform hosting over a dozen services — this site included. Helm charts, CI/CD, health-gated reversible delivery, live credential rotation, and real production incident debugging. I like owning the whole stack, from the model down to the metal.",
+      "I run my own single-node Kubernetes (k3s) platform hosting over a dozen services, this site included. Helm charts, CI/CD, health-gated reversible delivery, live credential rotation, and real production incident debugging. I like owning the whole stack, from the model down to the metal.",
     links: [{ label: "Work", href: "/work/" }],
     chip: "Infrastructure",
   },
@@ -151,7 +151,7 @@ export const qa: QAEntry[] = [
       "What services do you self-host?",
     ],
     answer:
-      "A dozen Dockerized services — analytics, workflow automation, a CRM, dashboards, custom web apps — each packaged as a Helm chart on single-node k3s, with Caddy as the TLS edge and Cloudflare zero-trust access. Stateful databases got live data migration, and upgrades are backup-first and reversible.",
+      "A dozen Dockerized services (analytics, workflow automation, a CRM, dashboards, custom web apps), each packaged as a Helm chart on single-node k3s, with Caddy as the TLS edge and Cloudflare zero-trust access. Stateful databases got live data migration, and upgrades are backup-first and reversible.",
   },
   {
     id: "cicd",
@@ -171,7 +171,7 @@ export const qa: QAEntry[] = [
       "What happens when your systems break?",
     ],
     answer:
-      "Yes — hands-on. Example: diagnosing an out-of-memory crash loop on my own cluster and turning it into self-healing behaviour, plus live credential rotation without downtime. Small platform, real stakes: it hosts everything I run, including this site.",
+      "Yes, hands-on. Example: diagnosing an out-of-memory crash loop on my own cluster and turning it into self-healing behaviour, plus live credential rotation without downtime. Small platform, real stakes: it hosts everything I run, including this site.",
   },
   // ---- Background / story ----
   {
@@ -183,7 +183,7 @@ export const qa: QAEntry[] = [
       "Give me a summary of your experience",
     ],
     answer:
-      "I'm a PhD engineer and researcher. I build AI that has to work outside the lab — from medical-imaging foundation models to robots on the factory floor — and the infrastructure to run it in production. The through-line: machine learning that survives deployment.",
+      "I'm a PhD engineer and researcher. I build AI that has to work outside the lab, from medical-imaging foundation models to robots on the factory floor, and the infrastructure to run it in production. The through-line: I find out when the model is wrong.",
     links: [{ label: "My story", href: "/" }, { label: "Work", href: "/work/" }],
   },
   {
@@ -204,7 +204,7 @@ export const qa: QAEntry[] = [
       "What was your Master's thesis?",
     ],
     answer:
-      "My Master's thesis at Disney Research Zurich: closed-loop control for a robot that shakes your hand. It became a paper in IEEE RA-L — and it set the tone for everything since, building things that work with real people.",
+      "My Master's thesis at Disney Research Zurich: closed-loop control for a robot that shakes your hand. It became a paper in IEEE RA-L, and it set the tone for everything since, building things that work with real people.",
     links: [{ label: "Scholar", href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en" }],
   },
   {
@@ -215,7 +215,7 @@ export const qa: QAEntry[] = [
       "Tell me about your doctorate",
     ],
     answer:
-      "A Marie Skłodowska-Curie PhD in Naples on non-verbal human-robot interaction — how robots make their intentions legible to people — with secondments at TU Wien. It bridged my industry robotics years back into research.",
+      "A Marie Skłodowska-Curie PhD in Naples on non-verbal human-robot interaction (how robots make their intentions legible to people) with secondments at TU Wien. It bridged my industry robotics years back into research.",
   },
   {
     id: "germany-industry",
@@ -225,7 +225,7 @@ export const qa: QAEntry[] = [
       "Tell me about your industry experience",
     ],
     answer:
-      "I spent years deploying autonomous mobile robots across factories, then built core 3D-perception and grasping software at Roboception in Munich for industrial pick-and-place. Commercial systems, deployed in multiple countries — not demos.",
+      "I spent years deploying autonomous mobile robots across factories, then built core 3D-perception and grasping software at Roboception in Munich for industrial pick-and-place. Commercial systems, deployed in multiple countries, not demos.",
     links: [{ label: "Work", href: "/work/" }],
   },
   {
@@ -236,7 +236,7 @@ export const qa: QAEntry[] = [
       "Where have you done research?",
     ],
     answer:
-      "University of Naples Federico II, TU Wien, TU Munich, Disney Research, and Roboception — plus a Marie Skłodowska-Curie fellowship and, today, a foundation-model collaboration with an IRCCS research hospital.",
+      "University of Naples Federico II, TU Wien, TU Munich, Disney Research, and Roboception, plus a Marie Skłodowska-Curie fellowship and, today, a foundation-model collaboration with an IRCCS research hospital.",
   },
   {
     id: "publications",
@@ -270,7 +270,7 @@ export const qa: QAEntry[] = [
       "Are you available for hire?",
     ],
     answer:
-      "Yes — actively. I'm looking for a stable research, engineering, or infrastructure role where ML has to reach production, ideally in healthcare AI. I'm also open to research collaborations and a limited amount of consulting.",
+      "Yes, actively. I'm looking for a stable research, engineering, or infrastructure role where ML has to reach production, ideally in healthcare AI. I'm also open to research collaborations and a limited amount of consulting.",
     links: [{ label: "Contact", href: "/contact/" }],
     chip: "Open to roles?",
   },
@@ -282,7 +282,7 @@ export const qa: QAEntry[] = [
       "What position would suit you?",
     ],
     answer:
-      "Research, engineering, or infrastructure — the common thread is machine learning that has to survive deployment. Healthcare-AI research is the flagship interest, but I'm equally at home in robotics and platform work. What matters most is a good team and real production stakes.",
+      "Research, engineering, or infrastructure: the common thread is machine learning that has to work on real data, and knowing when it does not. Healthcare-AI research is the flagship interest, but I'm equally at home in robotics and platform work. What matters most is a good team and real production stakes.",
     links: [{ label: "Contact", href: "/contact/" }],
   },
   {
@@ -293,7 +293,7 @@ export const qa: QAEntry[] = [
       "What are your strengths?",
     ],
     answer:
-      "Range with proof: I've taken ML from research papers to clinical data pipelines, robots from simulation to factory floors, and I operate the production infrastructure myself. You get one person who can speak researcher, engineer, and ops — because I've actually been all three.",
+      "Range with proof: I've taken ML from research papers to clinical data pipelines, robots from simulation to factory floors, and I operate the production infrastructure myself. You get one person who can speak researcher, engineer, and ops, because I've actually been all three.",
     links: [{ label: "Work", href: "/work/" }],
   },
   {
@@ -304,7 +304,7 @@ export const qa: QAEntry[] = [
       "Are you open to joint projects?",
     ],
     answer:
-      "Yes — joint projects, co-authored papers, EU-funded research, and clinical-AI partnerships. If it advances the deployment-grade-ML line of work, I'm interested.",
+      "Yes: joint projects, co-authored papers, EU-funded research, and clinical-AI partnerships. If it advances the deployment-grade-ML line of work, I'm interested.",
     links: [{ label: "Contact", href: "/contact/" }],
   },
   {
@@ -315,7 +315,7 @@ export const qa: QAEntry[] = [
       "Do you freelance?",
     ],
     answer:
-      "Selectively — a limited number of scoped technical engagements where I can genuinely move the needle. My primary focus right now is finding the right full-time role, so I keep consulting deliberately small.",
+      "Selectively. A limited number of scoped technical engagements where I can genuinely move the needle. My primary focus right now is finding the right full-time role, so I keep consulting deliberately small.",
     links: [{ label: "Contact", href: "/contact/" }],
   },
   {
@@ -326,7 +326,7 @@ export const qa: QAEntry[] = [
       "How soon can you join?",
     ],
     answer:
-      "I'm actively looking, so realistically soon — but the honest answer depends on the role. Get in touch and I'll reply personally, usually within a day or two.",
+      "I'm actively looking, so realistically soon, but the honest answer depends on the role. Get in touch and I'll reply personally, usually within a day or two.",
     links: [{ label: "Contact", href: "/contact/" }],
   },
   {
@@ -338,7 +338,7 @@ export const qa: QAEntry[] = [
       "Where do you live?",
     ],
     answer:
-      "I'm based in Forlì, Italy, and I'm open to both relocation and remote work. I've lived and worked in Switzerland, Germany, and Austria before — moving for the right role isn't new to me.",
+      "I'm based in Forlì, Italy, and I'm open to both relocation and remote work. I've lived and worked in Switzerland, Germany, and Austria before, so moving for the right role isn't new to me.",
   },
   {
     id: "languages",
@@ -358,7 +358,7 @@ export const qa: QAEntry[] = [
       "Do you have a CV I can share?",
     ],
     answer:
-      "Of course — there's a PDF you can download and pass around. For the story behind the bullet points, the Work page has each project told as a deployment story.",
+      "Of course. There's a PDF you can download and pass around. For the story behind the bullet points, the Work page has each project told as a deployment story.",
     links: [
       { label: "Download CV", href: "/Francesco-Vigni-CV.pdf" },
       { label: "Work", href: "/work/" },
@@ -372,7 +372,7 @@ export const qa: QAEntry[] = [
       "How do I get in touch?",
     ],
     answer:
-      "Email hello@francescovigni.com or use the contact form — I reply personally, usually within a day or two. I'm also on LinkedIn and GitHub.",
+      "Email hello@francescovigni.com or use the contact form. I reply personally, usually within a day or two. I'm also on LinkedIn and GitHub.",
     links: [
       { label: "Contact", href: "/contact/" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/francesco-vigni/" },
@@ -387,7 +387,7 @@ export const qa: QAEntry[] = [
       "Is your work compliant with health data rules?",
     ],
     answer:
-      "Yes — my current clinical-AI work runs under strict GDPR with EHDS-ready data governance, and my own stack is EU-based and self-hosted. For healthcare-data roles this isn't paperwork to me; it shapes how I design pipelines.",
+      "Yes. My current clinical-AI work runs under strict GDPR with EHDS-ready data governance, and my own stack is EU-based and self-hosted. For healthcare-data roles this isn't paperwork to me; it shapes how I design pipelines.",
   },
   {
     id: "nda",
@@ -397,7 +397,7 @@ export const qa: QAEntry[] = [
       "Why don't you name your clinical partner?",
     ],
     answer:
-      "Comfortably — my current foundation-model engagement runs under one, which is why I describe the partner only as an IRCCS research hospital. What I publish here stays within what's public.",
+      "Comfortably. My current foundation-model engagement runs under one, which is why I describe the partner only as an IRCCS research hospital. What I publish here stays within what's public.",
   },
   {
     id: "engineer-registration",
@@ -407,7 +407,7 @@ export const qa: QAEntry[] = [
       "Do you have a professional license?",
     ],
     answer:
-      "Yes — I'm registered with the Italian Ordine degli Ingegneri (#2988), and I hold a PhD in engineering.",
+      "Yes, I'm registered with the Italian Ordine degli Ingegneri (#2988), and I hold a PhD in engineering.",
   },
   // ---- Tech / meta ----
   {
@@ -428,7 +428,7 @@ export const qa: QAEntry[] = [
       "How is this site hosted?",
     ],
     answer:
-      "I did — Astro and TypeScript, containerized and deployed with a Helm chart onto my own single-node k3s cluster, behind Caddy and Cloudflare. The site is part of the portfolio: it runs on the same infrastructure practices I'd bring to your team.",
+      "I did: Astro and TypeScript, containerized and deployed with a Helm chart onto my own single-node k3s cluster, behind Caddy and Cloudflare. The site is part of the portfolio: it runs on the same infrastructure practices I'd bring to your team.",
   },
   {
     id: "how-chat-works",
@@ -439,7 +439,7 @@ export const qa: QAEntry[] = [
       "Is this ChatGPT?",
     ],
     answer:
-      "No live LLM — I wrote every answer myself. Your question is matched to them semantically, right here in your browser: a small sentence-embedding model (MiniLM, via transformers.js) runs client-side, so nothing you type ever leaves your device. If nothing matches, it tells you honestly and points you to me.",
+      "No live LLM. I wrote every answer myself. Your question is matched to them semantically, right here in your browser: a small sentence-embedding model (MiniLM, via transformers.js) runs client-side, so nothing you type ever leaves your device. If nothing matches, it tells you honestly and points you to me.",
     chip: "How does this chat work?",
   },
   {
@@ -450,6 +450,6 @@ export const qa: QAEntry[] = [
       "What are you like as a colleague?",
     ],
     answer:
-      "End-to-end and hands-on: I like owning problems from the model down to the metal, making things reproducible and reversible, and building for the people who actually use them — clinicians, factory operators, or the next engineer. And I reply personally to everything.",
+      "End-to-end and hands-on: I like owning problems from the model down to the metal, making things reproducible and reversible, and building for the people who actually use them: clinicians, factory operators, or the next engineer. And I reply personally to everything.",
   },
 ];

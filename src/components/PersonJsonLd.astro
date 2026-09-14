@@ -1,0 +1,13 @@
+---
+// Person JSON-LD for <head>. Pass with slot="head" so it lands in the document
+// head rather than the body.
+import { personJsonLd } from "../data/person";
+import type { Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = "en" } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(personJsonLd(locale))} />

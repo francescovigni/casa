@@ -1,5 +1,6 @@
 ---
 import { pick, type Locale } from "../i18n";
+import Portrait from "./Portrait.astro";
 import { hero } from "../data/home";
 
 interface Props {
@@ -9,9 +10,9 @@ const { locale } = Astro.props;
 ---
 
 <section class="relative overflow-hidden">
-  <div class="wrap grid gap-10 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+  <div class="wrap grid gap-10 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1.5fr_1fr] lg:items-center lg:gap-16">
     <div>
-      <p class="kicker mb-6">{pick(hero.kicker, locale)} · AI Researcher &amp; Engineer</p>
+      <p class="kicker mb-6">{pick(hero.kicker, locale)} · {pick(hero.tagline, locale)}</p>
       <h1
         class="display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
         set:html={pick(hero.title, locale)}
@@ -27,25 +28,14 @@ const { locale } = Astro.props;
       </div>
     </div>
 
-    <dl class="grid grid-cols-3 gap-6 border-t border-line pt-6 lg:border-none lg:pt-0" data-reveal>
-      <div>
-        <dt class="font-serif text-3xl text-ink"><span data-count="10">0</span><span class="text-accent">+</span></dt>
-        <dd class="mt-1 text-xs leading-snug text-faint">
-          {locale === "it" ? "anni ricerca + industria" : "yrs research + industry"}
-        </dd>
-      </div>
-      <div>
-        <dt class="font-serif text-3xl text-ink"><span data-count="8">0</span></dt>
-        <dd class="mt-1 text-xs leading-snug text-faint">
-          {locale === "it" ? "pubblicazioni peer-reviewed" : "peer-reviewed papers"}
-        </dd>
-      </div>
-      <div>
-        <dt class="font-serif text-3xl text-ink"><span data-count="4">0</span></dt>
-        <dd class="mt-1 text-xs leading-snug text-faint">
-          {locale === "it" ? "paesi: IT · DE · AT · CH" : "countries: IT · DE · AT · CH"}
-        </dd>
-      </div>
-    </dl>
+    <div class="order-first mx-auto w-48 sm:w-56 lg:order-none lg:mx-0 lg:w-full lg:max-w-[320px]">
+      <Portrait
+        alt="Francesco Vigni"
+        class="aspect-square w-full rounded-2xl"
+        textClass="text-5xl"
+        size={320}
+        eager
+      />
+    </div>
   </div>
 </section>

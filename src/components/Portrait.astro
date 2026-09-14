@@ -1,26 +1,35 @@
 ---
-// Portrait with a graceful monogram fallback: until public/francesco.jpg
-// exists, a tasteful "FV" block shows; the photo overlays it once added.
+// Portrait, bundled through astro:assets so it is optimised, fingerprinted and
+// ships with the source. public/ is ignored wholesale, so an image left there
+// would never reach CI or the container image.
+//
+// The monogram sits underneath: if the image ever fails to load, "FV" shows
+// rather than a broken-image icon.
+import { Image } from "astro:assets";
+import portrait from "../images/francesco.png";
+
 interface Props {
-  src?: string;
   alt: string;
   class?: string;
   textClass?: string;
+  /** Rendered size in CSS pixels; the source is served at 2x for retina. */
+  size?: number;
+  /** Skip lazy loading for above-the-fold use, such as the header avatar. */
+  eager?: boolean;
 }
-const { src = "/francesco.jpg", alt, class: cls = "", textClass = "text-4xl" } = Astro.props;
+const { alt, class: cls = "", textClass = "text-4xl", size = 300, eager = false } = Astro.props;
 ---
 
 <div class:list={["relative grid place-items-center overflow-hidden bg-ink", cls]}>
   <span class:list={["select-none font-serif text-canvas/90", textClass]}>FV</span>
-  {
-    src && (
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        class="absolute inset-0 h-full w-full object-cover"
-        onerror="this.remove()"
-      />
-    )
-  }
+  <Image
+    src={portrait}
+    alt={alt}
+    width={size}
+    height={size}
+    densities={[1, 2]}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
 </div>

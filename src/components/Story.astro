@@ -5,22 +5,36 @@ import Portrait from "./Portrait.astro";
 
 interface Props {
   locale: Locale;
+  /** Render only the first N paragraphs. Omitted, the whole story runs. */
+  limit?: number;
+  /** Show the portrait. Off where the page already shows one, as on the homepage. */
+  portrait?: boolean;
 }
-const { locale } = Astro.props;
-const paragraphs = pick(story.paragraphs, locale);
+const { locale, limit, portrait = true } = Astro.props;
+const all = pick(story.paragraphs, locale);
+const paragraphs = limit ? all.slice(0, limit) : all;
 const bold = (s: string) =>
   s.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-ink">$1</strong>');
 ---
 
-<section class="border-t border-line bg-[#f4f1ea]">
-  <div class="wrap grid gap-10 py-16 sm:py-20 lg:grid-cols-[300px_1fr] lg:gap-16">
-    <div class="lg:sticky lg:top-24 lg:self-start" data-reveal>
-      <Portrait
-        alt="Francesco Vigni"
-        class="aspect-square w-full max-w-[300px] rounded-2xl shadow-sm"
-        textClass="text-6xl"
-      />
-    </div>
+<section class="border-t border-line bg-sand">
+  <div
+    class:list={[
+      "wrap grid gap-10 py-16 sm:py-20 lg:gap-16",
+      portrait && "lg:grid-cols-[300px_1fr]",
+    ]}
+  >
+    {
+      portrait && (
+        <div class="lg:sticky lg:top-24 lg:self-start" data-reveal>
+          <Portrait
+            alt="Francesco Vigni"
+            class="aspect-square w-full max-w-[300px] rounded-2xl shadow-sm"
+            textClass="text-6xl"
+          />
+        </div>
+      )
+    }
 
     <div>
       <p class="kicker mb-3">{pick(story.kicker, locale)}</p>

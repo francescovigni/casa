@@ -5,7 +5,7 @@ import type { Lead } from "./twenty";
 const FALLBACK_TO = () => process.env.LEAD_FALLBACK_EMAIL || "hello@francescovigni.com";
 
 export async function notifyFallback(lead: Lead, reason: string): Promise<void> {
-  // Always log — this is the guaranteed capture path.
+  // Always log: this is the guaranteed capture path.
   console.error(
     "[lead-fallback]",
     JSON.stringify({ reason, lead, at: new Date().toISOString() }),
@@ -22,7 +22,7 @@ export async function notifyFallback(lead: Lead, reason: string): Promise<void> 
       to: FALLBACK_TO(),
       from: FALLBACK_TO(),
       replyTo: lead.email,
-      subject: `New lead (${lead.intent}) — ${lead.name}`,
+      subject: `New lead (${lead.intent}): ${lead.name}`,
       text: [
         `Name: ${lead.name}`,
         `Email: ${lead.email}`,

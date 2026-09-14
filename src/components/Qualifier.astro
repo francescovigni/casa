@@ -29,7 +29,7 @@ const t = {
       back: "← change",
     },
     explore: {
-      title: "No pitch — just have a look.",
+      title: "No pitch. Just have a look.",
       body: "Here's my work, my research, and a way to reach me directly.",
       links: [
         { label: "Download CV", href: "/Francesco-Vigni-CV.pdf" },
@@ -37,7 +37,7 @@ const t = {
         { label: "Email me", href: "mailto:hello@francescovigni.com" },
       ],
     },
-    ok: "Thanks — I've got it and I'll reply personally, usually within a day or two.",
+    ok: "Got it. I'll reply personally, usually within a day or two.",
     err: "Something went wrong. Please email hello@francescovigni.com and I'll come straight back to you.",
   },
   it: {
@@ -60,7 +60,7 @@ const t = {
       back: "← cambia",
     },
     explore: {
-      title: "Nessun pitch — dai un'occhiata.",
+      title: "Nessun pitch. Dai un'occhiata.",
       body: "Ecco il mio lavoro, la mia ricerca e un modo per contattarmi direttamente.",
       links: [
         { label: "Scarica il CV", href: "/Francesco-Vigni-CV.pdf" },
@@ -68,7 +68,7 @@ const t = {
         { label: "Scrivimi", href: "mailto:hello@francescovigni.com" },
       ],
     },
-    ok: "Grazie — ho ricevuto e ti rispondo personalmente, di solito entro un paio di giorni.",
+    ok: "Ricevuto. Ti rispondo personalmente, di solito entro un paio di giorni.",
     err: "Qualcosa è andato storto. Scrivimi a hello@francescovigni.com e ti rispondo subito.",
   },
 }[locale];
@@ -89,7 +89,7 @@ const dark = variant === "section";
     <h2 class:list={["display text-2xl sm:text-3xl", dark ? "text-canvas" : ""]}>{t.title}</h2>
     <p class:list={["mt-3 text-sm", dark ? "text-canvas/70" : "text-muted"]}>{t.lead}</p>
 
-    {/* Step 1 — intent chips */}
+    {/* Step 1: intent chips */}
     <div class="mt-7 flex flex-wrap gap-2.5" data-step="intent">
       {
         t.intents.map((intent) => (
@@ -110,7 +110,7 @@ const dark = variant === "section";
       }
     </div>
 
-    {/* Step 2a — qualified form (hidden until an intent is chosen) */}
+    {/* Step 2a: qualified form (hidden until an intent is chosen) */}
     <form class="mt-7 hidden" data-step="form" data-sending={t.form.sending} novalidate>
       <button type="button" data-back class:list={["mb-4 text-xs font-semibold", dark ? "text-canvas/60 hover:text-canvas" : "text-faint hover:text-ink"]}>{t.form.back}</button>
       <input type="hidden" name="intent" value="" />
@@ -128,7 +128,7 @@ const dark = variant === "section";
       </button>
     </form>
 
-    {/* Step 2b — explorer links */}
+    {/* Step 2b: explorer links */}
     <div class="mt-7 hidden" data-step="explore">
       <button type="button" data-back class:list={["mb-4 text-xs font-semibold", dark ? "text-canvas/60 hover:text-canvas" : "text-faint hover:text-ink"]}>{t.form.back}</button>
       <h3 class:list={["font-serif text-xl", dark ? "text-canvas" : "text-ink"]}>{t.explore.title}</h3>

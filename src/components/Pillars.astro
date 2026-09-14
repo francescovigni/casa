@@ -28,13 +28,8 @@ const { locale } = Astro.props;
           style={`--reveal-delay:${i}`}
         >
           <PillarIcon id={p.id as "research" | "robotics" | "infra"} />
-          <div class="mb-3 mt-4 flex items-center gap-2">
+          <div class="mb-3 mt-4">
             <h3 class="font-sans text-base font-semibold text-ink">{pick(p.label, locale)}</h3>
-            {p.flagship && (
-              <span class="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
-                {locale === "it" ? "Punta di diamante" : "Flagship"}
-              </span>
-            )}
           </div>
           <p class="text-sm leading-relaxed text-muted">{pick(p.body, locale)}</p>
         </article>

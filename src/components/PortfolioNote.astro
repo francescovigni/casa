@@ -1,0 +1,29 @@
+---
+// Points at the standalone site the /research/ write-ups were first published
+// on. Deliberately understated: /research/ here is the canonical copy, and this
+// is provenance, not a second destination competing for the click.
+import { SITE } from "../data/site";
+
+interface Props {
+  /** "full" for the research index, "inline" for a one-line aside. */
+  variant?: "full" | "inline";
+}
+const { variant = "full" } = Astro.props;
+const host = new URL(SITE.portfolio).host;
+---
+
+{
+  variant === "inline" ? (
+    <p class="portfolio-note-inline">
+      Also published standalone at{" "}
+      <a href={SITE.portfolio} rel="me">
+        {host}
+      </a>
+    </p>
+  ) : (
+    <p class="portfolio-note">
+      These studies first appeared as a standalone site, still online at{" "}
+      <a href={SITE.portfolio} rel="me">{host}</a>. The repositories stay the source of record.
+    </p>
+  )
+}

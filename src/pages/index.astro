@@ -3,27 +3,24 @@
 export const prerender = false;
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
+import PersonJsonLd from "../components/PersonJsonLd.astro";
 import Pillars from "../components/Pillars.astro";
 import Pedigree from "../components/Pedigree.astro";
 import Story from "../components/Story.astro";
-import WaysToWork from "../components/WaysToWork.astro";
 import Qualifier from "../components/Qualifier.astro";
 import Proof from "../components/Proof.astro";
-import Trust from "../components/Trust.astro";
-import Close from "../components/Close.astro";
 ---
 
 <Base
-  title="Francesco Vigni, PhD — AI Researcher & Engineer"
-  description="Engineer and researcher building machine learning that survives deployment — medical-imaging foundation models, robotics, and the infrastructure to run it in production. Open to research, engineering, and infrastructure roles."
+  title="Francesco Vigni, PhD | AI Researcher & Engineer"
+  description="Engineer and researcher. I build machine learning for medical imaging and robotics, the infrastructure to run it in production, and the evidence that says when it is wrong."
 >
+  <PersonJsonLd slot="head" locale="en" />
+
   <Hero locale="en" />
-  <Pillars locale="en" />
   <Pedigree locale="en" />
-  <Story locale="en" />
-  <WaysToWork locale="en" />
-  <Qualifier locale="en" />
+  <Pillars locale="en" />
   <Proof locale="en" />
-  <Trust locale="en" />
-  <Close locale="en" />
+  <Story locale="en" limit={2} portrait={false} />
+  <Qualifier locale="en" />
 </Base>

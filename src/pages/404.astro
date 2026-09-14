@@ -1,18 +1,42 @@
 ---
-export const prerender = true;
+// Server-rendered so a dead /it/ URL answers in Italian rather than English.
+export const prerender = false;
 import Base from "../layouts/Base.astro";
+import { localeFromPath } from "../i18n";
+
+const locale = localeFromPath(Astro.url.pathname);
+const t =
+  locale === "it"
+    ? {
+        title: "Pagina non trovata | Francesco Vigni",
+        description: "Questa pagina non esiste.",
+        heading: "Questa pagina ha preso una strada sbagliata.",
+        lead: "Il link potrebbe essere vecchio, o la pagina non è mai esistita.",
+        home: "Torna alla home",
+        work: "Guarda i lavori",
+        homeHref: "/it/",
+        workHref: "/it/lavoro/",
+      }
+    : {
+        title: "Not found | Francesco Vigni",
+        description: "This page could not be found.",
+        heading: "This page took a wrong turn.",
+        lead: "The link may be old, or the page never existed.",
+        home: "Back home",
+        work: "See my work",
+        homeHref: "/",
+        workHref: "/work/",
+      };
 ---
 
-<Base title="Not found — Francesco Vigni" description="This page could not be found.">
+<Base title={t.title} description={t.description}>
   <section class="wrap flex min-h-[50vh] flex-col items-start justify-center py-20">
     <p class="kicker mb-4 text-accent">404</p>
-    <h1 class="display text-4xl sm:text-5xl">This page took a wrong turn.</h1>
-    <p class="lead mt-4 max-w-prose text-lg">
-      The page you're after doesn't exist — or moved during the site's rebuild.
-    </p>
+    <h1 class="display text-4xl sm:text-5xl">{t.heading}</h1>
+    <p class="lead mt-4 max-w-prose text-lg">{t.lead}</p>
     <div class="mt-8 flex flex-wrap gap-3">
-      <a href="/" class="btn-primary">Back home <span aria-hidden="true">→</span></a>
-      <a href="/work/" class="btn-ghost">See my work</a>
+      <a href={t.homeHref} class="btn-primary">{t.home} <span aria-hidden="true">&rarr;</span></a>
+      <a href={t.workHref} class="btn-ghost">{t.work}</a>
     </div>
   </section>
 </Base>

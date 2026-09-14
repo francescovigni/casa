@@ -12,6 +12,9 @@ const base = locale === "it" ? "/it" : "";
 const nav = [
   { href: `${base}/`, label: t.nav.home },
   { href: locale === "it" ? "/it/lavoro/" : "/work/", label: t.nav.work },
+  // Research is unpaired with /it/ (see i18n.ts localePairs), so it appears in
+  // the English nav only rather than sending Italian readers to English pages.
+  ...(locale === "en" ? [{ href: "/research/", label: t.nav.research }] : []),
   { href: locale === "it" ? "/it/contatti/" : "/contact/", label: t.nav.contact },
 ];
 const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
@@ -19,22 +22,28 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
 
 <header class="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur">
   <div class="wrap flex h-16 items-center justify-between">
-    <a href={`${base}/`} class="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight text-ink">
-      <Portrait alt="Francesco Vigni" class="h-8 w-8 rounded-full" textClass="text-[11px]" />
+    <a
+      href={`${base}/`}
+      class="flex items-center gap-2.5 font-serif text-lg font-medium tracking-tight text-ink"
+    >
+      <Portrait alt="Francesco Vigni" class="h-8 w-8 rounded-full" textClass="text-[11px]" size={32} eager />
       Francesco&nbsp;Vigni
     </a>
 
-    <nav class="flex items-center gap-6" aria-label="Primary">
-      {
-        nav.map((item) => (
-          <a
-            href={item.href}
-            class="link-underline hidden text-sm font-medium text-muted transition-colors hover:text-ink sm:inline"
-          >
-            {item.label}
-          </a>
-        ))
-      }
+    <div class="flex items-center gap-3 sm:gap-6">
+      <nav class="hidden items-center gap-6 sm:flex" aria-label="Primary">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="link-underline text-sm font-medium text-muted transition-colors hover:text-ink"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
       <a
         href={toggleHref}
         data-lang-set={locale === "it" ? "en" : "it"}
@@ -43,8 +52,40 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
       >
         {t.toggle.code}
       </a>
-    </nav>
+
+      <button
+        type="button"
+        id="menu-button"
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+        aria-label={t.menu.open}
+        data-label-open={t.menu.open}
+        data-label-close={t.menu.close}
+        class="-mr-2 rounded p-2 text-ink transition-colors hover:text-accent sm:hidden"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
   </div>
+
+  <nav id="mobile-nav" aria-label="Primary" class="border-t border-line sm:hidden" hidden>
+    <ul class="wrap flex flex-col py-2">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block py-2.5 text-base font-medium text-muted transition-colors hover:text-ink"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>
 
 <script>
@@ -56,4 +97,22 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
       document.cookie = `lang=${lang}; path=/; max-age=31536000; samesite=lax`;
     });
   });
+
+  // Small-screen disclosure. Closes on Escape so keyboard users are not trapped.
+  const button = document.getElementById("menu-button");
+  const panel = document.getElementById("mobile-nav");
+  if (button && panel) {
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      button.setAttribute("aria-expanded", String(open));
+      const label = open ? button.dataset.labelClose : button.dataset.labelOpen;
+      if (label) button.setAttribute("aria-label", label);
+    };
+    button.addEventListener("click", () => {
+      setOpen(button.getAttribute("aria-expanded") !== "true");
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  }
 </script>

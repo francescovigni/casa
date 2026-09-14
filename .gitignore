@@ -1,9 +1,20 @@
 node_modules/
+dist/
 .cache/
 # public/ assets are local-only (CV, photos, generated model files) except
 # the committed QA embeddings, which tests hash-check against src/data/qa.ts.
 public/*
 !public/qa-embeddings.json
+# Research figures are content, not local assets: they are build inputs for
+# /research/ and must reach CI and the Docker image.
+!public/research/
+!public/research/**
+# Assets the pages link to directly. Ignored, they 404 in CI and in the image:
+# the portrait falls back to a monogram, the CV button dead-ends, and every
+# page ships an og:image that does not resolve.
+!public/francesco.jpg
+!public/Francesco-Vigni-CV.pdf
+!public/og-default.jpg
 .env*
 *.log
 .DS_Store

@@ -1,0 +1,88 @@
+---
+// Talks, as click-to-load facades. Nothing reaches YouTube (or its thumbnail
+// CDN) until the visitor presses play, so the page ships no third-party request
+// and the privacy note stays a footnote rather than a disclosure.
+import { Image } from "astro:assets";
+import { type Locale } from "../i18n";
+import { talks } from "../data/talks";
+
+// Thumbnails were fetched once and committed: hotlinking i.ytimg.com would put
+// a third-party request back on page load, which is what the facade avoids.
+const thumbnails = import.meta.glob<{ default: ImageMetadata }>(
+  "../images/talks/*.jpg",
+  { eager: true },
+);
+const thumbnailFor = (id: string) => thumbnails[`../images/talks/${id}.jpg`]?.default;
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t =
+  locale === "it"
+    ? { kicker: "Interventi", title: "Talk e interviste.", play: "Riproduci", note: "Il video si carica da YouTube solo quando premi play." }
+    : { kicker: "Speaking", title: "Talks and interviews.", play: "Play", note: "The video loads from YouTube only when you press play." };
+---
+
+<section class="wrap pb-8 pt-10">
+  <div class="mb-6 border-t border-line pt-7">
+    <p class="kicker mb-3">{t.kicker}</p>
+    <h2 class="display text-2xl">{t.title}</h2>
+  </div>
+
+  <ul class="grid gap-5 md:grid-cols-2">
+    {
+      talks.map((talk, i) => (
+        <li class="flex flex-col rounded-lg border border-line p-5" data-reveal style={`--reveal-delay:${i}`}>
+          <div class="mb-4 aspect-video overflow-hidden rounded bg-ink" data-slot={talk.youtubeId}>
+            <button
+              type="button"
+              data-video={talk.youtubeId}
+              aria-label={`${t.play}: ${talk.title}`}
+              class="group relative grid h-full w-full place-items-center"
+            >
+              <Image
+                src={thumbnailFor(talk.youtubeId)}
+                alt=""
+                width={640}
+                height={360}
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+              <span class="absolute inset-0 bg-ink/25 transition-colors group-hover:bg-ink/10" />
+              <span class="relative grid h-14 w-14 place-items-center rounded-full border border-canvas/70 bg-ink/50 transition-colors group-hover:border-accent group-hover:bg-accent">
+                <svg class="ml-1 h-5 w-5 text-canvas" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M3 1.5v13l11-6.5z" />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <p class="kicker mb-2">{talk.date}</p>
+          <h3 class="font-serif text-lg leading-snug text-ink">{talk.title}</h3>
+          <p class="mt-1 text-sm font-medium text-muted">{talk.event}</p>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{talk.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="mt-5 text-xs text-faint">{t.note}</p>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-video]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const id = button.dataset.video;
+      const slot = button.closest<HTMLElement>("[data-slot]");
+      if (!id || !slot) return;
+      const frame = document.createElement("iframe");
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      frame.title = button.getAttribute("aria-label") || "";
+      frame.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture";
+      frame.allowFullscreen = true;
+      frame.className = "h-full w-full border-0";
+      slot.replaceChildren(frame);
+    });
+  });
+</script>

@@ -8,7 +8,7 @@ const BOT_RE =
 /**
  * Auto-Italian: on the first visit from an Italian IP (per Cloudflare's
  * CF-IPCountry header), redirect a paired English page to its Italian
- * counterpart. A `lang` cookie — set here or by the manual toggle — makes the
+ * counterpart. A `lang` cookie, set here or by the manual toggle, makes the
  * choice sticky and stops further redirects. Only paired routes are touched,
  * so headers are never read while prerendering unpaired/static pages.
  */

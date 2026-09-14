@@ -137,8 +137,8 @@ export const projects: Project[] = [
       it: "Un VPS Linux personale che ospita oltre una dozzina di servizi (analytics, automazione, CRM, dashboard, web app), migrati su un cluster Kubernetes (k3s) single-node, ciascuno pacchettizzato come Helm chart.",
     },
     constraints: {
-      en: "Zero-downtime, reversible cutovers; stateful databases with live data migration; automatic rollback; production incident recovery — all on one node.",
-      it: "Cutover reversibili e senza downtime; database stateful con migrazione dati a caldo; rollback automatico; ripristino da incidenti in produzione — tutto su un singolo nodo.",
+      en: "Zero-downtime, reversible cutovers; stateful databases with live data migration; automatic rollback; production incident recovery, all on one node.",
+      it: "Cutover reversibili e senza downtime; database stateful con migrazione dati a caldo; rollback automatico; ripristino da incidenti in produzione, tutto su un singolo nodo.",
     },
     whatIDid: {
       en: "Authored Helm charts (Deployments, Services, ConfigMaps, Secrets, PersistentVolumes, init-containers, readiness/liveness/startup probes), built health-gated delivery with `helm upgrade --atomic` and digest-pinned images, and ran live credential rotation and incident debugging (OOM self-healing).",

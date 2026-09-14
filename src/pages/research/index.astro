@@ -4,13 +4,17 @@
 export const prerender = true;
 import Base from "../../layouts/Base.astro";
 import ResearchCard from "../../components/ResearchCard.astro";
+import PortfolioNote from "../../components/PortfolioNote.astro";
+import PersonJsonLd from "../../components/PersonJsonLd.astro";
 import { research } from "../../data/research";
 ---
 
 <Base
-  title="Research — Francesco Vigni, PhD"
+  title="Research | Francesco Vigni, PhD"
   description="Medical imaging, and the evidence that says when the model is wrong. Recent work on public data, with the negative results left in."
 >
+  <PersonJsonLd slot="head" locale="en" />
+
   <section class="wrap pt-10 sm:pt-12">
     <p class="kicker mb-4">Research</p>
     <h1 class="display max-w-prose text-4xl sm:text-5xl">
@@ -33,11 +37,13 @@ import { research } from "../../data/research";
     <div class="max-w-prose border-t border-line pt-6 text-sm leading-relaxed text-muted">
       <p class="mb-4">
         Previously: self-supervised pretraining of a medical-imaging foundation model on a large
-        clinical video corpus under NDA, multi-GPU — with the cross-vendor standardisation and
+        clinical video corpus under NDA, multi-GPU, with the cross-vendor standardisation and
         evaluation harness underneath it. Before that, seven years of computer vision and robotics
         in industry in Germany.
       </p>
-      <p>
+      <PortfolioNote />
+
+      <p class="mt-4">
         <a class="link-underline mr-6 text-ink" href="/work/">Full background</a>
         <a class="link-underline mr-6 text-ink" href="mailto:hello@francescovigni.com"
           >hello@francescovigni.com</a

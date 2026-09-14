@@ -1,0 +1,115 @@
+---
+// Digital business card. The URL is printed on physical cards and reached by
+// QR, so /bc must keep resolving: prerendered, standalone, and excluded from
+// the sitemap (see lib/sitemap.ts). Ported from the Gatsby page, restyled to
+// the current palette and repositioned off the consultant framing.
+export const prerender = true;
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import bcPortrait from "../images/bc_portrait.webp";
+import { SITE } from "../data/site";
+import { hero, pedigree } from "../data/home";
+import { personJsonLd } from "../data/person";
+
+const role = personJsonLd("en").jobTitle;
+const tagline = hero.tagline.en;
+
+const facts = [
+  {
+    label: "Currently",
+    value: "Medical-imaging foundation models",
+    detail: "Self-supervised pretraining with an IRCCS research hospital.",
+  },
+  {
+    label: "Engineering",
+    value: "Robotics and edge inference",
+    detail: "ROS2 navigation, 3D perception, real-time inference on Jetson.",
+  },
+  {
+    label: "Infrastructure",
+    value: "Self-hosted Kubernetes",
+    detail: "k3s and Helm, health-gated reversible delivery. This site included.",
+  },
+  {
+    label: "Base",
+    value: "Forlì, Italy",
+    detail: "Open to relocation and remote.",
+  },
+];
+
+const pills = ["Medical AI", "Computer Vision", "Robotics", "Edge AI", "Kubernetes"];
+---
+
+<Base
+  title="Digital card | Francesco Vigni"
+  description="Digital business card for Francesco Vigni, PhD."
+  noindex
+  bare
+>
+  <div class="mx-auto flex w-full max-w-sm flex-col gap-8 px-5 py-12">
+    <header class="flex flex-col items-center gap-4 text-center">
+      <Image
+        src={bcPortrait}
+        alt="Francesco Vigni"
+        width={144}
+        height={144}
+        class="h-36 w-36 rounded-full object-cover ring-1 ring-line"
+      />
+      <div>
+        <h1 class="display text-2xl">Francesco Vigni, PhD</h1>
+        <p class="mt-1 text-sm font-semibold text-accent">{role}</p>
+        <p class="kicker mt-2">{tagline}</p>
+      </div>
+      <ul class="flex flex-wrap justify-center gap-2">
+        {
+          pills.map((pill) => (
+            <li class="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-muted">
+              {pill}
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <dl class="divide-y divide-line overflow-hidden rounded-lg border border-line">
+      {
+        facts.map((fact) => (
+          <div class="px-5 py-4">
+            <dt class="kicker">{fact.label}</dt>
+            <dd class="mt-1 font-serif text-base text-ink">{fact.value}</dd>
+            <dd class="mt-0.5 text-sm leading-relaxed text-muted">{fact.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <section>
+      <h2 class="kicker mb-3 text-center">Experience from</h2>
+      <ul class="flex flex-wrap justify-center gap-2">
+        {
+          pedigree.map((org) => (
+            <li class="rounded border border-line bg-sand px-3 py-1.5 text-sm font-medium text-muted">
+              {org}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <nav class="flex flex-col gap-3" aria-label="Get in touch">
+      <a href={`mailto:${SITE.email}`} class="btn-primary justify-center">Write me</a>
+      <a href={SITE.profiles.linkedin} rel="me noopener" target="_blank" class="btn-ghost justify-center">
+        Connect on LinkedIn
+      </a>
+      <a href={SITE.profiles.github} rel="me noopener" target="_blank" class="btn-ghost justify-center">
+        GitHub
+      </a>
+    </nav>
+
+    <p class="text-center text-sm">
+      <a href="/" class="link-underline text-faint hover:text-ink">
+        francescovigni.com <span aria-hidden="true">&rarr;</span>
+      </a>
+    </p>
+  </div>
+</Base>

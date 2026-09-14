@@ -16,7 +16,7 @@ export interface Lead {
 const PLACEHOLDER = new Set(["", "changeme", "placeholder", "REPLACE_ME"]);
 
 // Runtime secrets are read from process.env (injected by the k8s Secret at
-// container start), NOT import.meta.env — the latter is inlined at build time.
+// container start), NOT import.meta.env, which is inlined at build time.
 export function isConfigured(): boolean {
   const url = process.env.TWENTY_API_URL;
   const token = process.env.TWENTY_API_TOKEN;
@@ -63,11 +63,11 @@ export async function createLead(lead: Lead): Promise<void> {
   const personId = person?.data?.createPerson?.id ?? person?.data?.id ?? person?.id;
 
   await post("/rest/opportunities", {
-    name: `${lead.name} — ${lead.intent}`,
+    name: `${lead.name} (${lead.intent})`,
     stage,
     pointOfContactId: personId,
     // Store the qualifier context somewhere queryable. If a custom field
-    // isn't present yet, Twenty ignores unknown keys or errors — finalize live.
+    // isn't present yet, Twenty ignores unknown keys or errors. Finalize live.
     ...(personId ? {} : {}),
   });
 }

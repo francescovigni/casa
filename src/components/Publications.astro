@@ -1,0 +1,62 @@
+---
+// Peer-reviewed work plus the three awards worth naming. Replaces the Gatsby
+// milestone timeline, which mixed papers with conference attendance.
+import { pick, type Locale } from "../i18n";
+import { publications, awards } from "../data/publications";
+import { SITE } from "../data/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t =
+  locale === "it"
+    ? { kicker: "Pubblicazioni", title: "Lavoro peer-reviewed.", awards: "Riconoscimenti", scholar: "Elenco completo su Google Scholar" }
+    : { kicker: "Publications", title: "Peer-reviewed work.", awards: "Recognition", scholar: "Full list on Google Scholar" };
+---
+
+<section class="wrap pb-8 pt-10">
+  <div class="mb-6 border-t border-line pt-7">
+    <p class="kicker mb-3">{t.kicker}</p>
+    <h2 class="display text-2xl">{t.title}</h2>
+  </div>
+
+  <ol class="grid gap-x-10 gap-y-4 md:grid-cols-2">
+    {
+      publications.map((paper) => (
+        <li data-paper class="grid grid-cols-[3.5rem_1fr] gap-4 border-b border-line pb-4">
+          <span class="font-mono text-sm text-faint">{paper.year}</span>
+          <span>
+            <span class="font-serif text-base leading-snug text-ink">
+              {paper.url ? (
+                <a href={paper.url} class="link-underline">
+                  {paper.title}
+                </a>
+              ) : (
+                paper.title
+              )}
+            </span>
+            <span class="mt-0.5 block text-sm text-muted">{paper.venue}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="mt-5 text-sm">
+    <a href={SITE.profiles.scholar} rel="me noopener" target="_blank" class="link-underline text-accent">
+      {t.scholar} <span aria-hidden="true">&rarr;</span>
+    </a>
+  </p>
+
+  <h3 class="kicker mb-3 mt-10">{t.awards}</h3>
+  <ul class="flex flex-wrap gap-2">
+    {
+      awards.map((award) => (
+        <li class="rounded border border-line bg-sand px-3 py-1.5 text-sm text-muted">
+          {pick(award, locale)}
+        </li>
+      ))
+    }
+  </ul>
+</section>

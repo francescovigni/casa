@@ -7,14 +7,17 @@ interface Props {
   study: ResearchStudy;
   /** Reveal order, for the staggered scroll animation. */
   index?: number;
+  /** Heading level for the finding: 2 standalone, 3 under a section heading. */
+  level?: 2 | 3;
 }
-const { study, index = 0 } = Astro.props;
+const { study, index = 0, level = 2 } = Astro.props;
+const Finding = `h${level}` as "h2" | "h3";
 ---
 
 <article class="research-card" data-reveal style={`--reveal-delay:${index}`}>
-  <h2>{study.eyebrow}</h2>
+  <p class="research-eyebrow">{study.eyebrow}</p>
 
-  <p class="finding" set:html={study.finding} />
+  <Finding class="finding" set:html={study.finding} />
   <p set:html={study.detail} />
 
   <ul class="stats">

@@ -19,12 +19,14 @@ const workHref = locale === "it" ? "/it/lavoro/" : "/work/";
         {locale === "it" ? "Prove, non slide." : "Evidence, not slideware."}
       </h2>
     </div>
-    <a
-      href={workHref}
-      class="hidden shrink-0 text-sm font-semibold text-accent underline-offset-4 hover:underline sm:inline"
-    >
-      {locale === "it" ? "Tutti i lavori →" : "All work →"}
-    </a>
+    <p class="hidden shrink-0 gap-5 text-sm font-semibold sm:flex">
+      <a href="/research/" class="text-accent underline-offset-4 hover:underline">
+        {locale === "it" ? "Ricerca →" : "Research →"}
+      </a>
+      <a href={workHref} class="text-accent underline-offset-4 hover:underline">
+        {locale === "it" ? "Tutti i lavori →" : "All work →"}
+      </a>
+    </p>
   </div>
 
   <div class="grid gap-4 md:grid-cols-3">
@@ -50,10 +52,12 @@ const workHref = locale === "it" ? "/it/lavoro/" : "/work/";
     }
   </div>
 
-  <a
-    href={workHref}
-    class="mt-6 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline sm:hidden"
-  >
-    {locale === "it" ? "Tutti i lavori →" : "All work →"}
-  </a>
+  <p class="mt-6 flex gap-5 text-sm font-semibold sm:hidden">
+    <a href="/research/" class="text-accent underline-offset-4 hover:underline">
+      {locale === "it" ? "Ricerca →" : "Research →"}
+    </a>
+    <a href={workHref} class="text-accent underline-offset-4 hover:underline">
+      {locale === "it" ? "Tutti i lavori →" : "All work →"}
+    </a>
+  </p>
 </section>

@@ -37,9 +37,9 @@ export const research: ResearchStudy[] = [
     slug: "endoscopy-standardization",
     eyebrow: "Endoscopy · acquisition shortcuts",
     finding:
-      "You can tell which hospital a colonoscopy frame came from <strong>96% of the time, without looking at the anatomy</strong> — and the standard fix barely helps.",
+      "You can tell which hospital a colonoscopy frame came from <strong>96% of the time, without looking at the anatomy</strong>, and the standard fix barely helps.",
     detail:
-      "Nine numbers describing the frame the <em>equipment</em> drew — letterboxing, the field-of-view mask, the burned-in date — identify the source dataset out of five, at chance 0.20.",
+      "Nine numbers describing the frame the <em>equipment</em> drew (letterboxing, the field-of-view mask, the burned-in date) identify the source dataset out of five, at chance 0.20.",
     stats: [
       { value: "0.961", label: "as acquired" },
       { value: "0.859", label: "after the standard crop-and-pad" },
@@ -56,7 +56,7 @@ export const research: ResearchStudy[] = [
     slug: "fetal-cardiac-orientation",
     eyebrow: "Fetal ultrasound · orientation",
     finding:
-      "Estimating fetal cardiac orientation <strong>does not need a trained model</strong> — closed-form geometry beats the network by two orders of magnitude.",
+      "Estimating fetal cardiac orientation <strong>does not need a trained model</strong>: closed-form geometry beats the network by two orders of magnitude.",
     detail:
       "The useful part is knowing when that shortcut breaks. It does not break where the usual quality score says it should: a mask scoring Dice 0.87 can give a 46° error, one at 0.77 gives 0.22°.",
     stats: [

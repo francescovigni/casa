@@ -8,11 +8,12 @@ export default {
         canvas: "#faf8f4", // off-white page
         ink: "#1a1a1a", // near-black text
         muted: "#4a463f", // secondary text
-        faint: "#8a7f6d", // kickers / captions
+        faint: "#736957", // kickers / captions (5.1:1 on canvas, AA)
         line: "#e4dfd4", // hairline dividers
+        sand: "#f4f1ea", // tinted panel behind the story and trust strips
         accent: {
           DEFAULT: "#b1471f", // terracotta (revisit at build)
-          soft: "#c9633b",
+          soft: "#a94f2b", // 5.2:1 on canvas, AA for text
         },
       },
       fontFamily: {

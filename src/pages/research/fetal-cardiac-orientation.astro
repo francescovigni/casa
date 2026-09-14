@@ -5,7 +5,7 @@ import Base from "../../layouts/Base.astro";
 ---
 
 <Base
-  title="Fetal cardiac orientation — Francesco Vigni"
+  title="Fetal cardiac orientation | Francesco Vigni"
   description="Closed-form geometry estimates fetal cardiac orientation to 0.28° from a mask; a trained landmark model reaches 7.04° from a box alone. The useful part is knowing when the shortcut breaks."
 >
   <section class="wrap py-10 sm:py-12">
@@ -19,7 +19,7 @@ import Base from "../../layouts/Base.astro";
         How tilted the heart sits in the chest is a quantity clinicians measure on the standard
         four-chamber scan, and an unusual tilt is one of the signals that prompts a closer look. This
         estimates it two ways and compares them. If something already outlines the heart, the tilt
-        follows from basic geometry — two orders of magnitude more accurately, and an order of
+        follows from basic geometry, two orders of magnitude more accurately, and an order of
         magnitude more cheaply, than the model trained to do the same job. The useful part is knowing
         when that shortcut breaks.
       </p>
@@ -31,14 +31,14 @@ import Base from "../../layouts/Base.astro";
           loading="lazy"
           decoding="async"
         />
-        <figcaption>Best, median and worst test cases — never only the flattering ones.</figcaption>
+        <figcaption>Best, median and worst test cases, never only the flattering ones.</figcaption>
       </figure>
 
       <h2>The pipeline</h2>
 
       <p>
         A YOLOv5s detector fine-tuned on 200 images finds the cardiac and thoracic regions: mAP@50
-        0.995 on the held-out split, 29.6 ms per image. Two numbers matter more than the mAP — on a
+        0.995 on the held-out split, 29.6 ms per image. Two numbers matter more than the mAP. On a
         <em>different hospital's</em> data it still fires on 93% of thorax images at 0.75 confidence,
         and the mAP itself is table stakes for one organ, one view, centred and always present.
         Anything below about 0.98 would signal a labelling problem, not a modelling one.
@@ -48,7 +48,7 @@ import Base from "../../layouts/Base.astro";
         Then: take the highest-confidence cardiac box, expand it by 35%, compose any rotation and the
         crop into <strong>one</strong> affine matrix, and apply that same matrix to the image and to
         the landmarks so they cannot drift apart. Warp to 192×192, regress four points, reconstruct
-        the angle geometrically, emit abstention flags. Both axes vote — the major endpoints give the
+        the angle geometrically, emit abstention flags. Both axes vote: the major endpoints give the
         axis directly, the minor endpoints give it rotated by 90°, which is a negation in
         doubled-angle space, so the two average as unit vectors.
       </p>
@@ -60,9 +60,9 @@ import Base from "../../layouts/Base.astro";
           <tr><th>route</th><th>median<br />error</th><th>tail</th></tr>
         </thead>
         <tbody>
-          <tr><td>second-order moments — <em>needs a mask, no training</em></td><td class="n hi">0.28°</td><td class="n">0% beyond 10°</td></tr>
-          <tr><td>minimum-area rectangle — <em>needs a mask</em></td><td class="n">4.95°</td><td class="n hi">44% beyond 10°</td></tr>
-          <tr><td>trained landmark model — <em>needs only a box</em></td><td class="n">7.04°</td><td class="n">p90 12.92°</td></tr>
+          <tr><td>second-order moments, <em>needs a mask, no training</em></td><td class="n hi">0.28°</td><td class="n">0% beyond 10°</td></tr>
+          <tr><td>minimum-area rectangle, <em>needs a mask</em></td><td class="n">4.95°</td><td class="n hi">44% beyond 10°</td></tr>
+          <tr><td>trained landmark model, <em>needs only a box</em></td><td class="n">7.04°</td><td class="n">p90 12.92°</td></tr>
         </tbody>
       </table>
 
@@ -85,7 +85,7 @@ import Base from "../../layouts/Base.astro";
 
       <p>
         Essentially unbiased, and ±18° against a clinical normal band roughly 40° wide. A working
-        method with an honest error bar — not an instrument.
+        method with an honest error bar, not an instrument.
       </p>
 
       <figure>
@@ -115,21 +115,21 @@ import Base from "../../layouts/Base.astro";
         The direct head is <em>better</em>, so landmarks are not justified by accuracy. They are
         justified by an output a reviewer can reject point by point, an oriented box and aspect ratio
         for free, and two votes whose disagreement is a signal. With one caveat, reported rather than
-        buried: the two heads' errors correlate at r = +0.79 — they share a backbone and fail
+        buried: the two heads' errors correlate at r = +0.79: they share a backbone and fail
         together, which makes head disagreement a weak abstention signal.
       </p>
 
       <p>
         Two architecture choices came from measured failures, not from taste. Heatmap regression
         plateaued at 28°, because an ellipse axis endpoint has no distinctive <em>local</em>
-        appearance — it is defined by a global property of the shape. Global average pooling plateaued
+        appearance. It is defined by a global property of the shape. Global average pooling plateaued
         at 21°, because it discards exactly the spatial layout that encodes the angle. A 3×3 pooled
         grid is what fixed it.
       </p>
 
       <p>
         Direction is deliberately not predicted. Apex-left against apex-right is levocardia against
-        dextrocardia — a diagnosis that needs the spine or the stomach bubble, not something to infer
+        dextrocardia, a diagnosis that needs the spine or the stomach bubble, not something to infer
         from a cropped heart.
       </p>
 
@@ -138,7 +138,7 @@ import Base from "../../layouts/Base.astro";
       <p>
         Against axis-aligned boxes, the oriented box reaches a median rotated IoU of
         <strong>0.83</strong> versus <strong>0.51</strong>. Collapsing the annotation to axis-aligned
-        costs ×1.97 the box area — and the annotations cluster at 45° and 135°, which is where a fetal
+        costs ×1.97 the box area, and the annotations cluster at 45° and 135°, which is where a fetal
         heart sits in a correct four-chamber view. The near-worst case is the ordinary case.
       </p>
 
@@ -178,7 +178,7 @@ import Base from "../../layouts/Base.astro";
 
       <p>
         Rotate the input and the axis must rotate with it. Change the brightness and it must not move.
-        Detect, crop to the predicted oriented box, and detect again — the original detection must
+        Detect, crop to the predicted oriented box, and detect again: the original detection must
         survive its own geometry. These tests need no ground truth, so they transfer to any dataset,
         and they caught a real defect: two pipeline stages augmenting over inconsistent rotation
         ranges, which took re-detection from 52% to 100% once fixed. No accuracy number was ever going

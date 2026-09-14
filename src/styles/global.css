@@ -217,17 +217,30 @@
    these are the reading-heavy pages. */
 @layer components {
   /* ---------- card (index + the strip on /work/) ---------- */
+  /* Provenance line for the standalone portfolio site. Quiet by design: the
+     canonical copy of these write-ups is /research/. */
+  .portfolio-note,
+  .portfolio-note-inline {
+    @apply max-w-prose font-sans text-[13px] leading-relaxed text-faint;
+  }
+  .portfolio-note-inline {
+    @apply mt-5;
+  }
+  .portfolio-note a,
+  .portfolio-note-inline a {
+    @apply text-muted underline underline-offset-2 transition-colors hover:text-ink;
+  }
+
   .research-card {
     @apply relative flex flex-col rounded-[10px] border border-line bg-white p-6 transition-colors duration-150;
   }
   .research-card:hover {
     @apply border-accent;
   }
-  .research-card h2,
   .research-eyebrow {
     @apply mb-2.5 font-sans text-[12px] font-semibold uppercase tracking-kicker text-faint;
   }
-  .research-card .finding {
+  .research-card :is(h2, h3).finding {
     @apply mb-3 font-serif text-[19px] leading-[1.42] tracking-[-0.006em] text-ink;
   }
   .research-card .finding strong {

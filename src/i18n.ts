@@ -44,32 +44,20 @@ export function pick<T>(field: Translatable<T> | T, locale: Locale): T {
   return field as T;
 }
 
-// Chrome strings: nav, language toggle, cookie banner.
+// Chrome strings: nav, language toggle, menu control.
 export const ui = {
   en: {
-    nav: { home: "Home", work: "Work", contact: "Contact" },
+    nav: { home: "Home", work: "Work", research: "Research", contact: "Contact" },
     toggle: { code: "IT", aria: "Passa alla versione italiana" },
     cv: "Download CV",
     talk: "Let's talk",
     menu: { open: "Open menu", close: "Close menu" },
-    cookie: {
-      text: "This site uses cookies for anonymous analytics.",
-      policy: "Privacy Policy",
-      decline: "Decline",
-      accept: "Accept",
-    },
   },
   it: {
-    nav: { home: "Home", work: "Lavoro", contact: "Contatti" },
+    nav: { home: "Home", work: "Lavoro", research: "Research", contact: "Contatti" },
     toggle: { code: "EN", aria: "Switch to the English version" },
     cv: "Scarica il CV",
     talk: "Parliamone",
     menu: { open: "Apri il menu", close: "Chiudi il menu" },
-    cookie: {
-      text: "Questo sito utilizza cookie per analisi anonime.",
-      policy: "Informativa privacy",
-      decline: "Rifiuta",
-      accept: "Accetta",
-    },
   },
 } as const;

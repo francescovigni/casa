@@ -1,5 +1,6 @@
 ---
 import { type Locale } from "../i18n";
+import { SITE } from "../data/site";
 
 interface Props {
   locale: Locale;
@@ -7,11 +8,13 @@ interface Props {
 const { locale } = Astro.props;
 const year = 2026;
 const privacyHref = locale === "it" ? "/it/privacy/" : "/privacy/";
+// "Portfolio" first: it is the only entry that is work rather than a profile.
 const links = [
-  { href: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en", label: "Google Scholar" },
-  { href: "https://www.linkedin.com/in/francesco-vigni/", label: "LinkedIn" },
-  { href: "https://github.com/francescovigni", label: "GitHub" },
-  { href: "https://orcid.org/0000-0001-9918-8485", label: "ORCID" },
+  { href: SITE.portfolio, label: "Portfolio" },
+  { href: SITE.profiles.scholar, label: "Google Scholar" },
+  { href: SITE.profiles.linkedin, label: "LinkedIn" },
+  { href: SITE.profiles.github, label: "GitHub" },
+  { href: SITE.profiles.orcid, label: "ORCID" },
 ];
 ---
 
