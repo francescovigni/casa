@@ -31,7 +31,7 @@ spec:
             - configMapRef:
                 name: {{ include "web.fullname" . }}-config
             - secretRef:
-                name: {{ include "web.fullname" . }}-secret
+                name: {{ .Values.existingSecret | default (printf "%s-secret" (include "web.fullname" .)) }}
           readinessProbe:
             httpGet:
               path: {{ .Values.probes.path }}

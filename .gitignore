@@ -16,6 +16,8 @@ public/*
 !public/Francesco-Vigni-CV.pdf
 !public/og-default.jpg
 .env*
+*-values.yaml
+values*.local.yaml
 *.log
 .DS_Store
 

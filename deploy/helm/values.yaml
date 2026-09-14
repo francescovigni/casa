@@ -25,12 +25,20 @@ config:
   TWENTY_LEAD_STAGE: "NEW"
   LEAD_FALLBACK_EMAIL: "hello@francescovigni.com"
 
-# Secrets — PLACEHOLDERS. Provide the real values at install time, e.g.
-#   helm upgrade --install web ./deploy/helm \
-#     --set-string secrets.TWENTY_API_URL=https://crm.francescovigni.com \
-#     --set-string secrets.TWENTY_API_TOKEN=... \
-#     --set-string secrets.SMTP_URL=smtp://...
-# or with a separate values file kept out of git. Never commit real tokens.
+# Name of a Secret you manage yourself. Set it and the chart renders no Secret
+# of its own, so credentials never pass through Helm (and never show up in
+# `helm get values`). Create it from an env file on the host:
+#
+#   cp deploy/web.env.example /root/web.env && chmod 600 /root/web.env   # then edit
+#   kubectl create secret generic web-env --from-env-file=/root/web.env \
+#     --dry-run=client -o yaml | kubectl apply -f -
+#   helm upgrade --install web ./deploy/helm --set existingSecret=web-env ...
+#
+# Leave it empty to let the chart manage the Secret from `secrets` below.
+existingSecret: ""
+
+# Secrets: placeholders, used only when existingSecret is empty. Provide real
+# values at install time; never commit tokens.
 secrets:
   TWENTY_API_URL: ""
   TWENTY_API_TOKEN: "changeme"

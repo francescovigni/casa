@@ -14,18 +14,38 @@ docker push ghcr.io/francescovigni/website:<tag>
 
 ## Install / upgrade (Helm)
 
-Secrets are **placeholders** in `values.yaml` — pass the real values at install
-time and keep them out of git:
+Credentials live in an env file on the host and become a Secret you own, so
+they never pass through Helm and never appear in `helm get values`.
 
 ```bash
+# once: create the Secret from an env file
+cp deploy/web.env.example /root/web.env && chmod 600 /root/web.env   # then edit it
+kubectl create secret generic web-env --from-env-file=/root/web.env \
+  --dry-run=client -o yaml | kubectl apply -f -
+
+# every deploy
 helm upgrade --install web ./deploy/helm \
   --atomic --timeout 2m \
   --set image.tag=<tag> \
-  --set-string secrets.TWENTY_API_URL=https://crm.francescovigni.com \
-  --set-string secrets.TWENTY_API_TOKEN=<token> \
-  --set-string secrets.SMTP_URL=smtp://user:pass@host:587 \
-  --set config.TWENTY_LEAD_STAGE=NEW
+  --set existingSecret=web-env
 ```
+
+Create the Secret **before** the first install: with `existingSecret` set, the
+pod cannot start without it, and `--atomic` will roll the release back.
+
+After changing a value in the env file, re-apply it and restart the pods —
+`envFrom` is read at container start, not watched:
+
+```bash
+kubectl create secret generic web-env --from-env-file=/root/web.env \
+  --dry-run=client -o yaml | kubectl apply -f -
+kubectl rollout restart deploy/web-francescovigni-web
+```
+
+Leaving `existingSecret` empty keeps the older behaviour: the chart renders the
+Secret itself from `values.secrets`, which you then have to pass at install
+time (`--set-string secrets.SMTP_URL=...`) or in a values file kept out of git.
+Helm stores those values in the release, so prefer the env-file route.
 
 `--atomic` rolls back automatically if the readiness probe never passes.
 Pin `image.tag` to a digest in production for reproducible, reversible deploys.
