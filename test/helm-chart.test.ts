@@ -92,8 +92,30 @@ describe.runIf(hasHelm)("helm chart invariants", () => {
 describe("secrets cannot be committed by accident", () => {
   const gitignore = readFileSync(join(ROOT, ".gitignore"), "utf8");
 
+  /** What git itself would do with a path, rather than what the file looks like. */
+  const isIgnored = (path: string) => {
+    try {
+      execFileSync("git", ["check-ignore", "-q", path], { cwd: ROOT, stdio: "pipe" });
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   it("ignores env files", () => {
     expect(gitignore).toMatch(/^\.env\*$/m);
+  });
+
+  it.each([".env", ".env.local", "web.env", "deploy/web.env", "prod.env"])(
+    "git actually ignores %s",
+    (path) => {
+      // `.env*` alone misses web.env, which is the name the deploy docs use.
+      expect(isIgnored(path)).toBe(true);
+    },
+  );
+
+  it("still tracks the example, which carries no credentials", () => {
+    expect(isIgnored("deploy/web.env.example")).toBe(false);
   });
 
   it("ignores local values files", () => {

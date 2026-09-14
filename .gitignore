@@ -16,6 +16,8 @@ public/*
 !public/Francesco-Vigni-CV.pdf
 !public/og-default.jpg
 .env*
+# Any env file, wherever it lands: `.env*` does not match names like web.env.
+*.env
 *-values.yaml
 values*.local.yaml
 *.log
