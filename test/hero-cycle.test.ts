@@ -163,8 +163,40 @@ describe("the typewriter holds still when asked to", () => {
     expect(block).toMatch(/\.word-cycle-word \{[\s\S]*?white-space: nowrap/);
   });
 
-  it("draws the accent underline after the typing has finished", () => {
-    const delay = css.match(/animation: draw-underline [\d.]+s ease ([\d.]+)s/)?.[1];
-    expect(Number(delay)).toBeGreaterThanOrEqual(2.4);
+  /** The script's timing constants, in ms. */
+  const timing = () => {
+    const ms = (name: string) =>
+      Number(script.match(new RegExp(`const ${name} = (\\d+);`))?.[1]);
+    const [type, erase, hold, lead] = ["TYPE", "ERASE", "HOLD", "LEAD"].map(ms);
+    [type, erase, hold, lead].forEach((value) => expect(value).toBeGreaterThan(0));
+    return { type, erase, hold, lead };
+  };
+
+  /** One pass for a locale, in ms. Order [1, 2, 0]: every word is erased once
+   *  and typed once, and the two non-canonical words each hold after landing. */
+  const passDuration = (locale: "en" | "it") => {
+    const { type, erase, hold, lead } = timing();
+    const chars = hero.cycle[locale].reduce((sum, word) => sum + word.length, 0);
+    return lead + chars * erase + chars * type + 2 * hold;
+  };
+
+  it("finishes drawing the accent underline before the typing starts", () => {
+    const [, duration, delay] =
+      css.match(/animation: draw-underline ([\d.]+)s ease ([\d.]+)s/) ?? [];
+    const ends = (Number(duration) + Number(delay)) * 1000;
+    expect(ends).toBeLessThanOrEqual(timing().lead);
+  });
+
+  it("holds the sentence still long enough to be read once first", () => {
+    expect(timing().lead).toBeGreaterThanOrEqual(1200);
+  });
+
+  it("types at reading pace without becoming interminable, in either locale", () => {
+    (["en", "it"] as const).forEach((locale) => {
+      // Italian carries 16 characters against English's 10, so the bound has to
+      // hold for the longer words too.
+      expect(passDuration(locale), locale).toBeGreaterThan(3500);
+      expect(passDuration(locale), locale).toBeLessThan(6000);
+    });
   });
 });

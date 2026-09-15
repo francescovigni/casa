@@ -185,14 +185,16 @@
 
   /* Hero accent word: an underline that draws in on load (no reveal needed,
      so the LCP heading is never hidden). */
-  /* Sequenced after the headline's typewriter pass (~2.4s) so the two never
-     animate over each other. */
+  /* Drawn before the headline's typewriter pass starts, so the two never
+     animate over each other: this finishes at 1.3s and the script's LEAD holds
+     the typing until 1.5s. test/hero-cycle.test.ts asserts that ordering
+     against the script's own constants, in both locales. */
   .accent-draw {
     background-image: linear-gradient(theme(colors.accent.DEFAULT), theme(colors.accent.DEFAULT));
     background-position: 0 92%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
-    animation: draw-underline 0.8s ease 2.5s forwards;
+    animation: draw-underline 0.8s ease 0.5s forwards;
   }
   @keyframes draw-underline {
     to {

@@ -105,10 +105,16 @@ const titleHtml = pick(hero.title, locale).replace(
     const offsets = words.map(offsetsOf);
     if (offsets.some((o) => o.length < 2)) return;
 
-    const TYPE = 55;
-    const ERASE = 35;
-    const HOLD = 450;
-    const LEAD = 700;
+    // Unhurried: a headline is the one line on the page a visitor actually
+    // reads, so the word changes at reading pace rather than at typing pace.
+    // LEAD also sequences the hero: the accent underline under "wrong" draws
+    // first (0.5s to 1.3s in global.css) and the sentence sits still long
+    // enough to be read once, then the hinge word starts questioning itself.
+    // Nothing waits on the pass, so the longer Italian words cost nothing.
+    const TYPE = 95;
+    const ERASE = 60;
+    const HOLD = 700;
+    const LEAD = 1500;
 
     /** The whole pass as [word, characters shown, how long to hold it] steps. */
     const steps: { word: number; chars: number; ms: number }[] = [
