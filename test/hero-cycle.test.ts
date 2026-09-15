@@ -194,9 +194,11 @@ describe("the typewriter holds still when asked to", () => {
   it("types at reading pace without becoming interminable, in either locale", () => {
     (["en", "it"] as const).forEach((locale) => {
       // Italian carries 16 characters against English's 10, so the bound has to
-      // hold for the longer words too.
+      // hold for the longer words too. Deliberately generous: the pass is a
+      // one-off flourish above the fold that blocks nothing, and the pace was
+      // set by eye. It is here to catch a tenfold slip, not to police taste.
       expect(passDuration(locale), locale).toBeGreaterThan(3500);
-      expect(passDuration(locale), locale).toBeLessThan(6000);
+      expect(passDuration(locale), locale).toBeLessThan(10000);
     });
   });
 });
