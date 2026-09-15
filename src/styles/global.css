@@ -185,18 +185,80 @@
 
   /* Hero accent word: an underline that draws in on load (no reveal needed,
      so the LCP heading is never hidden). */
+  /* Sequenced after the headline's typewriter pass (~2.4s) so the two never
+     animate over each other. */
   .accent-draw {
     background-image: linear-gradient(theme(colors.accent.DEFAULT), theme(colors.accent.DEFAULT));
     background-position: 0 92%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
-    animation: draw-underline 0.8s ease 0.5s forwards;
+    animation: draw-underline 0.8s ease 2.5s forwards;
   }
   @keyframes draw-underline {
     to {
       background-size: 100% 2px;
     }
   }
+}
+
+/* --- Hero typewriter -------------------------------------------------------
+   The headline's hinge word erases and retypes: when -> why -> how -> when.
+   Detection, diagnosis, mechanism. One pass, never a loop, and it both starts
+   and ends on the canonical word, so the server-rendered headline is already
+   the final state and nothing types itself out of an empty hero.
+
+   All three words share one grid cell, so the slot is as wide as the longest of
+   them and the rest of the line never shifts. Words are left-aligned, not
+   centred: the caret occupies the slack while a shorter word is on screen.
+
+   Static by default. Every moving part below is gated on [data-typing], which
+   only the script in Hero.astro sets, and only when the visitor has not asked
+   for reduced motion. */
+.word-cycle {
+  position: relative;
+  display: inline-grid;
+  grid-template-areas: "word";
+  align-items: baseline;
+  justify-items: start;
+  color: theme(colors.accent.DEFAULT);
+}
+.word-cycle-word {
+  grid-area: word;
+  /* Intrinsic, not stretched to the cell: the clip below is a percentage-free
+     inset measured in px against this box, so it has to be the glyphs' box. */
+  width: max-content;
+  white-space: nowrap;
+  opacity: 0;
+  /* Decoration: they are aria-hidden, and staying out of the selection keeps a
+     copied headline down to the canonical sentence. */
+  user-select: none;
+}
+.word-cycle-word:first-child {
+  opacity: 1;
+  user-select: auto;
+}
+
+.word-cycle[data-typing] .word-cycle-word {
+  opacity: 0;
+}
+.word-cycle[data-typing] .word-cycle-word.is-typing {
+  opacity: 1;
+  clip-path: inset(0 var(--cut, 0px) 0 0);
+}
+.word-cycle[data-typing]::after {
+  content: "";
+  position: absolute;
+  left: var(--caret, 0px);
+  top: 0.1em;
+  bottom: 0.26em;
+  width: 0.055em;
+  min-width: 2px;
+  background: currentColor;
+  animation: caret-blink 0.9s steps(1, end) infinite;
+}
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 /* Icons stay crisp regardless of motion preference. */

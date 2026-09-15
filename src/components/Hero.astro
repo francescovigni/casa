@@ -7,6 +7,29 @@ interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
+
+// Wrap the headline's hinge word in the cascade slot. The words are read out of
+// data. The first one is the canonical word and stays ordinary text: it is what
+// a screen reader announces and what a reader copies. The two alternates are
+// aria-hidden and unselectable, so neither the accessible name nor a copied
+// headline ever reads "I find out when why how the model is wrong". If the copy
+// ever stops containing the word, the headline renders plain rather than
+// breaking; test/hero-cycle.test.ts is what keeps that from going unnoticed.
+const cycle = pick(hero.cycle, locale);
+const slot =
+  `<span class="word-cycle" data-typewriter>` +
+  cycle
+    .map((word, i) =>
+      i === 0
+        ? `<span class="word-cycle-word">${word}</span>`
+        : `<span class="word-cycle-word" aria-hidden="true">${word}</span>`,
+    )
+    .join("") +
+  `</span>`;
+const titleHtml = pick(hero.title, locale).replace(
+  new RegExp(`(?<!\\p{L})${cycle[0]}(?!\\p{L})`, "u"),
+  slot,
+);
 ---
 
 <section class="relative overflow-hidden">
@@ -15,7 +38,7 @@ const { locale } = Astro.props;
       <p class="kicker mb-6">{pick(hero.kicker, locale)} · {pick(hero.tagline, locale)}</p>
       <h1
         class="display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
-        set:html={pick(hero.title, locale)}
+        set:html={titleHtml}
       />
       <p class="mt-4 font-sans text-sm font-semibold tracking-tight text-accent">
         {pick(hero.role, locale)}
@@ -42,3 +65,101 @@ const { locale } = Astro.props;
     </div>
   </div>
 </section>
+
+<script>
+  // Typewriter for the headline's hinge word: erase, retype, three words, one
+  // pass. Glyph offsets are measured rather than stepped in `ch`, because the
+  // headline is a proportional serif and an even step would cut letters in half.
+  // The DOM text never changes: each step only moves a clip edge and a caret,
+  // so the accessible name, the text selection and the layout all stay put.
+  //
+  // Driven by requestAnimationFrame, not setTimeout: Chrome throttles timers in
+  // a background tab to roughly 1Hz, which would leave a tab opened in the
+  // background sitting on a half-erased word for twenty seconds. rAF does not
+  // tick while hidden, so the pass simply waits.
+  const slots = document.querySelectorAll<HTMLElement>("[data-typewriter]");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /** Cumulative width after each character, so index n is the caret's x after n chars. */
+  function offsetsOf(word: HTMLElement): number[] {
+    const text = word.firstChild;
+    if (!text || text.nodeType !== Node.TEXT_NODE) return [];
+    const range = document.createRange();
+    const widths = [0];
+    for (let i = 1; i <= (text as Text).length; i++) {
+      range.setStart(text, 0);
+      range.setEnd(text, i);
+      widths.push(range.getBoundingClientRect().width);
+    }
+    return widths;
+  }
+
+  async function run(slot: HTMLElement) {
+    const words = [...slot.querySelectorAll<HTMLElement>(".word-cycle-word")];
+    if (words.length < 2) return;
+    // Measuring before the webfont lands would size the caret to the fallback.
+    await document.fonts?.ready;
+    // Loaded in a background tab: the static headline is already the final
+    // state, so there is nothing to catch up on. Leave it alone.
+    if (document.visibilityState !== "visible") return;
+    const offsets = words.map(offsetsOf);
+    if (offsets.some((o) => o.length < 2)) return;
+
+    const TYPE = 55;
+    const ERASE = 35;
+    const HOLD = 450;
+    const LEAD = 700;
+
+    /** The whole pass as [word, characters shown, how long to hold it] steps. */
+    const steps: { word: number; chars: number; ms: number }[] = [
+      { word: 0, chars: offsets[0].length - 1, ms: LEAD },
+    ];
+    let from = 0;
+    // Ends back on index 0, the canonical word, which is also the resting state.
+    for (const to of [1, 2, 0]) {
+      for (let chars = offsets[from].length - 2; chars >= 0; chars--) {
+        steps.push({ word: from, chars, ms: ERASE });
+      }
+      for (let chars = 1; chars < offsets[to].length; chars++) {
+        steps.push({ word: to, chars, ms: TYPE });
+      }
+      if (to !== 0) steps.push({ word: to, chars: offsets[to].length - 1, ms: HOLD });
+      from = to;
+    }
+
+    const paint = (index: number, chars: number) => {
+      words.forEach((word, i) => word.classList.toggle("is-typing", i === index));
+      const full = offsets[index][offsets[index].length - 1];
+      words[index].style.setProperty("--cut", `${full - offsets[index][chars]}px`);
+      slot.style.setProperty("--caret", `${offsets[index][chars]}px`);
+    };
+
+    slot.dataset.typing = "";
+    let at = 0;
+    let since = 0;
+    paint(steps[0].word, steps[0].chars);
+
+    const tick = (now: number) => {
+      if (!since) since = now;
+      if (now - since >= steps[at].ms) {
+        at += 1;
+        since = now;
+        if (at >= steps.length) {
+          // Hand the headline back to the static CSS: first word, no caret.
+          delete slot.dataset.typing;
+          words.forEach((word) => {
+            word.classList.remove("is-typing");
+            word.style.removeProperty("--cut");
+          });
+          slot.style.removeProperty("--caret");
+          return;
+        }
+        paint(steps[at].word, steps[at].chars);
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  if (!still.matches) slots.forEach((slot) => run(slot));
+</script>

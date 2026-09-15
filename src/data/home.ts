@@ -12,6 +12,14 @@ export const hero = {
     en: 'I find out when the model is <em class="accent-draw">wrong</em>.',
     it: 'Scopro quando il modello <em class="accent-draw">sbaglia</em>.',
   },
+  // The headline's hinge word cascades once on load and settles on the first
+  // entry: detection, diagnosis, mechanism, which is the ladder the research
+  // actually climbs. The canonical `title` above keeps the first word, so the
+  // server-rendered headline and the accessible name never move.
+  cycle: {
+    en: ["when", "why", "how"],
+    it: ["quando", "perché", "come"],
+  },
   lead: {
     en: "PhD engineer and applied AI researcher. I take difficult models from research to systems that run: medical-imaging foundation models, robots on factory floors, and the infrastructure that keeps both in production. Whether it starts as a research question or a production problem, the work is the same.",
     it: "Ingegnere e ricercatore applicato in AI, con dottorato. Porto modelli difficili dalla ricerca a sistemi che funzionano: foundation model per l'imaging medico, robot in fabbrica e l'infrastruttura che li tiene in produzione. Che si parta da una domanda di ricerca o da un problema di produzione, il lavoro è lo stesso.",
