@@ -12,9 +12,14 @@ const base = locale === "it" ? "/it" : "";
 const nav = [
   { href: `${base}/`, label: t.nav.home },
   { href: locale === "it" ? "/it/lavoro/" : "/work/", label: t.nav.work },
-  // Research is unpaired with /it/ (see i18n.ts localePairs), so it appears in
-  // the English nav only rather than sending Italian readers to English pages.
-  ...(locale === "en" ? [{ href: "/research/", label: t.nav.research }] : []),
+  // Research is deliberately English-only (see i18n.ts localePairs). Italian
+  // readers still get the entry, labelled and carrying hreflang, rather than a
+  // nav that hides the strongest part of the site from them.
+  {
+    href: "/research/",
+    label: t.nav.research,
+    hreflang: locale === "it" ? "en" : undefined,
+  },
   { href: locale === "it" ? "/it/contatti/" : "/contact/", label: t.nav.contact },
 ];
 const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
@@ -36,6 +41,7 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
           nav.map((item) => (
             <a
               href={item.href}
+              hreflang={item.hreflang}
               class="link-underline text-sm font-medium text-muted transition-colors hover:text-ink"
             >
               {item.label}
@@ -77,6 +83,7 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
           <li>
             <a
               href={item.href}
+              hreflang={item.hreflang}
               class="block py-2.5 text-base font-medium text-muted transition-colors hover:text-ink"
             >
               {item.label}

@@ -54,7 +54,7 @@ export const ui = {
     menu: { open: "Open menu", close: "Close menu" },
   },
   it: {
-    nav: { home: "Home", work: "Lavoro", research: "Research", contact: "Contatti" },
+    nav: { home: "Home", work: "Lavoro", research: "Research (EN)", contact: "Contatti" },
     toggle: { code: "EN", aria: "Switch to the English version" },
     cv: "Scarica il CV",
     talk: "Parliamone",

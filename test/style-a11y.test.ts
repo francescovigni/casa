@@ -91,8 +91,13 @@ describe("header navigation", () => {
     expect(await render("en")).toContain('href="/research/"');
   });
 
-  it("leaves research out of the Italian nav, since the pages are English-only", async () => {
-    expect(await render("it")).not.toContain('href="/research/"');
+  it("keeps research in the Italian nav too, labelled as English", async () => {
+    // The pages stay English-only; hiding the entry hid the strongest part of
+    // the site from Italian readers instead of setting their expectation.
+    const html = await render("it");
+    expect(html).toContain('href="/research/"');
+    expect(html).toMatch(/Research \(EN\)/);
+    expect(html).toMatch(/hreflang="en"/);
   });
 });
 
