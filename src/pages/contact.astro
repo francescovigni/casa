@@ -3,6 +3,7 @@
 export const prerender = false;
 import Base from "../layouts/Base.astro";
 import Qualifier from "../components/Qualifier.astro";
+import Engagement from "../components/Engagement.astro";
 import Trust from "../components/Trust.astro";
 import { SITE } from "../data/site";
 ---
@@ -41,6 +42,8 @@ import { SITE } from "../data/site";
 
     <Qualifier locale="en" variant="page" />
   </section>
+
+  <Engagement locale="en" />
 
   <Trust locale="en" />
 </Base>

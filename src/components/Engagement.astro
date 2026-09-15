@@ -1,0 +1,66 @@
+---
+// Three named ways to start, in ascending commitment, named after what the
+// client gets rather than after a phase of a methodology. No durations: the
+// audit is explicit that a published week range has to match real offers.
+import { type Locale } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t =
+  locale === "it"
+    ? {
+        kicker: "Come si comincia",
+        title: "Tre modi di lavorare insieme.",
+        formats: [
+          {
+            name: "Audit tecnico",
+            body: "Domande di fattibilità, pipeline ML esistenti, indagini su modelli che sbagliano, review di architettura, disegno della valutazione.",
+          },
+          {
+            name: "Proof of concept",
+            body: "Prototipazione di modelli, computer vision, imaging medico, edge AI, validazione dalla ricerca al prodotto.",
+          },
+          {
+            name: "Supporto tecnico continuativo",
+            body: "Competenza ML senior frazionaria, guida sull'architettura, supporto a ricerca e ingegneria, passaggio in produzione.",
+          },
+        ],
+      }
+    : {
+        kicker: "How this starts",
+        title: "Three ways to work together.",
+        formats: [
+          {
+            name: "Technical audit",
+            body: "Feasibility questions, existing ML pipelines, model failure investigation, architecture review, evaluation design.",
+          },
+          {
+            name: "Proof of concept",
+            body: "Model prototyping, computer vision, medical imaging, edge AI, research-to-product validation.",
+          },
+          {
+            name: "Ongoing technical support",
+            body: "Fractional senior ML expertise, architecture guidance, research and engineering support, production transition.",
+          },
+        ],
+      };
+---
+
+<section class="wrap pb-16 sm:pb-20">
+  <div class="border-t border-line pt-10">
+    <p class="kicker mb-3">{t.kicker}</p>
+    <h2 class="display mb-8 max-w-prose text-2xl">{t.title}</h2>
+    <ol class="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
+      {
+        t.formats.map((format, i) => (
+          <li class="bg-canvas p-6" data-reveal style={`--reveal-delay:${i}`}>
+            <h3 class="font-sans text-base font-semibold text-ink">{format.name}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">{format.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
