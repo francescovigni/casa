@@ -5,7 +5,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import Pillars from "../src/components/Pillars.astro";
 import { ui } from "../src/i18n";
 import { SITE } from "../src/data/site";
-import { hero, pillars } from "../src/data/home";
+import { hero, pillars, trust } from "../src/data/home";
 
 const SRC = join(import.meta.dirname, "..", "src");
 const read = (relative: string) => readFileSync(join(SRC, relative), "utf8");
@@ -100,6 +100,40 @@ describe("labels read as plain language", () => {
     const it = await container.renderToString(Pillars, { props: { locale: "it" } });
     expect(en).not.toMatch(/flagship/i);
     expect(it).not.toMatch(/punta di diamante/i);
+  });
+});
+
+describe("compliance copy claims no certification", () => {
+  // The audit's wording check: nothing on the site may read as a completed
+  // certification or as clinical readiness that has not been demonstrated.
+  it("never says EHDS-ready or clinical-ready anywhere in src", () => {
+    const offenders = sourceFiles()
+      .filter((file) =>
+        /EHDS-ready|pronto per l'EHDS|clinical-ready|ready for clinical validation/i.test(
+          readFileSync(file, "utf8"),
+        ),
+      )
+      .map(relative);
+    expect(offenders).toEqual([]);
+  });
+
+  it("frames EHDS as a future requirement, where it is mentioned", () => {
+    sourceFiles()
+      .map((file) => readFileSync(file, "utf8"))
+      .filter((source) => /EHDS/.test(source))
+      .forEach((source) => {
+        expect(source).not.toMatch(/EHDS.{0,12}(ready|compliant|certified)/i);
+      });
+  });
+
+  it("keeps the trust badges to one compact line of five", () => {
+    expect(trust.badges.map((b) => b.en)).toEqual([
+      "EU-based",
+      "GDPR-aware",
+      "NDA-friendly",
+      "Self-hosted capable",
+      "Registered Engineer (Ordine degli Ingegneri #2988)",
+    ]);
   });
 });
 

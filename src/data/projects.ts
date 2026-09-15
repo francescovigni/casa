@@ -40,8 +40,8 @@ export const projects: Project[] = [
       it: "Ho progettato la strategia di pretraining SSL (masked image modelling con self-distillation in stile DINOv3), costruito la pipeline di ingestione dati cloud e impostato il tracking degli esperimenti e i protocolli di fine-tuning per classificazione, segmentazione e detection.",
     },
     outcome: {
-      en: "A reproducible foundation-model pipeline with EHDS-ready data governance and a defined path to clinical validation and edge inference.",
-      it: "Una pipeline di foundation model riproducibile, con data governance pronta per l'EHDS e un percorso definito verso validazione clinica e inferenza edge.",
+      en: "A reproducible foundation-model pipeline over 5M+ frames, with data governance designed with future EHDS requirements in mind and a path toward clinical validation and edge inference.",
+      it: "Una pipeline di foundation model riproducibile su oltre 5M di frame, con data governance progettata pensando ai futuri requisiti EHDS e un percorso verso la validazione clinica e l'inferenza edge.",
     },
   },
   {

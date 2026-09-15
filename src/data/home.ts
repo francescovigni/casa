@@ -88,10 +88,14 @@ export const pedigree = [
 export const trust = {
   kicker: { en: "Built to be trusted", it: "Fatto per essere affidabile" },
   badges: [
-    { en: "GDPR", it: "GDPR" },
-    { en: "EHDS-ready", it: "Pronto per l'EHDS" },
+    { en: "EU-based", it: "Con base in UE" },
+    { en: "GDPR-aware", it: "Attento al GDPR" },
     { en: "NDA-friendly", it: "Disponibile a NDA" },
-    { en: "Ordine degli Ingegneri #2988", it: "Ordine degli Ingegneri #2988" },
-    { en: "EU / self-hosted stack", it: "Stack UE / self-hosted" },
+    { en: "Self-hosted capable", it: "Self-hosted possibile" },
+    {
+      en: "Registered Engineer (Ordine degli Ingegneri #2988)",
+      it: "Ingegnere iscritto (Ordine degli Ingegneri #2988)",
+    },
   ],
 };
+

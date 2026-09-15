@@ -47,7 +47,7 @@ export const qa: QAEntry[] = [
       "What deep learning methods do you use?",
     ],
     answer:
-      "My current research line is self-supervised ViT pre-training at scale: masked image modelling with self-distillation, distributed training under cloud-GPU cost ceilings, and reproducible evaluation across architectures. The emphasis is always a defined path from research to clinical validation.",
+      "My current research line is self-supervised ViT pre-training at scale: masked image modelling with self-distillation, distributed training under cloud-GPU cost ceilings, and reproducible evaluation across architectures. The emphasis is always designing with a path toward clinical validation.",
     links: [{ label: "Work", href: "/work/" }],
   },
   {
@@ -68,7 +68,7 @@ export const qa: QAEntry[] = [
       "Can you work with patient data?",
     ],
     answer:
-      "The foundation-model work runs under strict GDPR compliance and NDA boundaries, with EHDS-ready data governance built into the pipeline. I'm comfortable operating where data can't leave a controlled environment. This chat itself runs entirely in your browser for the same reason.",
+      "The foundation-model work runs under strict GDPR compliance and NDA boundaries, with data governance designed with future EHDS requirements in mind built into the pipeline. I'm comfortable operating where data can't leave a controlled environment. This chat itself runs entirely in your browser for the same reason.",
   },
   // ---- Robotics ----
   {
@@ -387,7 +387,7 @@ export const qa: QAEntry[] = [
       "Is your work compliant with health data rules?",
     ],
     answer:
-      "Yes. My current clinical-AI work runs under strict GDPR with EHDS-ready data governance, and my own stack is EU-based and self-hosted. For healthcare-data roles this isn't paperwork to me; it shapes how I design pipelines.",
+      "Yes. My current medical-AI work runs under strict GDPR, with data governance designed with future EHDS requirements in mind, and my own stack is EU-based and self-hosted. For healthcare-data roles this isn't paperwork to me; it shapes how I design pipelines.",
   },
   {
     id: "nda",
