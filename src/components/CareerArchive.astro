@@ -3,6 +3,9 @@
 // They are credibility, not the argument: the work page leads with the
 // deployment stories and their proof points, and a reader who wants the résumé
 // opens this. Nothing is deleted, so no url and no content is lost.
+//
+// The section itself carries no .wrap: the three children bring their own, and
+// nesting one inside another would indent this block past the rest of the page.
 import { type Locale } from "../i18n";
 import Publications from "./Publications.astro";
 import Talks from "./Talks.astro";
@@ -18,13 +21,27 @@ const t =
     : { title: "Career & milestones", hint: "Publications, talks, and the personal story." };
 ---
 
-<section class="wrap pb-4 pt-2">
-  <details class="group border-t border-line pt-7">
+<section class="pb-4 pt-2">
+  <details class="group">
     <summary
-      class="cursor-pointer rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      class="wrap block cursor-pointer list-none [&::-webkit-details-marker]:hidden"
     >
-      <span class="display text-2xl">{t.title}</span>
-      <span class="mt-1 block font-sans text-sm font-normal text-muted">{t.hint}</span>
+      <span class="flex items-start gap-3 border-t border-line pt-7">
+        <svg
+          class="mt-1.5 h-4 w-4 shrink-0 text-faint transition-transform group-open:rotate-90"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          aria-hidden="true"
+        >
+          <path d="M6 3.5l5 4.5-5 4.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>
+          <span class="display block text-2xl">{t.title}</span>
+          <span class="mt-1 block font-sans text-sm font-normal text-muted">{t.hint}</span>
+        </span>
+      </span>
     </summary>
 
     <Publications locale={locale} />

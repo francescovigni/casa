@@ -39,8 +39,17 @@ describe("career archive", () => {
     expect(html).toMatch(/Career &amp; milestones/);
   });
 
-  it("gives the summary a visible focus ring, it being keyboard-reachable", async () => {
-    expect(await render("en")).toMatch(/focus-visible:outline/);
+  it("shows an open/closed affordance in place of the default marker", async () => {
+    const html = await render("en");
+    expect(html).toMatch(/group-open:rotate-90/);
+    expect(html).toMatch(/details-marker\]:hidden/);
+  });
+
+  it("does not nest a .wrap inside a .wrap, which would indent the block", async () => {
+    const source = readFileSync(join(SRC, "components", "CareerArchive.astro"), "utf8");
+    const section = source.match(/<section class="([^"]*)"/)?.[1] ?? "";
+    expect(section).not.toMatch(/\bwrap\b/);
+    expect(source).toMatch(/<summary\s+class="wrap/);
   });
 
   it("still contains the publications, the talks and the story", async () => {
