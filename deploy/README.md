@@ -57,8 +57,27 @@ Pin `image.tag` to a digest in production for reproducible, reversible deploys.
 | `TWENTY_API_URL` | Secret | Twenty CRM REST base |
 | `TWENTY_API_TOKEN` | Secret | Twenty CRM API token (placeholder → CRM skipped, email fallback used) |
 | `TWENTY_LEAD_STAGE` | ConfigMap | Opportunity stage for new leads (default `NEW`) |
-| `SMTP_URL` | Secret | Enables the email fallback for leads |
-| `LEAD_FALLBACK_EMAIL` | ConfigMap | Where lead fallbacks are emailed (default `hello@francescovigni.com`) |
+| `TWENTY_APP_URL` | ConfigMap | Optional. Origin of the Twenty web app, for record links in the notification email. Defaults to `TWENTY_API_URL`'s origin |
+| `SMTP_URL` | Secret | Enables the notification email |
+| `LEAD_FALLBACK_EMAIL` | ConfigMap | Where lead notifications are sent (default `hello@francescovigni.com`) |
+
+## What happens to a lead
+
+Every validated lead is **written to the CRM and emailed**, and always logged
+first, before the mailer is touched. The CRM is where a lead is worked; the email
+is how it gets noticed.
+
+| Log tag | Meaning | Email subject |
+|---------|---------|---------------|
+| `[lead]` | In the CRM. Person, Opportunity, and a Note carrying the message, linked from the email | `New lead (<intent>): <name>` |
+| `[lead-fallback]` | Not in the CRM. Needs adding by hand | `... [not in CRM]` |
+| `[lead-mail] send failed` | The lead is filed and logged, but the email did not go out | none |
+
+So `grep lead-fallback` still finds exactly the leads that need manual work.
+
+A returning contact is not a failure: Twenty refuses the duplicate Person, the
+app looks them up by email and attaches a fresh Opportunity to the record
+already on file.
 
 Until `TWENTY_API_TOKEN` is real, leads are **logged and emailed** (never lost),
 so the site is safe to deploy before the CRM wiring is finalized.

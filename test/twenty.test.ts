@@ -224,7 +224,7 @@ describe("createLead — records Twenty already holds", () => {
     // the warmest leads were the ones the CRM dropped.
     const calls = mockCrm({ duplicates: ["/rest/people"], found: { "/rest/people?": "person-9" } });
 
-    await expect(createLead(lead)).resolves.toBeUndefined();
+    await expect(createLead(lead)).resolves.toBeDefined();
 
     const opportunity = calls.find((c) => c.url.includes("/rest/opportunities"));
     expect(opportunity!.body.pointOfContactId).toBe("person-9");
@@ -245,7 +245,7 @@ describe("createLead — records Twenty already holds", () => {
     // the email either way.
     const calls = mockCrm({ duplicates: ["/rest/people"], found: {} });
 
-    await expect(createLead(lead)).resolves.toBeUndefined();
+    await expect(createLead(lead)).resolves.toBeDefined();
 
     const opportunity = calls.find((c) => c.url.includes("/rest/opportunities"));
     expect(opportunity!.body).not.toHaveProperty("pointOfContactId");
@@ -341,8 +341,63 @@ describe("createLead — the payload Twenty is given", () => {
       }),
     );
 
-    await expect(createLead(lead)).resolves.toBeUndefined();
+    await expect(createLead(lead)).resolves.toBeDefined();
     const person = calls.find((c) => c.method === "POST" && c.url.includes("/rest/people"));
     expect(person!.body).not.toHaveProperty("companyId");
+  });
+});
+
+describe("createLead — what it hands back", () => {
+  beforeEach(() => {
+    process.env.TWENTY_API_URL = "https://crm.example.com";
+    process.env.TWENTY_API_TOKEN = "real-token";
+  });
+  afterEach(() => vi.restoreAllMocks());
+
+  it("returns the ids so the notification email can link to the records", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string, init: any) => {
+        const id = url.includes("/people")
+          ? "person-1"
+          : url.includes("/opportunities")
+            ? "opp-1"
+            : url.includes("/notes")
+              ? "note-1"
+              : "other-1";
+        if ((init?.method ?? "GET") === "GET") {
+          return { ok: true, json: async () => ({ data: { companies: [] } }) } as any;
+        }
+        return { ok: true, json: async () => ({ data: { id } }) } as any;
+      }),
+    );
+
+    await expect(createLead({ ...lead, org: undefined })).resolves.toEqual({
+      personId: "person-1",
+      opportunityId: "opp-1",
+      noteId: "note-1",
+    });
+  });
+
+  it("reports the reused person when the create was refused as a duplicate", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string, init: any) => {
+        if ((init?.method ?? "GET") === "GET") {
+          return { ok: true, json: async () => ({ data: { people: [{ id: "person-9" }] } }) } as any;
+        }
+        if (url.includes("/rest/people")) {
+          return {
+            ok: false,
+            status: 400,
+            text: async () => '{"messages":["A duplicate entry was detected"]}',
+          } as any;
+        }
+        return { ok: true, json: async () => ({ data: { id: "x-1" } }) } as any;
+      }),
+    );
+
+    const result = await createLead({ ...lead, org: undefined });
+    expect(result.personId).toBe("person-9");
   });
 });

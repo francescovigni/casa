@@ -14,6 +14,13 @@
 //     to find the existing record and attach to it. A returning contact is a
 //     warm lead, and it used to be exactly the one the CRM dropped.
 
+/** Ids of what the CRM write created or reused, for the notification email. */
+export interface CrmResult {
+  personId?: string;
+  opportunityId?: string;
+  noteId?: string;
+}
+
 export interface Lead {
   name: string;
   email: string;
@@ -156,8 +163,9 @@ export function noteBody(lead: Lead): string {
  * is lost: no other record holds it. A failure there throws like any other, so
  * the caller's email fallback still carries the text.
  * Opportunity stage comes from TWENTY_LEAD_STAGE (default "NEW").
+ * Returns the ids it created or reused, which the notification email links to.
  */
-export async function createLead(lead: Lead): Promise<void> {
+export async function createLead(lead: Lead): Promise<CrmResult> {
   const stage = process.env.TWENTY_LEAD_STAGE || "NEW";
 
   const companyId = lead.org ? await resolveCompanyId(lead.org) : undefined;
@@ -182,4 +190,6 @@ export async function createLead(lead: Lead): Promise<void> {
     personId ? post("/rest/noteTargets", { noteId, targetPersonId: personId }) : null,
     opportunityId ? post("/rest/noteTargets", { noteId, targetOpportunityId: opportunityId }) : null,
   ]);
+
+  return { personId, opportunityId, noteId };
 }
