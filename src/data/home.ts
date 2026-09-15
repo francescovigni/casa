@@ -49,26 +49,26 @@ export const story = {
 export const pillars = [
   {
     id: "research",
-    label: { en: "AI / ML Research", it: "Ricerca AI / ML" },
+    label: { en: "Applied AI / ML", it: "AI / ML applicata" },
     body: {
-      en: "Foundation models for medical imaging (self-supervised ViT, distributed training), reproducible evaluation, and a defined path from research to clinical validation.",
-      it: "Foundation model per l'imaging medico (ViT self-supervised, training distribuito), valutazione riproducibile e un percorso definito dalla ricerca alla validazione clinica.",
+      en: "Foundation models, computer vision, self-supervised learning, and the model evaluation that says whether a result is real. Medical imaging is where most of it runs.",
+      it: "Foundation model, computer vision, self-supervised learning e la valutazione che dice se un risultato è reale. L'imaging medico è dove tutto questo gira.",
     },
   },
   {
     id: "robotics",
-    label: { en: "Robotics & Edge", it: "Robotica & Edge" },
+    label: { en: "Robotics & Edge AI", it: "Robotica & Edge AI" },
     body: {
-      en: "ROS2 navigation and perception, real-time inference on NVIDIA Jetson, and industrial systems deployed commercially across multiple countries.",
-      it: "Navigazione e percezione ROS2, inferenza in tempo reale su NVIDIA Jetson e sistemi industriali in produzione in diversi paesi.",
+      en: "ROS2 navigation and perception, real-time inference on NVIDIA Jetson, embedded deployment, and industrial systems sold in several countries.",
+      it: "Navigazione e percezione ROS2, inferenza in tempo reale su NVIDIA Jetson, deployment embedded e sistemi industriali venduti in diversi paesi.",
     },
   },
   {
     id: "infra",
-    label: { en: "DevOps & Infrastructure", it: "DevOps & Infrastruttura" },
+    label: { en: "ML Infrastructure", it: "Infrastruttura ML" },
     body: {
-      en: "Self-hosted single-node Kubernetes (k3s) with Helm, health-gated reversible delivery, CI/CD, and hands-on production incident debugging.",
-      it: "Kubernetes single-node self-hosted (k3s) con Helm, delivery reversibile health-gated, CI/CD e debugging di incidenti in produzione.",
+      en: "Training infrastructure and MLOps: distributed runs, experiment tracking, reproducibility, and Kubernetes delivery that rolls back on its own.",
+      it: "Infrastruttura di training e MLOps: run distribuiti, tracking degli esperimenti, riproducibilità e delivery su Kubernetes che fa rollback da sola.",
     },
   },
 ];

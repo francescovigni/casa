@@ -5,7 +5,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import Pillars from "../src/components/Pillars.astro";
 import { ui } from "../src/i18n";
 import { SITE } from "../src/data/site";
-import { hero } from "../src/data/home";
+import { hero, pillars } from "../src/data/home";
 
 const SRC = join(import.meta.dirname, "..", "src");
 const read = (relative: string) => readFileSync(join(SRC, relative), "utf8");
@@ -82,6 +82,19 @@ describe("dead strings are gone", () => {
 });
 
 describe("labels read as plain language", () => {
+  it("names the areas after the product, not the supporting craft", () => {
+    expect(pillars.map((p) => p.label.en)).toEqual([
+      "Applied AI / ML",
+      "Robotics & Edge AI",
+      "ML Infrastructure",
+    ]);
+    expect(pillars.map((p) => p.id)).toEqual(["research", "robotics", "infra"]);
+  });
+
+  it("does not sell DevOps as the headline of an area", () => {
+    pillars.forEach((p) => expect(p.label.en).not.toMatch(/devops/i));
+  });
+
   it("drops the flagship badge from the pillars", async () => {
     const en = await container.renderToString(Pillars, { props: { locale: "en" } });
     const it = await container.renderToString(Pillars, { props: { locale: "it" } });
