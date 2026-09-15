@@ -50,6 +50,16 @@ describe("hero tagline", () => {
     expect(await render("en")).not.toContain("AI Researcher");
   });
 
+  it("names a literal role next to the personality label", async () => {
+    expect(visibleText(await render("en"))).toContain("Applied ML Engineer · AI Consultant");
+    expect(visibleText(await render("it"))).toContain("Ingegnere ML · Consulente AI");
+  });
+
+  it("calls the research applied, in the lead", () => {
+    expect(hero.lead.en).toMatch(/^PhD engineer and applied AI researcher\./);
+    expect(hero.lead.it).toMatch(/^Ingegnere e ricercatore applicato/);
+  });
+
   it("uses the hyphenated English spelling everywhere in src", () => {
     const offenders = sourceFiles().filter((file) =>
       /Hightech|HighTech|high tech/i.test(readFileSync(file, "utf8")),
@@ -64,15 +74,15 @@ describe("machine-read fields stay literal", () => {
       const json = JSON.stringify(personJsonLd(locale));
       expect(json).not.toMatch(/artisan|artigiano/i);
     });
-    expect(personJsonLd("en").jobTitle).toBe("AI Researcher and Engineer");
-    expect(personJsonLd("it").jobTitle).toBe("Ricercatore e Ingegnere AI");
+    expect(personJsonLd("en").jobTitle).toBe("Applied AI and ML Engineer");
+    expect(personJsonLd("it").jobTitle).toBe("Ingegnere AI / ML applicata");
   });
 
   it("keeps the homepage <title> tags on the searchable role words", () => {
     const en = readFileSync(join(SRC, "pages", "index.astro"), "utf8");
     const it = readFileSync(join(SRC, "pages", "it", "index.astro"), "utf8");
-    expect(en).toContain('title="Francesco Vigni, PhD | AI Researcher & Engineer"');
-    expect(it).toContain('title="Francesco Vigni, PhD | Ricercatore e Ingegnere AI"');
+    expect(en).toContain('title="Francesco Vigni, PhD | Applied AI / ML Engineer & Consultant"');
+    expect(it).toContain('title="Francesco Vigni, PhD | Ingegnere AI / ML e Consulente"');
   });
 
   it("never puts the tagline in a title or meta description", () => {

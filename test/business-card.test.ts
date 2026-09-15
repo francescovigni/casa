@@ -86,7 +86,7 @@ describe("the card says what the rest of the site says", () => {
     expect(page).not.toMatch(/Medical AI Consultant/);
     // Read from the shared source rather than retyped, so it cannot drift.
     expect(page).toContain("personJsonLd");
-    expect(personJsonLd("en").jobTitle).toBe("AI Researcher and Engineer");
+    expect(personJsonLd("en").jobTitle).toBe("Applied AI and ML Engineer");
   });
 
   it("shows the tagline from the hero", () => {

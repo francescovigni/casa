@@ -23,7 +23,7 @@ describe("<PersonJsonLd />", () => {
   });
 
   it("honours the locale prop", async () => {
-    expect(payload(await render({ locale: "it" })).jobTitle).toBe("Ricercatore e Ingegnere AI");
+    expect(payload(await render({ locale: "it" })).jobTitle).toBe("Ingegnere AI / ML applicata");
   });
 
   it("defaults to English", async () => {

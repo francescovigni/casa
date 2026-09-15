@@ -42,10 +42,10 @@ describe("Person JSON-LD", () => {
   });
 
   it("translates jobTitle per locale and leaves the name alone", () => {
-    // Mirrors the rebuild's positioning (<title> on both homepages), not the
-    // consultant framing the Gatsby site still carries.
-    expect(personJsonLd("en").jobTitle).toBe("AI Researcher and Engineer");
-    expect(personJsonLd("it").jobTitle).toBe("Ricercatore e Ingegnere AI");
+    // Mirrors the rebuild's positioning (<title> on both homepages): applied
+    // engineer first, researcher second, medical AI as a vertical.
+    expect(personJsonLd("en").jobTitle).toBe("Applied AI and ML Engineer");
+    expect(personJsonLd("it").jobTitle).toBe("Ingegnere AI / ML applicata");
     expect(personJsonLd("it").name).toBe("Francesco Vigni");
   });
 

@@ -23,8 +23,8 @@ export interface PersonJsonLd {
 }
 
 const JOB_TITLE: Record<Locale, string> = {
-  en: "AI Researcher and Engineer",
-  it: "Ricercatore e Ingegnere AI",
+  en: "Applied AI and ML Engineer",
+  it: "Ingegnere AI / ML applicata",
 };
 
 export function personJsonLd(locale: Locale = "en"): PersonJsonLd {

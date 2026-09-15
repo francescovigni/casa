@@ -5,13 +5,16 @@ export const hero = {
   // Self-description, not a job title: the schema.org jobTitle in data/person.ts
   // stays on literal role words that search engines can match.
   tagline: { en: "High-Tech Artisan", it: "Artigiano hi-tech" },
+  // Literal role words next to the memorable label: "High-Tech Artisan" is the
+  // personality, this is what a hiring manager or a client searches for.
+  role: { en: "Applied ML Engineer · AI Consultant", it: "Ingegnere ML · Consulente AI" },
   title: {
     en: 'I find out when the model is <em class="accent-draw">wrong</em>.',
     it: 'Scopro quando il modello <em class="accent-draw">sbaglia</em>.',
   },
   lead: {
-    en: "PhD engineer and researcher. I work on medical-imaging foundation models, robots on factory floors, and the infrastructure that keeps both running in production. Whether it starts as a research question or a production problem, the work is the same.",
-    it: "Ingegnere e ricercatore con dottorato. Lavoro su foundation model per l'imaging medico, robot in fabbrica e l'infrastruttura che li tiene in produzione. Che si parta da una domanda di ricerca o da un problema di produzione, il lavoro è lo stesso.",
+    en: "PhD engineer and applied AI researcher. I take difficult models from research to systems that run: medical-imaging foundation models, robots on factory floors, and the infrastructure that keeps both in production. Whether it starts as a research question or a production problem, the work is the same.",
+    it: "Ingegnere e ricercatore applicato in AI, con dottorato. Porto modelli difficili dalla ricerca a sistemi che funzionano: foundation model per l'imaging medico, robot in fabbrica e l'infrastruttura che li tiene in produzione. Che si parta da una domanda di ricerca o da un problema di produzione, il lavoro è lo stesso.",
   },
   primary: { en: "Let's talk", it: "Parliamone" },
   secondary: { en: "Download CV", it: "Scarica il CV" },

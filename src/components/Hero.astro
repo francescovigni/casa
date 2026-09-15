@@ -17,6 +17,9 @@ const { locale } = Astro.props;
         class="display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
         set:html={pick(hero.title, locale)}
       />
+      <p class="mt-4 font-sans text-sm font-semibold tracking-tight text-accent">
+        {pick(hero.role, locale)}
+      </p>
       <p class="lead mt-6 max-w-prose text-lg">{pick(hero.lead, locale)}</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
         <a href={locale === "it" ? "/it/contatti/" : "/contact/"} class="btn-primary">
