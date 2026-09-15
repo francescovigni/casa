@@ -5,6 +5,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import Hero from "../src/components/Hero.astro";
 import Story from "../src/components/Story.astro";
 import Proof from "../src/components/Proof.astro";
+import ResearchTeaser from "../src/components/ResearchTeaser.astro";
 import { story } from "../src/data/home";
 
 const SRC = join(import.meta.dirname, "..", "src");
@@ -22,13 +23,14 @@ const sectionsOf = (page: string): string[] =>
 const HOMEPAGES = ["pages/index.astro", "pages/it/index.astro"];
 
 describe("homepage composition", () => {
-  it("runs six sections, evidence before the ask", () => {
+  it("runs seven sections, evidence and research before the ask", () => {
     HOMEPAGES.forEach((page) => {
       expect(sectionsOf(page)).toEqual([
         "Hero",
         "Pedigree",
         "Pillars",
         "Proof",
+        "ResearchTeaser",
         "Story",
         "Qualifier",
       ]);
@@ -135,6 +137,28 @@ describe("story", () => {
       expect(read(page)).toMatch(/<Story\b/);
       expect(read(page)).not.toMatch(/<Story[^>]*limit=/);
     });
+  });
+});
+
+describe("research teaser", () => {
+  it("leads with testing what a model learned, not with training it", async () => {
+    const html = await render(ResearchTeaser, { locale: "en" });
+    expect(html).toContain("test what they");
+  });
+
+  it("carries both headline numbers and links into the studies", async () => {
+    const html = await render(ResearchTeaser, { locale: "en" });
+    expect(html).toContain("0.28°");
+    expect(html).toContain("0.961");
+    expect(html).toContain('href="/research/fetal-cardiac-orientation/"');
+    expect(html).toContain('href="/research/endoscopy-standardization/"');
+    expect(html).toContain('href="/research/"');
+  });
+
+  it("tells Italian readers the research is in English rather than hiding it", async () => {
+    const html = await render(ResearchTeaser, { locale: "it" });
+    expect(html).toContain('href="/research/"');
+    expect(html).toMatch(/in inglese/i);
   });
 });
 
