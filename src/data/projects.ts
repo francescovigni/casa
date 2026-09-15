@@ -7,6 +7,8 @@ export interface Project {
   title: string;
   category: string;
   tags: string[];
+  /** One scannable proof point: a verified number, or a truthful technical proxy. */
+  proof: { value: Record<Locale, string>; label: Record<Locale, string> };
   link?: string;
   featured?: boolean;
   blurb: Record<Locale, string>;
@@ -22,6 +24,10 @@ export const projects: Project[] = [
     title: "Foundation Model for Gastroenterology Imaging",
     category: "AI / ML Research",
     tags: ["Self-Supervised Learning", "PyTorch", "Medical Imaging", "Vision Transformers"],
+    proof: {
+      value: { en: "5M+ frames", it: "5M+ frame" },
+      label: { en: "gastrointestinal video, self-supervised pretraining", it: "video gastrointestinali, pretraining self-supervised" },
+    },
     featured: true,
     blurb: {
       en: "SSL pretraining strategy and cloud data pipeline for a ViT foundation model on 5M+ gastrointestinal video frames.",
@@ -49,6 +55,10 @@ export const projects: Project[] = [
     title: "Edge AI Occupancy Monitoring System",
     category: "Robotics & Edge",
     tags: ["NVIDIA Jetson", "Computer Vision", "PyTorch", "YOLO"],
+    proof: {
+      value: { en: "Real-time on Jetson", it: "Tempo reale su Jetson" },
+      label: { en: "on-device tracking and distance estimation, MQTT zone events", it: "tracking e stima distanze on-device, eventi di zona MQTT" },
+    },
     blurb: {
       en: "Real-time people tracking and zone-based automation running on NVIDIA Jetson at the edge.",
       it: "Tracciamento delle persone in tempo reale e automazione a zone su NVIDIA Jetson, direttamente all'edge.",
@@ -75,6 +85,10 @@ export const projects: Project[] = [
     title: "Autonomous Navigation for an Industrial Cleaning Robot",
     category: "Robotics & Edge",
     tags: ["ROS2", "Nav2", "SLAM", "Lidar"],
+    proof: {
+      value: { en: "Production deployment", it: "Deployment in produzione" },
+      label: { en: "ROS2 / Nav2 coverage navigation on a commercial ride-on scrubber", it: "navigazione a copertura ROS2 / Nav2 su una lavasciuga commerciale" },
+    },
     blurb: {
       en: "An indoor autonomous navigation stack for a commercial ride-on floor scrubber.",
       it: "Uno stack di navigazione autonoma indoor per una lavasciuga industriale con operatore a bordo.",
@@ -101,6 +115,10 @@ export const projects: Project[] = [
     title: "Reliability Uplift in Industrial Bin-Picking",
     category: "Robotics & Edge",
     tags: ["Computer Vision", "Stereo Vision", "C++", "ROS2"],
+    proof: {
+      value: { en: "+9% grasp reliability", it: "+9% affidabilità di presa" },
+      label: { en: "industrial bin-picking, shipped in rc_visard and rc_cube", it: "bin-picking industriale, nei prodotti rc_visard e rc_cube" },
+    },
     link: "https://roboception.com/",
     blurb: {
       en: "Core perception and grasping software for Roboception's rc_visard and rc_cube industrial products.",
@@ -128,6 +146,10 @@ export const projects: Project[] = [
     title: "Self-Hosted Kubernetes Platform",
     category: "DevOps & Infrastructure",
     tags: ["Kubernetes (k3s)", "Helm", "Caddy", "CI/CD", "PostgreSQL"],
+    proof: {
+      value: { en: "12+ services on one k3s node", it: "12+ servizi su un nodo k3s" },
+      label: { en: "health-gated, reversible Helm delivery with automatic rollback", it: "delivery Helm reversibile e health-gated con rollback automatico" },
+    },
     blurb: {
       en: "A single-node k3s cluster running a dozen Dockerized services with health-gated, reversible delivery.",
       it: "Un cluster k3s single-node con una dozzina di servizi Dockerizzati e delivery reversibile e health-gated.",
@@ -154,6 +176,10 @@ export const projects: Project[] = [
     title: "Non-Verbal Human-Robot Interaction with TIAGo",
     category: "AI / ML Research",
     tags: ["HRI", "MoveIt", "ROS2", "Motion Planning"],
+    proof: {
+      value: { en: "Multi-machine ROS2 user study", it: "Studio utente ROS2 multi-macchina" },
+      label: { en: "published in IEEE: bi-manual TIAGo with synchronised gaze", it: "pubblicato IEEE: TIAGo bi-manuale con sguardo sincronizzato" },
+    },
     blurb: {
       en: "An interaction engine coordinating gaze and arm motion to make a robot's intentions legible to people.",
       it: "Un motore di interazione che coordina sguardo e movimento del braccio per rendere leggibili le intenzioni del robot.",

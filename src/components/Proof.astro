@@ -6,8 +6,11 @@ interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-// Show one flagship + first of each other pillar-ish; simplest: first 3.
-const featured = projects.slice(0, 3);
+// Picked by slug rather than sliced, so the three strongest proof points are
+// the ones on the homepage: 5M+ frames, real-time on Jetson, +9% grasp
+// reliability. One per area.
+const FEATURED = ["medical-ai-consulting", "edge-ai-occupancy", "bin-picking-reliability"];
+const featured = FEATURED.map((slug) => projects.find((p) => p.slug === slug)!);
 const workHref = locale === "it" ? "/it/lavoro/" : "/work/";
 ---
 
@@ -40,13 +43,19 @@ const workHref = locale === "it" ? "/it/lavoro/" : "/work/";
           <p class="kicker mb-3 text-accent">{p.category}</p>
           <h3 class="font-serif text-lg leading-snug text-ink">{p.title}</h3>
           <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">{pick(p.blurb, locale)}</p>
-          <ul class="mt-4 flex flex-wrap gap-1.5">
-            {p.tags.slice(0, 3).map((tag) => (
-              <li class="rounded border border-line px-2 py-0.5 font-mono text-[11px] text-faint">
-                {tag}
-              </li>
-            ))}
-          </ul>
+          <div class="mt-5 border-t border-line pt-4" data-proof>
+            <p class="font-mono text-base font-semibold text-ink">{pick(p.proof.value, locale)}</p>
+            <p class="mt-1 text-xs leading-relaxed text-faint">{pick(p.proof.label, locale)}</p>
+          </div>
+          <p class="mt-4 text-sm font-semibold">
+            <a
+              href={`${workHref}#${p.slug}`}
+              class="text-accent underline-offset-4 hover:underline"
+            >
+              {locale === "it" ? "Leggi il caso" : "Read the case study"}{" "}
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </p>
         </article>
       ))
     }
