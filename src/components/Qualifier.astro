@@ -10,9 +10,11 @@ const { locale, variant = "section" } = Astro.props;
 
 const t = {
   en: {
-    kicker: "Is this a fit?",
-    title: "Tell me what brings you here.",
-    lead: "One tap routes you to the right next step.",
+    kicker: "Let's talk",
+    title: "Have a difficult AI problem?",
+    lead: "Medical imaging, computer vision, edge AI and intelligent systems.",
+    ask: "Tell me what you are trying to build, what is not working, and what constraints you are dealing with. One tap routes you to the right next step.",
+    meta: "Freelance · Consulting · R&D · Remote",
     intents: [
       { id: "hiring", label: "Hiring for a role", qualified: true },
       { id: "collaboration", label: "Research collaboration", qualified: true },
@@ -41,9 +43,11 @@ const t = {
     err: "Something went wrong. Please email hello@francescovigni.com and I'll come straight back to you.",
   },
   it: {
-    kicker: "C'è un match?",
-    title: "Dimmi cosa ti porta qui.",
-    lead: "Un tap ti indirizza al passo giusto.",
+    kicker: "Parliamone",
+    title: "Hai un problema di AI difficile?",
+    lead: "Imaging medico, computer vision, edge AI e sistemi intelligenti.",
+    ask: "Dimmi cosa stai cercando di costruire, cosa non funziona e con quali vincoli. Un tap ti indirizza al passo giusto.",
+    meta: "Freelance · Consulenza · R&D · Remoto",
     intents: [
       { id: "hiring", label: "Sto assumendo per un ruolo", qualified: true },
       { id: "collaboration", label: "Collaborazione di ricerca", qualified: true },
@@ -87,7 +91,9 @@ const dark = variant === "section";
   >
     <p class:list={["kicker mb-3", dark ? "text-canvas/60" : ""]}>{t.kicker}</p>
     <h2 class:list={["display text-2xl sm:text-3xl", dark ? "text-canvas" : ""]}>{t.title}</h2>
-    <p class:list={["mt-3 text-sm", dark ? "text-canvas/70" : "text-muted"]}>{t.lead}</p>
+    <p class:list={["mt-3 text-base font-medium", dark ? "text-canvas/80" : "text-ink"]}>{t.lead}</p>
+    <p class:list={["mt-3 max-w-prose text-sm", dark ? "text-canvas/70" : "text-muted"]}>{t.ask}</p>
+    <p class:list={["mt-4 font-mono text-xs", dark ? "text-canvas/50" : "text-faint"]}>{t.meta}</p>
 
     {/* Step 1: intent chips */}
     <div class="mt-7 flex flex-wrap gap-2.5" data-step="intent">
