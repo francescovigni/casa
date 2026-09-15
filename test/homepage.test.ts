@@ -104,10 +104,11 @@ describe("story", () => {
     HOMEPAGES.forEach((page) => expect(read(page)).toMatch(/<Story[^>]*portrait=\{false\}/));
   });
 
-  it("keeps the portrait on the work pages, which have no hero", () => {
-    ["pages/work.astro", "pages/it/lavoro.astro"].forEach((page) =>
-      expect(read(page)).not.toMatch(/<Story[^>]*portrait=/),
-    );
+  it("keeps the portrait and the full story on the work pages, inside the archive", () => {
+    const archive = read("components/CareerArchive.astro");
+    expect(archive).toMatch(/<Story\b/);
+    expect(archive).not.toMatch(/<Story[^>]*limit=/);
+    expect(archive).not.toMatch(/<Story[^>]*portrait=/);
   });
 
   it("renders the portrait by default and omits it on request", async () => {
@@ -131,12 +132,8 @@ describe("story", () => {
     expect(html).not.toContain("Forlì");
   });
 
-  it("is limited on the homepage and complete on the work pages", () => {
+  it("is limited on the homepage", () => {
     HOMEPAGES.forEach((page) => expect(read(page)).toMatch(/<Story[^>]*limit=\{2\}/));
-    ["pages/work.astro", "pages/it/lavoro.astro"].forEach((page) => {
-      expect(read(page)).toMatch(/<Story\b/);
-      expect(read(page)).not.toMatch(/<Story[^>]*limit=/);
-    });
   });
 });
 

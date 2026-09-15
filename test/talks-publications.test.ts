@@ -180,16 +180,19 @@ describe("the milestone timeline is not ported", () => {
 });
 
 describe("both work pages carry the new sections", () => {
-  it("render talks and publications", () => {
-    WORK_PAGES.forEach((page) => {
-      expect(read(page)).toContain("<Talks");
-      expect(read(page)).toContain("<Publications");
-    });
+  // Since the audit pass they arrive through the collapsed career archive, so
+  // the work page can lead with the deployment stories and their proof points.
+  it("render talks and publications, inside the career archive", () => {
+    const archive = read("components/CareerArchive.astro");
+    expect(archive).toContain("<Talks");
+    expect(archive).toContain("<Publications");
+    WORK_PAGES.forEach((page) => expect(read(page)).toContain("<CareerArchive"));
   });
 
   it("pass the page locale through", () => {
-    expect(read("pages/work.astro")).toMatch(/<Talks locale="en"/);
-    expect(read("pages/it/lavoro.astro")).toMatch(/<Talks locale="it"/);
+    expect(read("components/CareerArchive.astro")).toMatch(/<Talks locale=\{locale\}/);
+    expect(read("pages/work.astro")).toMatch(/<CareerArchive locale="en"/);
+    expect(read("pages/it/lavoro.astro")).toMatch(/<CareerArchive locale="it"/);
   });
 });
 

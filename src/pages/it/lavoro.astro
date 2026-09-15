@@ -2,9 +2,7 @@
 export const prerender = true;
 import Base from "../../layouts/Base.astro";
 import ProjectStory from "../../components/ProjectStory.astro";
-import Story from "../../components/Story.astro";
-import Publications from "../../components/Publications.astro";
-import Talks from "../../components/Talks.astro";
+import CareerArchive from "../../components/CareerArchive.astro";
 import { projects } from "../../data/projects";
 ---
 
@@ -25,9 +23,5 @@ import { projects } from "../../data/projects";
     {projects.map((project) => <ProjectStory project={project} locale="it" />)}
   </section>
 
-  <Publications locale="it" />
-
-  <Talks locale="it" />
-
-  <Story locale="it" />
+  <CareerArchive locale="it" />
 </Base>

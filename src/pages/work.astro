@@ -3,9 +3,7 @@
 export const prerender = false;
 import Base from "../layouts/Base.astro";
 import ProjectStory from "../components/ProjectStory.astro";
-import Story from "../components/Story.astro";
-import Publications from "../components/Publications.astro";
-import Talks from "../components/Talks.astro";
+import CareerArchive from "../components/CareerArchive.astro";
 import ResearchCard from "../components/ResearchCard.astro";
 import PortfolioNote from "../components/PortfolioNote.astro";
 import { projects } from "../data/projects";
@@ -45,9 +43,5 @@ import { research } from "../data/research";
     {projects.map((project) => <ProjectStory project={project} locale="en" />)}
   </section>
 
-  <Publications locale="en" />
-
-  <Talks locale="en" />
-
-  <Story locale="en" />
+  <CareerArchive locale="en" />
 </Base>
