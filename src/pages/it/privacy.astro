@@ -7,7 +7,7 @@ import Base from "../../layouts/Base.astro";
   <section class="wrap py-16 sm:py-20">
     <p class="kicker mb-4">Note legali</p>
     <h1 class="display text-4xl">Informativa privacy</h1>
-    <p class="mt-2 text-sm text-faint">Ultimo aggiornamento: 17 luglio 2026</p>
+    <p class="mt-2 text-sm text-faint">Ultimo aggiornamento: 16 settembre 2026</p>
 
     <div class="legal mt-8">
       <h2>Titolare del trattamento</h2>
@@ -19,8 +19,7 @@ import Base from "../../layouts/Base.astro";
       <h2>Modulo di contatto</h2>
       <p>
         Quando invii il modulo di contatto, tratto il nome, l'indirizzo email, l'eventuale
-        organizzazione e il messaggio che fornisci, insieme al motivo selezionato (ad es.
-        assunzione, collaborazione, progetto). Questi dati sono usati esclusivamente per
+        organizzazione e il messaggio che fornisci. Questi dati sono usati esclusivamente per
         rispondere alla tua richiesta e, se pertinente, per gestirla nel mio sistema di CRM
         (self-hosted su infrastruttura UE). Se il sistema non è disponibile, il messaggio mi
         viene recapitato via email, così da non andare perso.
@@ -33,16 +32,42 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Cookie</h2>
       <p>
-        Il sito imposta un solo cookie funzionale, <code>lang</code>, per ricordare la lingua
-        scelta. È strettamente necessario al funzionamento del sito e non richiede consenso. Non
-        vengono usati cookie pubblicitari o di tracciamento cross-site.
+        Il sito imposta due cookie funzionali. <code>lang</code> ricorda la lingua scelta.
+        <code>consent</code> ricorda, per sei mesi, se hai autorizzato le registrazioni di
+        sessione. Sono entrambi strettamente necessari al funzionamento del sito e non richiedono
+        consenso. Non vengono usati cookie pubblicitari o di tracciamento cross-site.
       </p>
 
       <h2>Analisi statistiche</h2>
       <p>
-        Il sito al momento non utilizza analisi basate su tracciamento. Il tuo Paese approssimativo
-        può essere ricavato dall'indirizzo IP dalla rete Cloudflare davanti al sito, al solo fine
-        di servire il sito in italiano o in inglese; il dato è transitorio e non viene conservato.
+        Il sito usa un'istanza self-hosted di Umami per capire come viene utilizzato. Umami non
+        imposta cookie e non costruisce alcun profilo su di te tra siti diversi. Registra la
+        pagina visitata, il sito da cui arrivi, browser, sistema operativo, tipo di dispositivo e
+        Paese approssimativo. L'indirizzo IP serve a ricavare il Paese e non viene conservato.
+      </p>
+      <p>
+        Con il tuo consenso, Umami registra inoltre la visita come replay di sessione: struttura
+        della pagina, scorrimento, clic e movimenti del mouse, così da vedere dove il sito è
+        difficile da usare. Non viene registrato nulla finché non premi Accetta nel banner, e puoi
+        revocare il consenso in qualsiasi momento da Preferenze privacy in fondo a ogni pagina.
+        Tutto ciò che digiti nei campi di un modulo viene mascherato nel browser prima che venga
+        inviato qualsiasi dato, quindi un replay non contiene mai il tuo nome, la tua email o il
+        tuo messaggio.
+      </p>
+      <p>
+        Quando invii il modulo di contatto, Umami registra che un messaggio è stato inviato e in
+        quale lingua, e nulla del suo contenuto.
+      </p>
+      <p>
+        Il conteggio delle visite e dei messaggi inviati si basa sul mio legittimo interesse a
+        capire e migliorare il sito (art. 6(1)(f) GDPR); puoi opporti in qualsiasi momento
+        scrivendo a <a href="mailto:hello@francescovigni.com">hello@francescovigni.com</a>. Il
+        replay di sessione si basa sul tuo consenso (art. 6(1)(a) GDPR).
+      </p>
+      <p>
+        Indipendentemente da questo, il tuo Paese approssimativo può essere ricavato
+        dall'indirizzo IP dalla rete Cloudflare davanti al sito, al solo fine di servire il sito in
+        italiano o in inglese; il dato è transitorio e non viene conservato.
       </p>
 
       <h2>I tuoi diritti</h2>

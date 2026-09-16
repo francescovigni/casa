@@ -18,4 +18,13 @@ export const SITE = {
     github: "https://github.com/francescovigni",
     orcid: "https://orcid.org/0000-0001-9918-8485",
   },
+  /**
+   * Self-hosted Umami. Same website id the Gatsby site reported to, so the
+   * history carries over. `domains` keeps localhost and preview builds out.
+   */
+  analytics: {
+    host: "https://analytics.trenigarantiti.org",
+    websiteId: "fdadd935-2c9c-42d1-aa44-6b32ed196fd9",
+    domains: "francescovigni.com",
+  },
 } as const;

@@ -2,16 +2,16 @@
 // On-demand so the geo middleware can redirect Italian IPs to /it/privacy/.
 export const prerender = false;
 import Base from "../layouts/Base.astro";
-// NOTE (Francesco): analytics section reflects the current build (no tracking
-// cookies yet). If you add Umami/GA on the new site, update the Analytics
-// section accordingly.
+// NOTE: the Cookies and Analytics sections describe components/Analytics.astro
+// and components/Consent.astro. Change one, change the other, and the Italian
+// page with them.
 ---
 
 <Base title="Privacy Policy | Francesco Vigni" description="How this website handles your data.">
   <section class="wrap py-16 sm:py-20">
     <p class="kicker mb-4">Legal</p>
     <h1 class="display text-4xl">Privacy Policy</h1>
-    <p class="mt-2 text-sm text-faint">Last updated: 17 July 2026</p>
+    <p class="mt-2 text-sm text-faint">Last updated: 16 September 2026</p>
 
     <div class="legal mt-8">
       <h2>Data controller</h2>
@@ -23,8 +23,7 @@ import Base from "../layouts/Base.astro";
       <h2>Contact form</h2>
       <p>
         When you submit the contact form, I process the name, email address, optional
-        organization, and message you provide, together with the reason you selected (e.g.
-        hiring, collaboration, project). This data is used solely to respond to your enquiry and,
+        organization, and message you provide. This data is used solely to respond to your enquiry and,
         where relevant, to manage it in my customer-relationship system (self-hosted on EU
         infrastructure). If that system is unavailable, the submission is delivered to me by
         email instead so your message is not lost.
@@ -37,16 +36,41 @@ import Base from "../layouts/Base.astro";
 
       <h2>Cookies</h2>
       <p>
-        This site sets a single functional cookie, <code>lang</code>, to remember your language
-        choice. It is strictly necessary for the site to work as you expect and requires no
-        consent. No advertising or cross-site tracking cookies are used.
+        This site sets two functional cookies. <code>lang</code> remembers your language choice.
+        <code>consent</code> remembers, for six months, whether you allowed session recordings.
+        Both are strictly necessary for the site to work as you expect and require no consent. No
+        advertising or cross-site tracking cookies are used.
       </p>
 
       <h2>Analytics</h2>
       <p>
-        This site does not currently use tracking-based analytics. Your approximate country may
-        be derived from your IP address by the Cloudflare network in front of this site, solely
-        to serve the site in Italian or English; this is transient and not stored.
+        This site uses a self-hosted instance of Umami to understand how it is used. Umami sets
+        no cookies and builds no profile of you across sites. It records the page you visit, the
+        site that referred you, your browser, operating system, device type and approximate
+        country. Your IP address is used to derive that country and is not stored.
+      </p>
+      <p>
+        With your consent, Umami also records your visit as one of its session replays: the page
+        layout, scrolling, clicks and mouse movement, so I can see where the site is hard to use.
+        Nothing is recorded until you press Accept in the banner, and you can withdraw at any
+        time from Privacy settings at the bottom of every page. Everything typed into a form
+        field is masked in your browser before anything is sent, so a replay never contains your
+        name, email address or message.
+      </p>
+      <p>
+        When you send the contact form, Umami records that a message was sent and in which
+        language, and nothing about its content.
+      </p>
+      <p>
+        Pageview analytics and the sent-message count rest on my legitimate interest in
+        understanding and improving this site (Art. 6(1)(f) GDPR); you can object at any time by
+        writing to <a href="mailto:hello@francescovigni.com">hello@francescovigni.com</a>. Session
+        replay rests on your consent (Art. 6(1)(a) GDPR).
+      </p>
+      <p>
+        Separately, your approximate country may be derived from your IP address by the
+        Cloudflare network in front of this site, solely to serve the site in Italian or English;
+        this is transient and not stored.
       </p>
 
       <h2>Your rights</h2>

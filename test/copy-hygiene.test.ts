@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import Pillars from "../src/components/Pillars.astro";
+import Analytics from "../src/components/Analytics.astro";
 import { ui } from "../src/i18n";
 import { SITE } from "../src/data/site";
 import { hero, pillars, trust } from "../src/data/home";
@@ -60,7 +61,7 @@ describe("no internal notes facing visitors", () => {
 });
 
 describe("dead strings are gone", () => {
-  it("carries no cookie-banner copy, there being no analytics and no banner", () => {
+  it("carries no cookie-banner copy: the one banner asks about recordings, not cookies", () => {
     expect(ui.en).not.toHaveProperty("cookie");
     expect(ui.it).not.toHaveProperty("cookie");
     const offenders = sourceFiles()
@@ -69,15 +70,73 @@ describe("dead strings are gone", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("ships no analytics script while the privacy page says there is none", () => {
+  it("ships no Google Analytics: Umami is the only tracker", () => {
     const offenders = sourceFiles()
-      .filter((file) =>
-        /<script[^>]+src=["'][^"']*(umami|googletagmanager|recorder\.js)|gtag\(/i.test(
-          readFileSync(file, "utf8"),
-        ),
-      )
+      .filter((file) => /googletagmanager|gtag\(/i.test(readFileSync(file, "utf8")))
       .map(relative);
     expect(offenders).toEqual([]);
+  });
+});
+
+describe("analytics", () => {
+  it("reports pageviews to the self-hosted Umami for everyone", async () => {
+    const html = await container.renderToString(Analytics);
+    const { host, websiteId } = SITE.analytics;
+    expect(html).toContain(`src="${host}/script.js"`);
+    expect(html).toContain(`data-website-id="${websiteId}"`);
+  });
+
+  it("never loads session replay without asking", async () => {
+    expect(await container.renderToString(Analytics)).not.toMatch(/recorder\.js/);
+    const offenders = sourceFiles()
+      .filter((file) => !file.endsWith("Consent.astro"))
+      // A url ending in /recorder.js inside a string, not a mention in a comment.
+      .filter((file) => /\/recorder\.js[`"']/.test(readFileSync(file, "utf8")))
+      .map(relative);
+    expect(offenders).toEqual([]);
+  });
+
+  it("only counts visits to the real domain, never localhost or a preview", async () => {
+    expect(await container.renderToString(Analytics)).toContain('data-domains="francescovigni.com"');
+  });
+
+  it("loads the pageview script deferred, ahead of the consent card that adds the recorder", () => {
+    const base = read("layouts/Base.astro");
+    expect(base).toMatch(/<Analytics \/>/);
+    expect(base).toMatch(/<Consent locale=\{locale\} \/>/);
+    expect(base.indexOf("<Analytics")).toBeLessThan(base.indexOf("<Consent"));
+    expect(read("components/Analytics.astro")).toMatch(/<script is:inline defer/);
+  });
+
+  it("counts a lead only once it is sent, with no form fields attached", () => {
+    const qualifier = read("components/Qualifier.astro");
+    expect(qualifier).toMatch(/umami\?\.track\(\s*"lead",\s*\{ locale: root\.dataset\.locale \}/);
+    // After the catch returns, so a failed send is never counted.
+    expect(qualifier.indexOf('umami?.track(')).toBeGreaterThan(qualifier.indexOf("return;\n      }"));
+  });
+
+  it("is disclosed on both privacy pages, replay and input masking included", () => {
+    const en = read("pages/privacy.astro");
+    const it = read("pages/it/privacy.astro");
+    [en, it].forEach((page) => {
+      expect(page).toMatch(/Umami/);
+      // Pageviews on legitimate interest, replay on consent, and the cookie
+      // that stores the answer.
+      expect(page).toMatch(/6\(1\)\(f\)/);
+      expect(page).toMatch(/6\(1\)\(a\) GDPR\)\.\s*<\/p>/);
+      expect(page).toMatch(/<code>consent<\/code>/);
+    });
+    expect(en).toMatch(/Privacy settings/);
+    expect(it).toMatch(/Preferenze privacy/);
+    expect(en).toMatch(/session replays/);
+    expect(en).toMatch(/masked in your browser/);
+    expect(it).toMatch(/replay di sessione/);
+    expect(it).toMatch(/mascherato nel browser/);
+  });
+
+  it("no longer tells visitors the form collects a reason they no longer pick", () => {
+    expect(read("pages/privacy.astro")).not.toMatch(/reason you selected/);
+    expect(read("pages/it/privacy.astro")).not.toMatch(/motivo selezionato/);
   });
 });
 

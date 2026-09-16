@@ -1,0 +1,11 @@
+---
+// Self-hosted Umami pageviews: cookieless, no stored IP, so they load for
+// everyone. Session replay (recorder.js) is not here: Consent.astro injects it
+// only after a yes. `data-domains` stops localhost and preview builds from
+// reporting, and the recorder rides on this script's session, so it goes quiet
+// with it.
+import { SITE } from "../data/site";
+const { host, websiteId, domains } = SITE.analytics;
+---
+
+<script is:inline defer src={`${host}/script.js`} data-website-id={websiteId} data-domains={domains}></script>

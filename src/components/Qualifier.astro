@@ -107,7 +107,14 @@ const dark = variant === "section";
         show(err);
         submit.disabled = false;
         label.textContent = original;
+        return;
       }
+      // Outside the try, so a blocked or broken tracker can never turn a sent
+      // lead into an error message. Event name and locale only, no form fields.
+      (window as Window & { umami?: { track(event: string, data?: object): void } }).umami?.track(
+        "lead",
+        { locale: root.dataset.locale },
+      );
     });
   });
 </script>

@@ -1,0 +1,103 @@
+---
+// Consent for session replay, the one thing on this site that needs it.
+// Umami pageviews are cookieless and load for everyone from Analytics.astro;
+// recorder.js is injected here, and only after a yes. Reject and Accept share
+// one class list so neither is more prominent, as the Garante requires, and
+// the footer's "Privacy settings" reopens the card so withdrawing is one click.
+// Bottom-right on wide screens: bottom-left covers the hero buttons on a
+// 1280-wide laptop.
+import { type Locale } from "../i18n";
+import { SITE } from "../data/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const { host, websiteId } = SITE.analytics;
+
+const t = {
+  en: {
+    title: "Can I record how you use this site?",
+    body: "Recordings of clicks and scrolling show me where the site is hard to use. Anything you type is masked. Pageviews are counted either way, without cookies.",
+    policy: "Privacy policy",
+    policyHref: "/privacy/",
+    reject: "Reject",
+    accept: "Accept",
+  },
+  it: {
+    title: "Posso registrare come usi il sito?",
+    body: "Le registrazioni di clic e scorrimento mi mostrano dove il sito è difficile da usare. Tutto ciò che digiti viene mascherato. Le visite vengono contate comunque, senza cookie.",
+    policy: "Informativa privacy",
+    policyHref: "/it/privacy/",
+    reject: "Rifiuta",
+    accept: "Accetta",
+  },
+}[locale];
+
+// Two equal grid columns: a shared class list alone still lets "Accetta"
+// outgrow "Rifiuta" by its label.
+const choice = "btn justify-center border border-ink text-ink";
+---
+
+<div
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="consent-title"
+  aria-describedby="consent-body"
+  data-consent
+  data-recorder-src={`${host}/recorder.js`}
+  data-website-id={websiteId}
+  hidden
+  class="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-canvas p-5 shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm sm:rounded-lg sm:border"
+>
+  <p id="consent-title" class="font-serif text-lg text-ink">{t.title}</p>
+  <p id="consent-body" class="mt-2 text-sm text-muted">
+    {t.body}
+    <a href={t.policyHref} class="underline underline-offset-2 hover:text-ink">{t.policy}</a>
+  </p>
+  <div class="mt-4 grid grid-cols-2 gap-3">
+    <button type="button" data-consent-choice="none" class={choice}>{t.reject}</button>
+    <button type="button" data-consent-choice="replay" class={choice}>{t.accept}</button>
+  </div>
+</div>
+
+<script>
+  import { consentCookie, readConsent, type Consent } from "../lib/consent";
+
+  const card = document.querySelector<HTMLElement>("[data-consent]");
+  if (card) {
+    let recording = false;
+    const record = () => {
+      if (recording) return;
+      recording = true;
+      const script = document.createElement("script");
+      script.src = card.dataset.recorderSrc!;
+      script.dataset.websiteId = card.dataset.websiteId!;
+      document.head.appendChild(script);
+    };
+
+    const choose = (consent: Consent) => {
+      document.cookie = consentCookie(consent);
+      card.hidden = true;
+      if (consent === "replay") record();
+      // A recorder already running cannot be unloaded, so withdrawing on the
+      // page where it was granted takes a reload to stop it.
+      else if (recording) location.reload();
+    };
+
+    card.querySelectorAll<HTMLButtonElement>("[data-consent-choice]").forEach((button) =>
+      button.addEventListener("click", () => choose(button.dataset.consentChoice as Consent)),
+    );
+
+    document.querySelectorAll<HTMLButtonElement>("[data-consent-open]").forEach((button) =>
+      button.addEventListener("click", () => {
+        card.hidden = false;
+        card.querySelector<HTMLButtonElement>("[data-consent-choice]")?.focus();
+      }),
+    );
+
+    const stored = readConsent(document.cookie);
+    if (stored === "replay") record();
+    else if (stored === null) card.hidden = false;
+  }
+</script>
