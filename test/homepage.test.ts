@@ -95,7 +95,11 @@ describe("hero", () => {
   it("keeps both calls to action", async () => {
     const html = await render(Hero, { locale: "en" });
     expect(html).toContain('href="/contact/"');
-    expect(html).toContain("Francesco-Vigni-CV.pdf");
+    expect(html).toContain('href="/work/"');
+  });
+
+  it("sends the Italian secondary CTA to the Italian work page", async () => {
+    expect(await render(Hero, { locale: "it" })).toContain('href="/it/lavoro/"');
   });
 });
 

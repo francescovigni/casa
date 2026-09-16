@@ -65,12 +65,11 @@ export async function notifyLead(lead: Lead, outcome: Outcome): Promise<void> {
       from: FALLBACK_TO(),
       // Reply goes to the lead, so answering is one keystroke from the inbox.
       replyTo: lead.email,
-      subject: `New lead (${lead.intent}): ${lead.name}${outcome.ok ? "" : " [not in CRM]"}`,
+      subject: `New lead: ${lead.name}${outcome.ok ? "" : " [not in CRM]"}`,
       text: [
         `Name: ${lead.name}`,
         `Email: ${lead.email}`,
         `Org: ${lead.org || "-"}`,
-        `Intent: ${lead.intent}`,
         `Locale: ${lead.locale}`,
         ...status,
         "",

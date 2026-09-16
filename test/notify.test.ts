@@ -17,7 +17,6 @@ const lead: Lead = {
   email: "jane@lab.eu",
   org: "CERN",
   message: "We have a DevOps opening.",
-  intent: "hiring",
   locale: "en",
 };
 
@@ -44,7 +43,7 @@ describe("every lead is both filed and announced", () => {
 
     expect(sendMail).toHaveBeenCalledTimes(1);
     expect(sent[0].to).toBe("hello@francescovigni.com");
-    expect(sent[0].subject).toBe("New lead (hiring): Jane Researcher");
+    expect(sent[0].subject).toBe("New lead: Jane Researcher");
     expect(sent[0].text).toContain("We have a DevOps opening.");
   });
 
@@ -59,7 +58,7 @@ describe("every lead is both filed and announced", () => {
   it("marks a rescue in the subject, so the inbox can be triaged at a glance", async () => {
     await notifyLead(lead, { ok: false, reason: "crm-error: Twenty /rest/people -> 500 boom" });
 
-    expect(sent[0].subject).toBe("New lead (hiring): Jane Researcher [not in CRM]");
+    expect(sent[0].subject).toBe("New lead: Jane Researcher [not in CRM]");
     expect(sent[0].text).toContain("In CRM: NO (crm-error: Twenty /rest/people -> 500 boom)");
     expect(sent[0].text).toContain("needs adding by hand");
   });
@@ -77,7 +76,7 @@ describe("every lead is both filed and announced", () => {
       sent.length = 0;
       await notifyLead(lead, outcome);
       const text = sent[0].text;
-      ["Jane Researcher", "jane@lab.eu", "CERN", "hiring", "en", lead.message].forEach((part) =>
+      ["Jane Researcher", "jane@lab.eu", "CERN", "en", lead.message].forEach((part) =>
         expect(text, JSON.stringify(outcome)).toContain(part),
       );
     }

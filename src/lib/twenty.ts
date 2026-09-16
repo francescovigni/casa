@@ -26,7 +26,6 @@ export interface Lead {
   email: string;
   org?: string;
   message: string;
-  intent: string; // hiring | collaboration | project
   locale: string;
 }
 
@@ -150,7 +149,6 @@ export function noteBody(lead: Lead): string {
   return [
     `**Email:** ${lead.email}`,
     `**Org:** ${lead.org || "-"}`,
-    `**Intent:** ${lead.intent}`,
     `**Locale:** ${lead.locale}`,
     "",
     lead.message,
@@ -172,7 +170,7 @@ export async function createLead(lead: Lead): Promise<CrmResult> {
   const personId = await resolvePersonId(lead, companyId);
 
   const opportunity = await post("/rest/opportunities", {
-    name: `${lead.name} (${lead.intent})`,
+    name: lead.name,
     stage,
     ...(personId ? { pointOfContactId: personId } : {}),
     ...(companyId ? { companyId } : {}),
@@ -180,7 +178,7 @@ export async function createLead(lead: Lead): Promise<CrmResult> {
   const opportunityId = idOf(opportunity);
 
   const note = await post("/rest/notes", {
-    title: `Lead: ${lead.name} (${lead.intent})`,
+    title: `Lead: ${lead.name}`,
     bodyV2: { markdown: noteBody(lead) },
   });
   const noteId = idOf(note);

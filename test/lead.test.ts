@@ -7,7 +7,6 @@ describe("validateLead", () => {
     email: "jane@lab.eu",
     org: "CERN",
     message: "We have a DevOps opening.",
-    intent: "hiring",
     locale: "en",
   };
 
@@ -16,7 +15,6 @@ describe("validateLead", () => {
     expect(r.ok).toBe(true);
     if (r.ok) {
       expect(r.lead.email).toBe("jane@lab.eu");
-      expect(r.lead.intent).toBe("hiring");
     }
   });
 
@@ -37,9 +35,10 @@ describe("validateLead", () => {
     expect(r.ok).toBe(false);
   });
 
-  it("rejects an unknown intent", () => {
+  it("ignores a stray intent field instead of rejecting the lead", () => {
     const r = validateLead({ ...good, intent: "exploring" });
-    expect(r.ok).toBe(false);
+    expect(r.ok).toBe(true);
+    if (r.ok) expect("intent" in r.lead).toBe(false);
   });
 
   it("rejects over-long fields", () => {

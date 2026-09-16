@@ -6,7 +6,6 @@ const lead: Lead = {
   email: "jane@lab.eu",
   org: "CERN",
   message: "We have a DevOps opening.",
-  intent: "hiring",
   locale: "en",
 };
 
@@ -71,7 +70,7 @@ describe("createLead", () => {
     expect(person!.body.name).toEqual({ firstName: "Jane", lastName: "Researcher" });
     expect(person!.body.emails.primaryEmail).toBe("jane@lab.eu");
     expect(opportunity!.body.stage).toBe("NEW");
-    expect(opportunity!.body.name).toContain("hiring");
+    expect(opportunity!.body.name).toBe("Jane Researcher");
   });
 
   it("throws on a non-ok CRM response (so the caller can fall back)", async () => {
@@ -131,7 +130,6 @@ describe("createLead — the inquiry text", () => {
     const markdown = calls.find((c) => c.url.endsWith("/rest/notes"))!.body.bodyV2.markdown;
     expect(markdown).toContain("jane@lab.eu");
     expect(markdown).toContain("CERN");
-    expect(markdown).toContain("hiring");
     expect(markdown).toContain("en");
   });
 
