@@ -48,7 +48,7 @@ const titleHtml = pick(hero.title, locale).replace(
         <a href={locale === "it" ? "/it/contatti/" : "/contact/"} class="btn-primary">
           {pick(hero.primary, locale)} <span aria-hidden="true">→</span>
         </a>
-        <a href={hero.cvHref} class="btn-ghost" download>
+        <a href={locale === "it" ? "/it/lavoro/" : "/work/"} class="btn-ghost">
           {pick(hero.secondary, locale)}
         </a>
       </div>

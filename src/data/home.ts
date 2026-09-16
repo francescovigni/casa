@@ -25,7 +25,9 @@ export const hero = {
     it: "Ingegnere e ricercatore applicato in AI, con dottorato. Porto modelli difficili dalla ricerca a sistemi che funzionano: foundation model per l'imaging medico, robot in fabbrica e l'infrastruttura che li tiene in produzione. Che si parta da una domanda di ricerca o da un problema di produzione, il lavoro è lo stesso.",
   },
   primary: { en: "Let's talk", it: "Parliamone" },
-  secondary: { en: "Download CV", it: "Scarica il CV" },
+  secondary: { en: "My work", it: "Il mio lavoro" },
+  // The CV PDF is not in public/ yet. When it lands it gets linked from the
+  // work page and the footer; the hero CTA stays pointed at the work page.
   cvHref: "/Francesco-Vigni-CV.pdf",
 };
 
