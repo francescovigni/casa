@@ -4,6 +4,9 @@
 // recorder.js is injected here, and only after a yes. Reject and Accept share
 // one class list so neither is more prominent, as the Garante requires, and
 // the footer's "Privacy settings" reopens the card so withdrawing is one click.
+// The card names the purpose in general terms ("cookies and similar
+// technologies", the Garante's own wording, since replay is not a cookie);
+// the privacy policy it links to carries the specifics.
 // Bottom-right on wide screens: bottom-left covers the hero buttons on a
 // 1280-wide laptop.
 import { type Locale } from "../i18n";
@@ -17,16 +20,16 @@ const { host, websiteId } = SITE.analytics;
 
 const t = {
   en: {
-    title: "Can I record how you use this site?",
-    body: "Recordings of clicks and scrolling show me where the site is hard to use. Anything you type is masked. Pageviews are counted either way, without cookies.",
+    title: "Cookies on this site",
+    body: "With your permission, I use cookies and similar technologies to see how the site is used and make it better. You can change your mind any time from Privacy settings at the bottom of the page.",
     policy: "Privacy policy",
     policyHref: "/privacy/",
     reject: "Reject",
     accept: "Accept",
   },
   it: {
-    title: "Posso registrare come usi il sito?",
-    body: "Le registrazioni di clic e scorrimento mi mostrano dove il sito è difficile da usare. Tutto ciò che digiti viene mascherato. Le visite vengono contate comunque, senza cookie.",
+    title: "Cookie su questo sito",
+    body: "Con il tuo permesso uso cookie e tecnologie simili per capire come viene usato il sito e migliorarlo. Puoi cambiare idea in qualsiasi momento da Preferenze privacy, in fondo alla pagina.",
     policy: "Informativa privacy",
     policyHref: "/it/privacy/",
     reject: "Rifiuta",

@@ -61,7 +61,7 @@ describe("no internal notes facing visitors", () => {
 });
 
 describe("dead strings are gone", () => {
-  it("carries no cookie-banner copy: the one banner asks about recordings, not cookies", () => {
+  it("carries no leftover cookie-banner strings from the Gatsby site", () => {
     expect(ui.en).not.toHaveProperty("cookie");
     expect(ui.it).not.toHaveProperty("cookie");
     const offenders = sourceFiles()

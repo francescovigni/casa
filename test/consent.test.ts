@@ -74,9 +74,16 @@ describe("the consent card", () => {
     expect(it).toContain('href="/it/privacy/"');
   });
 
-  it("promises masking, so the question is answerable", async () => {
-    expect(await render("en")).toMatch(/masked/);
-    expect(await render("it")).toMatch(/mascherato/);
+  it("names the purpose and the way back, without talking about recording people", async () => {
+    const en = await render("en");
+    const it = await render("it");
+    expect(en).toMatch(/cookies and similar technologies to see how the site is used/);
+    expect(it).toMatch(/cookie e tecnologie simili per capire come viene usato il sito/);
+    expect(en).toMatch(/Privacy settings/);
+    expect(it).toMatch(/Preferenze privacy/);
+    // Visible text only: the recorder's own url sits in a data attribute.
+    const text = (html: string) => html.replace(/<[^>]+>/g, " ");
+    [en, it].forEach((html) => expect(text(html)).not.toMatch(/record|registra/i));
   });
 });
 
