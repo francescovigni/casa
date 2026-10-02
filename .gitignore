@@ -10,9 +10,9 @@ public/*
 !public/research/
 !public/research/**
 # Assets the pages link to directly. Ignored, they 404 in CI and in the image:
-# the portrait falls back to a monogram, the CV button dead-ends, and every
-# page ships an og:image that does not resolve.
-!public/francesco.jpg
+# the tab icon disappears, the CV link dead-ends, and every page ships an
+# og:image that does not resolve. test/seo-infra.test.ts checks they exist.
+!public/favicon.svg
 !public/Francesco-Vigni-CV.pdf
 !public/og-default.jpg
 .env*

@@ -39,7 +39,7 @@ describe("robots.txt", () => {
 describe("assets the site references can reach a build", () => {
   // public/* is ignored wholesale; anything the pages link to has to be
   // un-ignored or it never reaches CI or the Docker image.
-  it.each(["francesco.jpg", "Francesco-Vigni-CV.pdf", "og-default.jpg"])(
+  it.each(["favicon.svg", "Francesco-Vigni-CV.pdf", "og-default.jpg"])(
     "%s is exempt from the public/ ignore rule",
     (asset) => {
       expect(gitignore).toContain(`!public/${asset}`);
@@ -56,9 +56,12 @@ describe("assets the site references can reach a build", () => {
 describe("the assets the pages link to are in the repo", () => {
   // The ignore-rule exemptions existed while the files did not, so every page
   // shipped an og:image that 404ed and the CV link dead-ended.
-  it.each(["Francesco-Vigni-CV.pdf", "og-default.jpg"])("public/%s is present", (asset) => {
-    expect(existsSync(join(ROOT, "public", asset))).toBe(true);
-  });
+  it.each(["favicon.svg", "Francesco-Vigni-CV.pdf", "og-default.jpg"])(
+    "public/%s is present",
+    (asset) => {
+      expect(existsSync(join(ROOT, "public", asset))).toBe(true);
+    },
+  );
 });
 
 describe("hreflang is only claimed where both trees have the page", () => {
