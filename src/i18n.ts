@@ -21,6 +21,12 @@ export function localeFromPath(pathname: string): Locale {
     : "en";
 }
 
+/** Whether a route exists in both trees. hreflang is only honest for those. */
+export function hasCounterpart(path: string): boolean {
+  const norm = path.endsWith("/") ? path : path + "/";
+  return localePairs.some((p) => p.en === norm || p.it === norm);
+}
+
 /** Return the counterpart path in `target`, or the locale root if unpaired. */
 export function getCounterpart(path: string, target: Locale): string {
   const norm = path.endsWith("/") ? path : path + "/";
@@ -49,15 +55,25 @@ export const ui = {
   en: {
     nav: { home: "Home", work: "Work", research: "Research", contact: "Contact" },
     toggle: { code: "IT", aria: "Passa alla versione italiana" },
-    cv: "Download CV",
     talk: "Let's talk",
     menu: { open: "Open menu", close: "Close menu" },
   },
   it: {
     nav: { home: "Home", services: "Servizi", guides: "Guide", work: "Lavoro", contact: "Contatti" },
     toggle: { code: "EN", aria: "Switch to the English version" },
-    cv: "Scarica il CV",
     talk: "Parliamone",
     menu: { open: "Apri il menu", close: "Chiudi il menu" },
   },
 } as const;
+
+// Prose that names how many studies exist went stale twice. Spell the count
+// from the data instead, capitalised where it opens a sentence.
+const COUNT_WORDS: Record<Locale, string[]> = {
+  en: ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+  it: ["nessuno", "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove"],
+};
+
+export function countWord(n: number, locale: Locale, capitalise = false): string {
+  const word = COUNT_WORDS[locale][n] ?? String(n);
+  return capitalise ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+}

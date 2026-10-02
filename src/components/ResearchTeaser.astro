@@ -3,7 +3,7 @@
 // "I check what the model actually learned", so the section leads with that and
 // each study shows only its headline number. The full cards, with the figures
 // and the failure modes, stay on /research/.
-import { type Locale } from "../i18n";
+import { countWord, type Locale } from "../i18n";
 import { research } from "../data/research";
 
 interface Props {
@@ -15,13 +15,13 @@ const t =
     ? {
         kicker: "Ricerca",
         title: "Non mi limito ad addestrare modelli. Verifico cosa stanno davvero imparando.",
-        lead: "Due studi recenti, su dati pubblici, con i risultati negativi lasciati dentro.",
+        lead: `${countWord(research.length, "it", true)} studi recenti, su dati pubblici, con i risultati negativi lasciati dentro.`,
         all: "Tutta la ricerca (in inglese)",
       }
     : {
         kicker: "Research",
         title: "I don't just train models. I test what they're actually learning.",
-        lead: "Two recent studies, both on public data, both with the negative results left in.",
+        lead: `${countWord(research.length, "en", true)} recent studies, all on public data, all with the negative results left in.`,
         all: "All research",
       };
 ---

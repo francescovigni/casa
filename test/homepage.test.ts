@@ -7,6 +7,7 @@ import Story from "../src/components/Story.astro";
 import Proof from "../src/components/Proof.astro";
 import ResearchTeaser from "../src/components/ResearchTeaser.astro";
 import { story } from "../src/data/home";
+import { research } from "../src/data/research";
 
 const SRC = join(import.meta.dirname, "..", "src");
 const read = (relative: string) => readFileSync(join(SRC, relative), "utf8");
@@ -172,6 +173,16 @@ describe("research teaser", () => {
     expect(html).toContain('href="/research/fetal-cardiac-orientation/"');
     expect(html).toContain('href="/research/endoscopy-standardization/"');
     expect(html).toContain('href="/research/"');
+  });
+
+  it("counts the studies from the data, in both locales", async () => {
+    // "Two recent studies" outlived the second study and then the third.
+    const expected = { en: "Four", it: "Quattro" } as const;
+    expect(research.length, "update the expected words when a study is added").toBe(4);
+    for (const [locale, word] of Object.entries(expected)) {
+      const html = await render(ResearchTeaser, { locale });
+      expect(html, locale).toContain(word);
+    }
   });
 
   it("tells Italian readers the research is in English rather than hiding it", async () => {

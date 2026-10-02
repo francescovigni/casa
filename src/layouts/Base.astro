@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 import Motion from "../components/Motion.astro";
 import Analytics from "../components/Analytics.astro";
 import Consent from "../components/Consent.astro";
-import { localeFromPath, getCounterpart, type Locale } from "../i18n";
+import { localeFromPath, getCounterpart, hasCounterpart, type Locale } from "../i18n";
 import { SITE } from "../data/site";
 
 interface Props {
@@ -24,6 +24,11 @@ const pathname = Astro.url.pathname;
 const locale: Locale = localeFromPath(pathname);
 const site = Astro.site ?? new URL(SITE.url);
 const canonical = new URL(pathname, site).href;
+// Only paired routes get hreflang: getCounterpart falls back to the locale
+// root, which would tell a crawler that the Italian version of a research
+// article is the Italian homepage. A non-reciprocal annotation is worse than
+// none, so unpaired pages ship the canonical alone.
+const paired = hasCounterpart(pathname);
 const enHref = new URL(locale === "en" ? pathname : getCounterpart(pathname, "en"), site).href;
 const itHref = new URL(locale === "it" ? pathname : getCounterpart(pathname, "it"), site).href;
 ---
@@ -38,9 +43,15 @@ const itHref = new URL(locale === "it" ? pathname : getCounterpart(pathname, "it
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={enHref} />
-    <link rel="alternate" hreflang="it" href={itHref} />
-    <link rel="alternate" hreflang="x-default" href={enHref} />
+    {
+      paired && (
+        <>
+          <link rel="alternate" hreflang="en" href={enHref} />
+          <link rel="alternate" hreflang="it" href={itHref} />
+          <link rel="alternate" hreflang="x-default" href={enHref} />
+        </>
+      )
+    }
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

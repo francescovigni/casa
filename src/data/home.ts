@@ -35,7 +35,6 @@ export const hero = {
   secondary: { en: "My work", it: "Il mio lavoro" },
   // The CV PDF is not in public/ yet. When it lands it gets linked from the
   // work page and the footer; the hero CTA stays pointed at the work page.
-  cvHref: "/Francesco-Vigni-CV.pdf",
 };
 
 // Narrative "My story": warm, first-person, skimmable.

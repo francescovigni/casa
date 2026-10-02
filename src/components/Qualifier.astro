@@ -60,11 +60,23 @@ const dark = variant === "section";
       {/* Honeypot: bots fill this; humans never see it. */}
       <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="absolute left-[-9999px]" aria-hidden="true" />
       <div class="grid gap-3 sm:grid-cols-2">
-        <input required name="name" placeholder={t.form.name} class:list={["rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
-        <input required type="email" name="email" placeholder={t.form.email} class:list={["rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+        <label class="block">
+          <span class="sr-only">{t.form.name}</span>
+          <input required name="name" autocomplete="name" placeholder={t.form.name} class:list={["w-full", "rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+        </label>
+        <label class="block">
+          <span class="sr-only">{t.form.email}</span>
+          <input required type="email" name="email" autocomplete="email" placeholder={t.form.email} class:list={["w-full", "rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+        </label>
       </div>
-      <input name="org" placeholder={t.form.org} class:list={["mt-3 w-full rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
-      <textarea required name="message" rows="3" placeholder={t.form.message} class:list={["mt-3 w-full rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]}></textarea>
+      <label class="block">
+        <span class="sr-only">{t.form.org}</span>
+        <input name="org" autocomplete="organization" placeholder={t.form.org} class:list={["mt-3 w-full rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]} />
+      </label>
+      <label class="block">
+        <span class="sr-only">{t.form.message}</span>
+        <textarea required name="message" rows="3" placeholder={t.form.message} class:list={["mt-3 w-full rounded-md border px-4 py-3 text-sm", dark ? "border-canvas/20 bg-canvas/5 text-canvas placeholder:text-canvas/40" : "border-line bg-canvas text-ink"]}></textarea>
+      </label>
       <button type="submit" class:list={["btn mt-4", dark ? "bg-accent text-canvas" : "bg-ink text-canvas"]} data-submit>
         <span data-label>{t.form.send}</span>
       </button>
