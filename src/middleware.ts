@@ -1,5 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 import { localePairs, localeFromPath } from "./i18n";
+import { legacyRedirect } from "./lib/legacy";
 
 // Bots/crawlers keep the English tree so both locales stay crawlable (no cloaking).
 const BOT_RE =
@@ -15,6 +16,10 @@ const BOT_RE =
 export const onRequest = defineMiddleware(async (context, next) => {
   const { request, url, cookies, redirect } = context;
   const path = url.pathname;
+
+  // Before the method check, so a crawler's HEAD gets the 301 too.
+  const legacy = legacyRedirect(path);
+  if (legacy) return redirect(legacy, 301);
 
   if (request.method !== "GET") return next();
   if (localeFromPath(path) === "it") return next(); // already Italian

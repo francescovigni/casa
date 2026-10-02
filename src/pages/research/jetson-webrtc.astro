@@ -1,0 +1,226 @@
+---
+// Jetson Nano multi-camera WebRTC study. Source of record:
+// github.com/francescovigni/jetson-webrtc-cameras, README and docs/.
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="Multi-Camera WebRTC on a Jetson Nano | Edge Video, Measured"
+  description="Hardware encode costs 10.9% of a core against 66.3% for software x264, and that gap is what lets two cameras share a 2019 Jetson Nano. Measured, with the two failures the browser hid."
+>
+  <section class="wrap py-10 sm:py-12">
+    <article class="study">
+      <p class="crumb"><a href="/research/">&larr; Research</a></p>
+      <p class="research-eyebrow">Edge video · capture and transport</p>
+
+      <h1>Hardware encode is 6× cheaper. That gap is the only reason two cameras fit on four cores.</h1>
+
+      <p class="lede">
+        Two cameras on one Jetson Nano, streamed to a browser over WebRTC from a single container.
+        The sensor dictated the design: the onboard IMX219 hands out 10-bit Bayer that FFmpeg cannot
+        debayer, so the two cameras need two unrelated capture stacks, and the only question left is
+        what contract both can satisfy. The measurement that decides whether the answer runs at all
+        is the encoder cost, and the two failures worth writing down were both invisible from the
+        page: a black player reporting <em>Live</em>, and one camera switch running both encoders
+        for sixteen seconds.
+      </p>
+
+      <h2>What a live camera costs</h2>
+
+      <p>
+        The board is a 2019 Nano, four A57 cores, measured while a browser was actually watching.
+        Only the camera being watched encodes at all, which is the other half of why two fit.
+      </p>
+
+      <table>
+        <tr><td>idle, nobody watching</td><td class="n">load average 0.34</td></tr>
+        <tr><td>USB camera, software x264, 640×480 with Opus audio</td><td class="n hi">66.3% of a core</td></tr>
+        <tr><td>CSI camera, hardware NVENC, 1280×720, video only</td><td class="n hi">10.9% of a core</td></tr>
+        <tr><td>a viewer on each at once</td><td class="n">load average 1.07</td></tr>
+      </table>
+
+      <figure>
+        <img
+          src="/research/figures/jetson-encode-2026-10-02.svg"
+          alt="Two horizontal bars: software x264 at 66.3% of one core, hardware NVENC at 10.9%, against a scale of one core"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          Not a like-for-like comparison, and it does not need to be: the cheap path is also the
+          one carrying four times the pixels. The expensive path carries the audio.
+        </figcaption>
+      </figure>
+
+      <p>
+        Two software encodes would be most of the board before anything else runs. Two of these,
+        one of each kind, cost about three quarters of one core while both are live.
+      </p>
+
+      <h2>Why there are two capture stacks at all</h2>
+
+      <p>
+        The USB webcam is ordinary: <code>v4l2</code> into software x264 is cheap enough at VGA. The
+        onboard camera cannot be done that way at all. On JetPack 4.x the IMX219 presents 10-bit
+        Bayer (<code>RG10</code>) on <code>/dev/video0</code>, which FFmpeg cannot debayer, and
+        there is no ISP anywhere in the FFmpeg path. It has to go through GStreamer's
+        <code>nvarguscamerasrc</code>, which reaches the sensor through <code>nvargus-daemon</code>
+        and the Tegra ISP, and <code>nvv4l2h264enc</code>, which encodes in hardware. The 6× gap in
+        the table above is not a choice between two options; it is the difference between the path
+        that exists and the path that does not.
+      </p>
+
+      <p>
+        <strong
+          >So the design question is not which stack to standardise on, it is what the smallest
+          contract both can satisfy.</strong
+        > That contract is three rules and two comment headers, and the project is what is left once
+        it holds.
+      </p>
+
+      <h2>The player reported Live over a black frame</h2>
+
+      <p>
+        MediaMTX answers a video-only path with an empty audio m-line that carries no
+        <code>a=msid</code>. The browser fires <code>ontrack</code> a second time for it, with
+        <code>e.streams</code> empty. The handler assigned <code>e.streams[0]</code>
+        unconditionally, so the second event wrote <code>undefined</code> over the video stream it
+        had bound a moment earlier.
+      </p>
+
+      <table>
+        <tr><td>what the page said</td><td class="n">Live, green dot</td></tr>
+        <tr><td>what the connection said</td><td class="n">connected, video track flowing</td></tr>
+        <tr><td>what the viewer saw</td><td class="n hi">black</td></tr>
+      </table>
+
+      <p>
+        Nothing in the UI, the connection state or the track list distinguished this from a working
+        stream, and it only happened on the camera with no microphone. Finding it meant reading the
+        SDP that MediaMTX answered with. The fix is a function that returns the stream to bind or
+        null, which refuses an empty event and refuses to rebind the stream already playing.
+      </p>
+
+      <h2>One viewer switching camera ran both encoders for sixteen seconds</h2>
+
+      <p>
+        Closing the peer connection does not tell MediaMTX the session is over. It drops the reader
+        once ICE reaches disconnected, about 5 to 6 seconds, and only then does the 10-second
+        on-demand linger start counting. A single viewer switching from one camera to the other
+        therefore left the old camera encoding alongside the new one for roughly 16 seconds, which
+        is precisely the overlap on-demand capture exists to prevent, on a board where one software
+        encode is two thirds of a core.
+      </p>
+
+      <p>
+        The player now <code>DELETE</code>s its WHEP session on switch and on page unload, with
+        <code>keepalive</code> so the request still leaves a page that is closing. The 10-second
+        linger is kept deliberately: a reload, or a switch away and straight back, reuses the live
+        pipeline instead of re-opening the device.
+      </p>
+
+      <h2>The contract, and what it rejects</h2>
+
+      <p>
+        A camera backend is any executable dropped in <code>cameras.d/</code>. Its filename is the
+        path name, so <code>front-door.sh</code> is served at <code>:8889/front-door/whep</code> and
+        appears in the dropdown. Nothing else is edited: not the MediaMTX config, not the
+        Dockerfile, not the player, because the entrypoint generates the config and the player's
+        camera list from that directory.
+      </p>
+
+      <ol>
+        <li>Publish H264 to <code>rtsp://127.0.0.1:8554/${"{MTX_PATH}"}</code>.</li>
+        <li>
+          Stay in the foreground. MediaMTX signals the process group on teardown, so a backgrounded
+          pipeline is one that keeps holding the device.
+        </li>
+        <li>
+          Exit non-zero, with a message, when the configuration is unusable. The restart policy turns
+          a silent failure into a restart loop.
+        </li>
+      </ol>
+
+      <p>
+        The rejections are where the time went. <code>CSI_SIZE</code> is validated as two separate
+        integers, because <code>1280x</code> and <code>x720</code> both look numeric once joined and
+        reach GStreamer as <code>height=</code>, which surfaces as an opaque caps error inside a
+        restart loop. <code>nvv4l2h264enc</code> rejects <code>4M</code> and wants bits per second as
+        an integer. The argus socket is checked before the pipeline is built, with the real causes
+        in the message, including that restarting <code>nvargus-daemon</code> on the host replaces
+        the socket's inode and a single-file bind mount cannot follow it.
+      </p>
+
+      <h2>What is checked, and by what</h2>
+
+      <p>
+        One command on the target forces every backend to spawn its pipeline and asserts what comes
+        back. It fails if a backend publishes no video, and also if a backend that declares
+        <code>camera-audio: no</code> publishes an audio track, which is how the presentation header
+        stays true rather than decorative.
+      </p>
+
+      <table>
+        <tr><td><code>usb</code></td><td class="n">OK, video and audio</td></tr>
+        <tr><td><code>csi</code></td><td class="n">OK, video</td></tr>
+        <tr><td><code>test</code></td><td class="n">OK, video</td></tr>
+      </table>
+
+      <p>
+        The player has its own assertions, run from the browser console. One of them is that a
+        stored camera preference which is not a real camera falls back to the default: the cases
+        that matter are <code>constructor</code> and <code>toString</code>, truthy on any JavaScript
+        object, which a naive lookup accepts and which would strand the player on a path that 404s
+        forever.
+      </p>
+
+      <h2>What this does not show</h2>
+
+      <p class="not-shown">
+        One board, one USB camera, one sensor, one run of each measurement, read from the host's own
+        process accounting rather than instrumented. The two encoder numbers are not a like-for-like
+        benchmark: different resolutions, and only one of them carries audio. No glass-to-glass
+        latency was measured, so "low latency" here means the transport is WebRTC and the encoders
+        are configured for it, not a number. The container is pinned to JetPack 4.x and L4T R32.7,
+        and its bionic base is a clock already running: this project had to move off Debian bullseye
+        when that pool disappeared. There is no authentication on the streams, so anyone who can
+        reach the port can watch and can cause capture to start, which makes it a LAN or tailnet
+        tool and not an internet-facing one. Audio is USB-only, because the C250 microphone delivers
+        samples only while its own video interface is open. Fast camera switching is verified by
+        hand, not by a test.
+      </p>
+
+      <h2>Reproduce it</h2>
+
+      <p>
+        The hardware claims were probed before any of this was built, on the host and then inside
+        the base image: 60 frames of hardware-encoded 1280×720 CSI capture on the host, 30 frames
+        repeated in <code>l4t-base:r32.7.1</code> with the argus socket bind-mounted, plus the
+        presence of every element and muxer the two pipelines need. That probe is what made the
+        single-container, on-demand shape viable rather than hoped for.
+      </p>
+
+      <p>
+        Deployment is <code>scp</code> over SSH and <code>docker compose</code> on the target: no
+        registry, no CI, the image built on the Jetson. The repository carries the design document
+        and the implementation plan it was built from, including the probe tables and the decisions
+        that were rejected on the way.
+      </p>
+
+      <p class="links">
+        <a href="https://github.com/francescovigni/jetson-webrtc-cameras">Repository</a>
+        <a href="/research/">Back</a>
+      </p>
+
+      <div class="tail">
+        <p class="contact">
+          <a href="/work/">Full background</a>
+          <a href="/contact/">Start a conversation</a>
+          <a href="mailto:hello@francescovigni.com">hello@francescovigni.com</a>
+          <a href="https://github.com/francescovigni">GitHub</a>
+        </p>
+      </div>
+    </article>
+  </section>
+</Base>

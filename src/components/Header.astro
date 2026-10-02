@@ -9,19 +9,24 @@ interface Props {
 const { locale, pathname } = Astro.props;
 const t = ui[locale];
 const base = locale === "it" ? "/it" : "";
-const nav = [
-  { href: `${base}/`, label: t.nav.home },
-  { href: locale === "it" ? "/it/lavoro/" : "/work/", label: t.nav.work },
-  // Research is deliberately English-only (see i18n.ts localePairs). Italian
-  // readers still get the entry, labelled and carrying hreflang, rather than a
-  // nav that hides the strongest part of the site from them.
-  {
-    href: "/research/",
-    label: t.nav.research,
-    hreflang: locale === "it" ? "en" : undefined,
-  },
-  { href: locale === "it" ? "/it/contatti/" : "/contact/", label: t.nav.contact },
-];
+// The two trees serve different readers: English is research and hiring,
+// Italian is companies buying a service. Research stays reachable from the
+// Italian work page and homepage, just not from the Italian nav.
+const nav =
+  locale === "it"
+    ? [
+        { href: "/it/", label: ui.it.nav.home },
+        { href: "/it/servizi/", label: ui.it.nav.services },
+        { href: "/it/guide/", label: ui.it.nav.guides },
+        { href: "/it/lavoro/", label: ui.it.nav.work },
+        { href: "/it/contatti/", label: ui.it.nav.contact },
+      ]
+    : [
+        { href: "/", label: ui.en.nav.home },
+        { href: "/work/", label: ui.en.nav.work },
+        { href: "/research/", label: ui.en.nav.research },
+        { href: "/contact/", label: ui.en.nav.contact },
+      ];
 const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
 ---
 
@@ -41,7 +46,6 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
           nav.map((item) => (
             <a
               href={item.href}
-              hreflang={item.hreflang}
               class="link-underline text-sm font-medium text-muted transition-colors hover:text-ink"
             >
               {item.label}
@@ -83,7 +87,6 @@ const toggleHref = getCounterpart(pathname, locale === "it" ? "en" : "it");
           <li>
             <a
               href={item.href}
-              hreflang={item.hreflang}
               class="block py-2.5 text-base font-medium text-muted transition-colors hover:text-ink"
             >
               {item.label}

@@ -7,12 +7,12 @@ const container = await AstroContainer.create();
 const render = (locale: "en" | "it", pathname: string) =>
   container.renderToString(Header, { props: { locale, pathname } });
 
-describe("the Italian nav is intentional, not short", () => {
-  it("offers Research to Italian readers, marked as English", async () => {
+describe("the Italian nav sells services", () => {
+  it("offers Servizi to Italian readers instead of the English research", async () => {
     const html = await render("it", "/it/");
-    expect(html).toContain('href="/research/"');
-    expect(html).toMatch(/hreflang="en"/);
-    expect(html).toMatch(/Research \(EN\)/);
+    expect(html).toContain('href="/it/servizi/"');
+    expect(html).not.toContain('href="/research/"');
+    expect(html).not.toMatch(/hreflang=/);
   });
 
   it("keeps the four English nav items unchanged", async () => {
@@ -30,13 +30,13 @@ describe("the Italian nav is intentional, not short", () => {
     expect(localePairs.some((pair) => pair.en === "/research/")).toBe(false);
   });
 
-  it("labels the Italian research entry in the locale strings, not in the component", () => {
-    expect(ui.it.nav.research).toBe("Research (EN)");
+  it("labels the entries in the locale strings, not in the component", () => {
+    expect(ui.it.nav.services).toBe("Servizi");
     expect(ui.en.nav.research).toBe("Research");
   });
 
   it("shows the entry in the small-screen nav as well", async () => {
     const html = await render("it", "/it/");
-    expect(html.match(/href="\/research\/"/g) ?? []).toHaveLength(2);
+    expect(html.match(/href="\/it\/servizi\/"/g) ?? []).toHaveLength(2);
   });
 });

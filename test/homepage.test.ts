@@ -20,21 +20,39 @@ const sectionsOf = (page: string): string[] =>
     .map((m) => m[1])
     .filter((name) => name !== "PersonJsonLd");
 
+// The English homepage speaks to hiring and research; the Italian one sells a
+// service to companies, so the two run different sections.
 const HOMEPAGES = ["pages/index.astro", "pages/it/index.astro"];
 
 describe("homepage composition", () => {
-  it("runs seven sections, evidence and research before the ask", () => {
-    HOMEPAGES.forEach((page) => {
-      expect(sectionsOf(page)).toEqual([
-        "Hero",
-        "Pedigree",
-        "Pillars",
-        "Proof",
-        "ResearchTeaser",
-        "Story",
-        "Qualifier",
-      ]);
-    });
+  it("runs seven sections in English, evidence and research before the ask", () => {
+    expect(sectionsOf("pages/index.astro")).toEqual([
+      "Hero",
+      "Pedigree",
+      "Pillars",
+      "Proof",
+      "ResearchTeaser",
+      "Story",
+      "Qualifier",
+    ]);
+  });
+
+  it("runs the Italian homepage as a service page: what, how, proof, trust, then the ask", () => {
+    expect(sectionsOf("pages/it/index.astro")).toEqual([
+      "Hero",
+      "Pedigree",
+      "Services",
+      "Engagement",
+      "Proof",
+      "Trust",
+      "Faq",
+      "Qualifier",
+    ]);
+  });
+
+  it("moves the research and the career story off the Italian homepage", () => {
+    const source = read("pages/it/index.astro");
+    ["Pillars", "ResearchTeaser", "Story"].forEach((name) => expect(source).not.toContain(name));
   });
 
   it("drops the sections that duplicated the qualifier", () => {
@@ -42,8 +60,8 @@ describe("homepage composition", () => {
       const source = read(page);
       expect(source).not.toContain("WaysToWork");
       expect(source).not.toContain("Close");
-      expect(source).not.toContain("Trust");
     });
+    expect(read("pages/index.astro")).not.toContain("Trust");
   });
 
   it("deletes the components nothing renders any more", () => {
@@ -105,7 +123,7 @@ describe("hero", () => {
 
 describe("story", () => {
   it("drops its portrait where the hero already shows one", () => {
-    HOMEPAGES.forEach((page) => expect(read(page)).toMatch(/<Story[^>]*portrait=\{false\}/));
+    expect(read("pages/index.astro")).toMatch(/<Story[^>]*portrait=\{false\}/);
   });
 
   it("keeps the portrait and the full story on the work pages, inside the archive", () => {
@@ -137,7 +155,7 @@ describe("story", () => {
   });
 
   it("is limited on the homepage", () => {
-    HOMEPAGES.forEach((page) => expect(read(page)).toMatch(/<Story[^>]*limit=\{2\}/));
+    expect(read("pages/index.astro")).toMatch(/<Story[^>]*limit=\{2\}/);
   });
 });
 

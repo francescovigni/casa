@@ -36,6 +36,12 @@ const links = [
           >hello@francescovigni.com</a
         >
       </p>
+      {/* Italian law wants the VAT number on the site and the public-funding
+          disclosure (L. 124/2017) one click away; both were on the Gatsby site. */}
+      <p class="mt-1">
+        P.IVA {SITE.vat} ·
+        <a href="/it/trasparenza/" class="underline-offset-2 hover:underline">Trasparenza</a>
+      </p>
     </div>
     <nav class="flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="Elsewhere">
       {

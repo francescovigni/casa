@@ -18,11 +18,16 @@ describe("engagement formats", () => {
     expect(html).toContain("Ongoing technical support");
   });
 
-  it("names them in Italian", async () => {
+  it("names them in Italian, for a company owner rather than an ML team", async () => {
     const html = await render("it");
-    expect(html).toContain("Audit tecnico");
-    expect(html).toContain("Proof of concept");
-    expect(html).toContain("Supporto tecnico continuativo");
+    expect(html).toContain("Analisi del processo");
+    expect(html).toContain("Prototipo sui tuoi dati");
+    expect(html).toContain("Messa in produzione e supporto");
+    expect(html).not.toMatch(/pipeline ML|imaging medico/);
+  });
+
+  it("promises no duration in Italian either", async () => {
+    expect(await render("it")).not.toMatch(/settimane/i);
   });
 
   it("drops the generic pilot / transition labels", async () => {
@@ -35,6 +40,10 @@ describe("engagement formats", () => {
     const html = await render("en");
     expect(html).not.toMatch(/\d\s*(-|–|to)\s*\d\s*(weeks|settimane)/i);
     expect(html).not.toMatch(/weeks/i);
+  });
+
+  it("appears on the Italian homepage, where the buyer arrives", () => {
+    expect(read("pages/it/index.astro")).toContain("<Engagement");
   });
 
   it("appears on both contact pages, above the trust badges", () => {

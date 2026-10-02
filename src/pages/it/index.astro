@@ -1,27 +1,32 @@
 ---
+// Consulting-first: the Italian reader is a company with a process to fix.
+// The research and the career story live on /it/lavoro/ and /research/.
 export const prerender = true;
 import Base from "../../layouts/Base.astro";
 import Hero from "../../components/Hero.astro";
 import PersonJsonLd from "../../components/PersonJsonLd.astro";
-import Pillars from "../../components/Pillars.astro";
 import Pedigree from "../../components/Pedigree.astro";
-import Story from "../../components/Story.astro";
-import Qualifier from "../../components/Qualifier.astro";
+import Services from "../../components/Services.astro";
+import Engagement from "../../components/Engagement.astro";
 import Proof from "../../components/Proof.astro";
-import ResearchTeaser from "../../components/ResearchTeaser.astro";
+import Trust from "../../components/Trust.astro";
+import Faq from "../../components/Faq.astro";
+import Qualifier from "../../components/Qualifier.astro";
+import { homeFaq } from "../../data/services";
 ---
 
 <Base
-  title="Francesco Vigni, PhD | Ingegnere AI / ML e Consulente"
-  description="Ingegnere AI e ML applicata. Porto modelli difficili dalla ricerca alla produzione: imaging medico, computer vision, edge AI e robotica, con l'infrastruttura ML sotto e le prove che dicono quando un modello sbaglia."
+  title="Consulente intelligenza artificiale per aziende | Francesco Vigni"
+  description="Ingegnere con dottorato: porto l'intelligenza artificiale nei processi delle PMI. Controllo qualità con visione artificiale, automazione di documenti ed email, assistenti AI sui tuoi server. Di persona in Emilia-Romagna, da remoto in tutta Italia."
 >
   <PersonJsonLd slot="head" locale="it" />
 
   <Hero locale="it" />
   <Pedigree locale="it" />
-  <Pillars locale="it" />
+  <Services />
+  <Engagement locale="it" />
   <Proof locale="it" />
-  <ResearchTeaser locale="it" />
-  <Story locale="it" limit={2} portrait={false} />
+  <Trust locale="it" />
+  <Faq items={homeFaq} />
   <Qualifier locale="it" />
 </Base>

@@ -11,20 +11,22 @@ const { locale } = Astro.props;
 const t =
   locale === "it"
     ? {
+        // Written for a company owner, not an ML team: the Italian pages
+        // sell to SMEs, so the steps say what happens to their process.
         kicker: "Come si comincia",
-        title: "Tre modi di lavorare insieme.",
+        title: "Tre passi. Puoi fermarti dopo ognuno.",
         formats: [
           {
-            name: "Audit tecnico",
-            body: "Domande di fattibilità, pipeline ML esistenti, indagini su modelli che sbagliano, review di architettura, disegno della valutazione.",
+            name: "Analisi del processo",
+            body: "Capisco cosa fate oggi, che dati avete e dove l'AI può far risparmiare tempo o errori. Ne esce una raccomandazione chiara, anche quando è: non conviene.",
           },
           {
-            name: "Proof of concept",
-            body: "Prototipazione di modelli, computer vision, imaging medico, edge AI, validazione dalla ricerca al prodotto.",
+            name: "Prototipo sui tuoi dati",
+            body: "Costruisco una prima versione su documenti, immagini o dati veri e misuro quanto funziona. Decidi se andare avanti guardando i numeri, non una demo.",
           },
           {
-            name: "Supporto tecnico continuativo",
-            body: "Competenza ML senior frazionaria, guida sull'architettura, supporto a ricerca e ingegneria, passaggio in produzione.",
+            name: "Messa in produzione e supporto",
+            body: "Il sistema entra nel lavoro di tutti i giorni, collegato ai tuoi strumenti. Poi lo seguo: aggiornamenti, controlli e correzioni quando i dati cambiano.",
           },
         ],
       }

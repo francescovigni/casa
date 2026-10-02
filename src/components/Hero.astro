@@ -15,7 +15,9 @@ const { locale } = Astro.props;
 // headline ever reads "I find out when why how the model is wrong". If the copy
 // ever stops containing the word, the headline renders plain rather than
 // breaking; test/hero-cycle.test.ts is what keeps that from going unnoticed.
+// A locale with no words to cycle (Italian) renders the headline as is.
 const cycle = pick(hero.cycle, locale);
+const title = pick(hero.title, locale);
 const slot =
   `<span class="word-cycle" data-typewriter>` +
   cycle
@@ -26,10 +28,10 @@ const slot =
     )
     .join("") +
   `</span>`;
-const titleHtml = pick(hero.title, locale).replace(
-  new RegExp(`(?<!\\p{L})${cycle[0]}(?!\\p{L})`, "u"),
-  slot,
-);
+const titleHtml =
+  cycle.length > 1
+    ? title.replace(new RegExp(`(?<!\\p{L})${cycle[0]}(?!\\p{L})`, "u"), slot)
+    : title;
 ---
 
 <section class="relative overflow-hidden">

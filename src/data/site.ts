@@ -12,6 +12,8 @@ export const SITE = {
    */
   portfolio: "https://portfolio.francescovigni.com",
   email: "hello@francescovigni.com",
+  /** Partita IVA, shown in the footer as Italian law requires. */
+  vat: "04842020408",
   profiles: {
     scholar: "https://scholar.google.com/citations?user=ksO3xN0AAAAJ&hl=en",
     linkedin: "https://www.linkedin.com/in/francesco-vigni",
@@ -24,7 +26,7 @@ export const SITE = {
    */
   analytics: {
     host: "https://analytics.trenigarantiti.org",
-    websiteId: "fdadd935-2c9c-42d1-aa44-6b32ed196fd9",
+    websiteId: "9aa424ac-29fc-47de-88a3-58ffdf95ef34",
     domains: "francescovigni.com",
   },
 } as const;

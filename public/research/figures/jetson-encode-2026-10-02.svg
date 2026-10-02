@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-labelledby="t d" font-family="ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif">
+  <title id="t">CPU cost of one 720p30 encode on a Jetson Nano</title>
+  <desc id="d">Software x264 on the USB camera at 640x480 with audio costs 66.3% of one core; hardware NVENC on the CSI camera at 1280x720 costs 10.9% of one core, about six times less at a larger frame.</desc>
+
+  <rect width="720" height="260" fill="#ffffff"/>
+
+  <!-- scale: 0 to 100% of one core, 260 to 680 px -->
+  <g stroke="#e7e6e1" stroke-width="1">
+    <line x1="260.5" y1="48" x2="260.5" y2="196"/>
+    <line x1="365.5" y1="48" x2="365.5" y2="196"/>
+    <line x1="470.5" y1="48" x2="470.5" y2="196"/>
+    <line x1="575.5" y1="48" x2="575.5" y2="196"/>
+    <line x1="680.5" y1="48" x2="680.5" y2="196"/>
+  </g>
+  <g fill="#8a8982" font-size="12">
+    <text x="260" y="214" text-anchor="middle">0</text>
+    <text x="365" y="214" text-anchor="middle">25%</text>
+    <text x="470" y="214" text-anchor="middle">50%</text>
+    <text x="575" y="214" text-anchor="middle">75%</text>
+    <text x="680" y="214" text-anchor="middle">100%</text>
+  </g>
+
+  <text x="40" y="28" fill="#0b0b0b" font-size="15" font-weight="600">What one live camera costs on a 4-core Nano, per core</text>
+
+  <!-- software x264, 66.3% -->
+  <text x="244" y="82" fill="#0b0b0b" font-size="13" text-anchor="end">Software x264</text>
+  <text x="244" y="98" fill="#8a8982" font-size="11.5" text-anchor="end">USB, 640x480 + Opus audio</text>
+  <path d="M260 66 H534.5 Q538.5 66 538.5 70 V96 Q538.5 100 534.5 100 H260 Z" fill="#eb6834"/>
+  <text x="550" y="87" fill="#0b0b0b" font-size="14" font-weight="600">66.3%</text>
+
+  <!-- hardware NVENC, 10.9% -->
+  <text x="244" y="152" fill="#0b0b0b" font-size="13" text-anchor="end">Hardware NVENC</text>
+  <text x="244" y="168" fill="#8a8982" font-size="11.5" text-anchor="end">CSI, 1280x720, video only</text>
+  <path d="M260 136 H301.8 Q305.8 136 305.8 140 V166 Q305.8 170 301.8 170 H260 Z" fill="#2a78d6"/>
+  <text x="318" y="157" fill="#0b0b0b" font-size="14" font-weight="600">10.9%</text>
+
+  <text x="40" y="244" fill="#52514e" font-size="12">The cheaper path is also the larger frame. Only the watched camera encodes: both live, load average 1.07; idle, 0.34.</text>
+</svg>

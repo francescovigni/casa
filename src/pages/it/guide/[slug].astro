@@ -1,0 +1,75 @@
+---
+export const prerender = true;
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PersonJsonLd from "../../../components/PersonJsonLd.astro";
+import Qualifier from "../../../components/Qualifier.astro";
+import { services } from "../../../data/services";
+import { SITE } from "../../../data/site";
+
+export async function getStaticPaths() {
+  const guides = await getCollection("guide");
+  return guides.map((guide) => ({ params: { slug: guide.id }, props: { guide } }));
+}
+
+const { guide } = Astro.props as { guide: CollectionEntry<"guide"> };
+const { Content } = await render(guide);
+const { title, seoTitle, description, lede, updated, note } = guide.data;
+const related = guide.data.services.map((slug) => services.find((s) => s.slug === slug)!);
+const updatedLabel = updated.toLocaleDateString("it-IT", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  inLanguage: "it",
+  dateModified: updated.toISOString().slice(0, 10),
+  author: { "@id": `${SITE.url}/#person` },
+  url: `${SITE.url}/it/guide/${guide.id}/`,
+};
+---
+
+<Base title={seoTitle} description={description}>
+  <PersonJsonLd slot="head" locale="it" />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+
+  <section class="wrap py-10 sm:py-12">
+    <article class="study guide">
+      <p class="crumb"><a href="/it/guide/">&larr; Guide</a></p>
+      <p class="research-eyebrow">Guida · aggiornata il <time datetime={articleJsonLd.dateModified}>{updatedLabel}</time></p>
+      <h1>{title}</h1>
+      <p class="lede">{lede}</p>
+
+      <Content />
+
+      {note && <p class="not-shown">{note}</p>}
+
+      <div class="tail">
+        {
+          related.length > 0 && (
+            <p class="mb-3">
+              Servizi collegati:{" "}
+              {related.map((s, i) => (
+                <>
+                  {i > 0 && " · "}
+                  <a href={`/it/servizi/${s.slug}/`}>{s.title}</a>
+                </>
+              ))}
+            </p>
+          )
+        }
+        <p>
+          Scritto da Francesco Vigni, ingegnere e consulente AI.
+          <a href="/it/contatti/">Hai un caso concreto? Scrivimi.</a>
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <Qualifier locale="it" />
+</Base>

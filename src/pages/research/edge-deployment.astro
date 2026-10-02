@@ -1,0 +1,277 @@
+---
+// Jetson Nano deployment study. Source of record:
+// github.com/francescovigni/dinov3-vos-occlusion, docs/edge.md.
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="Edge Deployment of a Vision Transformer | Jetson, TensorRT, Measurement"
+  description="Lowering the input resolution costs 3.4 accuracy points on DAVIS and the entire track on real video. What the edge costs for video object segmentation, measured on a Jetson Nano."
+>
+  <section class="wrap py-10 sm:py-12">
+    <article class="study">
+      <p class="crumb"><a href="/research/">&larr; Research</a></p>
+      <p class="research-eyebrow">Edge deployment · video object segmentation</p>
+
+      <h1>DAVIS priced the speed-up at 3.4 points. On real video it cost the whole track.</h1>
+
+      <p class="lede">
+        A frozen vision transformer that segments an object through a video, moved from a
+        workstation onto a 2019 Jetson Nano with a camera attached, to find out what the edge
+        actually costs. The cheapest way to buy frame rate is to shrink the input, and the benchmark
+        that governs that decision prices it at 3.4 accuracy points. On camera footage with one hand
+        passing over the object, it costs the track: two occlusions, zero recoveries, 66 frames of
+        empty mask. Also here, because it nearly turned this page into a published number instead of
+        a finding, is how an entire fp16 sweep got timed twice before anyone read its output.
+      </p>
+
+      <h2>The trade the benchmark approves</h2>
+
+      <p>
+        DAVIS 2017 val says 480×864&nbsp;→&nbsp;384×672 costs 3.4 J&amp;F points, 0.767 to 0.733,
+        and buys 2× the frame rate. On that evidence it is the obvious move, and it is the move I
+        would have shipped.
+      </p>
+
+      <p>
+        On real video with a real hand occlusion it costs the entire track. The object is covered,
+        the mask empties, the object comes fully back, and at the lower resolution the mask never
+        returns, through a complete reappearance and a second occlusion, 66 frames.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/edge-occlusion-2026-10-01.gif"
+          alt="Side by side, the same hand occlusion at two input resolutions: the lower one never re-acquires the object, the higher one recovers"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          The same frames, two input resolutions. Red is the predicted mask, green is the object the
+          mask missed. Left never comes back.
+        </figcaption>
+      </figure>
+
+      <table>
+        <thead>
+          <tr><th>input</th><th>J before</th><th>J after</th><th>re-acquired</th><th>visibility AUC</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>480×864</td><td class="n">0.742</td><td class="n hi">0.646</td><td class="n">2 of 2</td><td class="n">0.845</td></tr>
+          <tr><td>384×672</td><td class="n">0.653</td><td class="n hi">0.006</td><td class="n">0 of 2</td><td class="n">0.534</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        DAVIS is not wrong about its own question. It is answering a different one: its validation
+        split contains few full occlusions, and it averages over frames rather than asking whether
+        the object was ever found again. Permanent loss of a recoverable object is worth a few
+        points of a frame average and all of the capability. <strong
+          >The metric that governs the resolution decision is blind to the thing that decision
+          removes.</strong
+        > For anyone deploying this, that is the result that matters.
+      </p>
+
+      <p>
+        Ground truth on the camera clip is automatic and exact, which is a property of the scene
+        design rather than the code: make the <em>target</em> trivially segmentable, a saturated
+        object, and occlude it with something that is not. The occluder is never thresholded, so
+        nothing depends on what it is, and the target is free to move.
+      </p>
+
+      <h2>What the hardware actually delivers</h2>
+
+      <p>
+        The frame rates the trade is being made against, measured on the board, with accuracy on
+        DAVIS 2017 val. This is the fp32 curve, which is the only one that computes the function;
+        the next section is about why.
+      </p>
+
+      <table>
+        <thead>
+          <tr><th>input</th><th>patch tokens</th><th>J&amp;F</th><th>fps</th><th>ms/frame</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>192×336</td><td class="n">252</td><td class="n">0.428</td><td class="n">6.37</td><td class="n">157</td></tr>
+          <tr><td>256×448</td><td class="n">448</td><td class="n">0.573</td><td class="n">3.95</td><td class="n">253</td></tr>
+          <tr><td>320×576</td><td class="n">720</td><td class="n">0.666</td><td class="n">2.28</td><td class="n">438</td></tr>
+          <tr><td>384×672</td><td class="n">1008</td><td class="n">0.733</td><td class="n">1.50</td><td class="n">666</td></tr>
+          <tr><td>480×864</td><td class="n">1620</td><td class="n hi">0.767</td><td class="n hi">0.75</td><td class="n">1337</td></tr>
+        </tbody>
+      </table>
+
+      <figure>
+        <img
+          src="/research/figures/edge-pareto-2026-10-01.png"
+          alt="Accuracy against frame rate for five input resolutions, with every measured point far to the left of the 25 fps real-time line"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          The whole curve sits left of real time. Achieved throughput is about 11% of the board's
+          fp16 peak, which is what a transformer does on a GPU with no tensor cores.
+        </figcaption>
+      </figure>
+
+      <p>
+        Correctness costs about 1.4× in latency here, because the half-precision build that would
+        have paid for itself does not work on this toolchain.
+      </p>
+
+      <h2>Two measurements agreed, and both were timing nothing</h2>
+
+      <p>
+        Five fp16 engines built and ran. <code>trtexec</code> reported 9.04 fps at the smallest
+        input and 2.06 at the largest, with tight percentiles. A separately written runner
+        reproduced those timings on real camera frames to within 1%. Two agreeing measurements, so I
+        stopped checking.
+      </p>
+
+      <p>
+        Then 113 MB of saved features gzipped to 153 KB, because they were uniform NaN.
+      </p>
+
+      <table>
+        <tr><td>fp32 engine, first frame</td><td class="n hi">96,768 / 96,768 finite</td></tr>
+        <tr><td>fp16 engine, first frame</td><td class="n hi">0 / 96,768 finite</td></tr>
+      </table>
+
+      <p>
+        TensorRT 8.2 has no native LayerNorm, so the exported graph carries the textbook
+        decomposition, and the variance term overflows fp16 on transformer activations. The engine
+        is numerically dead from the first block. <code>trtexec</code> feeds random input and never
+        reads the output it has just timed, which is the correct behaviour for a throughput tool and
+        is documented. <strong
+          >The mistake was mine, and it is the ordinary one: I read a timing number as evidence that
+          the engine computed the function, then read a second number that agreed.</strong
+        > Agreement between two measurements of the same wrong thing is not validation, and nothing
+        in either output distinguished the two cases.
+      </p>
+
+      <p>
+        The same decomposition caused a second failure: at the largest input the fp16 build died
+        outright, every candidate kernel killed by the GPU watchdog. In fp32 that size builds and
+        runs. One root cause, two symptoms, and my first reading of the build failure, that the
+        toolchain rather than throughput set the quality ceiling, was wrong and is withdrawn in the
+        write-up rather than quietly corrected.
+      </p>
+
+      <h2>Two repairs, and what each one costs</h2>
+
+      <p>
+        Back to the resolution trap, which is the failure worth repairing. The encoder never lost the
+        object; the voting scheme did. A global match against the object's descriptors still
+        separates it from the background long after the mask is gone: at the failing resolution, 0.95
+        on target against a 0.67 background percentile. Four patches cannot win a top-5 vote against
+        eight thousand context patches, so the evidence has to be used outside the vote.
+        Re-detection on that basis takes J-after from 0.006 to <strong>0.668</strong> and
+        re-acquisition from 0 of 2 to 2 of 2, in two frames.
+      </p>
+
+      <p>
+        The second repair is a silhouette taken from a photograph of the object, segmented once
+        where cost does not matter. At runtime the object is only <em>located</em>, by one dot
+        product, and the known shape is placed there. Borders then come from the reference at full
+        resolution rather than from a 24-pixel patch grid, and occlusion is measured against the
+        object's real shape.
+      </p>
+
+      <figure>
+        <img
+          src="/research/figures/edge-reference-2026-10-01.png"
+          alt="The same occlusion handled by propagation alone, by a silhouette from a scene frame, and by a silhouette from a separate photograph"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <table>
+        <thead>
+          <tr><th>mask source</th><th>J</th><th>boundary F</th><th>occlusion r</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>propagation alone</td><td class="n">0.711</td><td class="n">0.978</td><td class="n">not measured</td></tr>
+          <tr><td>silhouette, reference from the scene</td><td class="n hi">0.764</td><td class="n hi">0.995</td><td class="n hi">0.981</td></tr>
+          <tr><td>silhouette, reference photographed separately</td><td class="n">0.670</td><td class="n">0.947</td><td class="n">0.961</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        A photograph shot separately survives a 10.9× scale gap and a change of background,
+        lighting and camera: absolute similarity falls by a third, the margin over background
+        barely moves. It is the only deployable version, since it does not need the object
+        unoccluded and well lit in the first frame of every clip. It is not better than a good
+        in-scene reference.
+      </p>
+
+      <h2>The condition under which the occlusion number means anything</h2>
+
+      <p>
+        A second clip was shot to characterise <em>partial</em> coverage and it failed, which turned
+        out to be the more useful outcome. What decides the measurement is the margin: how much more
+        similar the object is to its reference than the most object-looking part of the background.
+      </p>
+
+      <table>
+        <tr><td>first clip, margin 0.252</td><td class="n hi">occlusion estimate r = 0.96</td></tr>
+        <tr><td>second clip, margin 0.124</td><td class="n hi">r = 0.19, at every threshold tried</td></tr>
+      </table>
+
+      <p>
+        The object was <em>larger</em> in the failing clip. Size was not the binding constraint, the
+        background was. So the precondition is not "a big enough object" but a margin above roughly
+        0.2, and it depends on the scene as much as the subject. That is now a fifteen-second
+        check that runs before anything is recorded, instead of a discovery made after.
+      </p>
+
+      <h2>What this does not show</h2>
+
+      <p class="not-shown">
+        One board, one backbone, one object, two usable clips. The occlusion result is one scene: it
+        shows that a frame-averaged benchmark can approve a resolution that destroys re-acquisition,
+        not how often that happens. The NaN is specific to TensorRT 8.2 and this LayerNorm
+        decomposition; the transferable part is that a throughput tool cannot tell you an engine
+        computes the function, and that two agreeing timings do not either. No INT8, pruning or
+        distillation, none of which were tried. No power or thermal measurement: everything ran at
+        maximum clocks with no duty cycle. The occlusion estimate is a detector with a known
+        operating condition, not a calibrated meter. The silhouette fit assumes a roughly rigid
+        object.
+      </p>
+
+      <h2>Reproduce it</h2>
+
+      <p>
+        Public CC-BY-4.0 data, every tool in the repository, and the device side installs nothing:
+        <code>trtexec</code> builds and times the engines, and the inference runner reaches CUDA
+        through <code>ctypes</code> because the board cannot run a modern pip. The runner aborts on
+        the first frame if the output is not finite: three lines, and the only reason the fp16 sweep
+        is a story on this page rather than a row in the table above it.
+      </p>
+
+      <p>
+        The write-up also records four conclusions that later measurements overturned, two of them
+        its own earlier drafts. A method that took four wrong turns is worth less than its final
+        numbers suggest, and a reader should be able to see which parts are load-bearing.
+      </p>
+
+      <p class="links">
+        <a href="https://github.com/francescovigni/dinov3-vos-occlusion">Repository</a>
+        <a
+          href="https://github.com/francescovigni/dinov3-vos-occlusion/blob/main/docs/edge.md"
+          >Full write-up</a
+        >
+        <a href="/research/">Back</a>
+      </p>
+
+      <div class="tail">
+        <p class="contact">
+          <a href="/work/">Full background</a>
+          <a href="/contact/">Start a conversation</a>
+          <a href="mailto:hello@francescovigni.com">hello@francescovigni.com</a>
+          <a href="https://github.com/francescovigni">GitHub</a>
+        </p>
+      </div>
+    </article>
+  </section>
+</Base>

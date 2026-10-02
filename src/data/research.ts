@@ -32,6 +32,8 @@ export interface ResearchStudy {
   repo: string;
 }
 
+// Card order: endoscopy opens, then the rest newest first. Deliberate, not
+// derived from the figure dates in the filenames.
 export const research: ResearchStudy[] = [
   {
     slug: "endoscopy-standardization",
@@ -51,6 +53,44 @@ export const research: ResearchStudy[] = [
     },
     cta: "Four findings, and the one that failed",
     repo: "https://github.com/francescovigni/endoscopy-standardization",
+  },
+  {
+    slug: "jetson-webrtc",
+    eyebrow: "Edge video \u00b7 capture and transport",
+    finding:
+      "Hardware encode costs 10.9% of a core. <strong>Software x264 costs 66.3%</strong>, which is the only reason two cameras fit on four cores.",
+    detail:
+      "The onboard IMX219 hands FFmpeg 10-bit Bayer it cannot debayer, so two cameras on one Jetson Nano need two unrelated capture stacks. Both failures worth writing down were invisible from the page: a black player reporting <em>Live</em>, and one camera switch running both encoders for 16 seconds.",
+    stats: [
+      { value: "6\u00d7", label: "cheaper to encode in hardware, at four times the pixels" },
+      { value: "1.07", label: "load average with a viewer on each camera, idle 0.34" },
+      { value: "16 s", label: "both encoders live after one viewer switched camera" },
+    ],
+    figure: {
+      src: "/research/figures/jetson-encode-2026-10-02.svg",
+      alt: "Two bars comparing CPU cost per core, software x264 at 66.3% against hardware NVENC at 10.9%",
+    },
+    cta: "What the sensor decided, and what the page hid",
+    repo: "https://github.com/francescovigni/jetson-webrtc-cameras",
+  },
+  {
+    slug: "edge-deployment",
+    eyebrow: "Edge deployment · video object segmentation",
+    finding:
+      "DAVIS priced the speed-up at 3.4 accuracy points. <strong>On real video it cost the entire track</strong>, two occlusions, zero recoveries.",
+    detail:
+      "Lowering the input resolution is the cheapest frame rate an edge board sells. The benchmark that approves the trade averages over frames and holds few full occlusions, so it cannot see that the object is never found again: J after a hand passes over it falls to 0.006, against 0.646 one resolution up.",
+    stats: [
+      { value: "0.006", label: "J after occlusion, at the resolution the benchmark approved" },
+      { value: "2 of 2", label: "re-acquisitions once the evidence is used outside the vote, from 0" },
+      { value: "0.75 fps", label: "full quality on the board, 33× short of real time" },
+    ],
+    figure: {
+      src: "/research/figures/edge-pareto-2026-10-01.png",
+      alt: "Accuracy against frame rate for five input resolutions on a Jetson Nano, every point far left of the 25 fps line",
+    },
+    cta: "What the benchmark approved, and what it cost",
+    repo: "https://github.com/francescovigni/dinov3-vos-occlusion",
   },
   {
     slug: "fetal-cardiac-orientation",

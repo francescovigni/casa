@@ -91,13 +91,12 @@ describe("header navigation", () => {
     expect(await render("en")).toContain('href="/research/"');
   });
 
-  it("keeps research in the Italian nav too, labelled as English", async () => {
-    // The pages stay English-only; hiding the entry hid the strongest part of
-    // the site from Italian readers instead of setting their expectation.
+  it("gives the Italian nav services instead of research", async () => {
+    // The Italian tree sells to companies; research stays one click deeper,
+    // from the Italian homepage's proof section.
     const html = await render("it");
-    expect(html).toContain('href="/research/"');
-    expect(html).toMatch(/Research \(EN\)/);
-    expect(html).toMatch(/hreflang="en"/);
+    expect(html).toContain('href="/it/servizi/"');
+    expect(html).not.toContain('href="/research/"');
   });
 });
 
@@ -110,7 +109,10 @@ describe("research card headings", () => {
     const html = await render({});
     const heading = html.match(/<h[23][^>]*>([\s\S]*?)<\/h[23]>/)?.[1] ?? "";
     expect(heading).not.toContain(study.eyebrow);
-    expect(heading.replace(/<[^>]*>/g, "")).toContain("96%");
+    // Assert against the fixture, not a string from whichever card happens to sit
+    // first: the point is that the finding lands in the heading, for any card.
+    const plain = (html: string) => html.replace(/<[^>]*>/g, "");
+    expect(plain(heading)).toContain(plain(study.finding));
   });
 
   it("keeps the category as an eyebrow paragraph", async () => {

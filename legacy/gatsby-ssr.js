@@ -10,13 +10,13 @@ export const onRenderBody = ({ setHeadComponents }) => {
       key="umami"
       defer
       src="https://analytics.trenigarantiti.org/script.js"
-      data-website-id="fdadd935-2c9c-42d1-aa44-6b32ed196fd9"
-    />,
+      data-website-id="9aa424ac-29fc-47de-88a3-58ffdf95ef34"
+    />,    
     <script
       key="umami-recorder"
       defer
       src="https://analytics.trenigarantiti.org/recorder.js"
-      data-website-id="fdadd935-2c9c-42d1-aa44-6b32ed196fd9"
+      data-website-id="9aa424ac-29fc-47de-88a3-58ffdf95ef34"
     />,
     <script
       key="gtag-src"

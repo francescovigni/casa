@@ -42,10 +42,10 @@ describe("Person JSON-LD", () => {
   });
 
   it("translates jobTitle per locale and leaves the name alone", () => {
-    // Mirrors the rebuild's positioning (<title> on both homepages): applied
-    // engineer first, researcher second, medical AI as a vertical.
+    // Mirrors the <title> on each homepage: English is the applied engineer,
+    // Italian the consultant a company hires.
     expect(personJsonLd("en").jobTitle).toBe("Applied AI and ML Engineer");
-    expect(personJsonLd("it").jobTitle).toBe("Ingegnere AI / ML applicata");
+    expect(personJsonLd("it").jobTitle).toBe("Consulente di intelligenza artificiale e ingegnere ML");
     expect(personJsonLd("it").name).toBe("Francesco Vigni");
   });
 

@@ -15,15 +15,12 @@ describe("the cascade words", () => {
     expect(hero.cycle.en).toEqual(["when", "why", "how"]);
   });
 
-  it("say the same three things in Italian", () => {
-    expect(hero.cycle.it).toEqual(["quando", "perché", "come"]);
+  it("are absent in Italian, whose headline names the service instead", () => {
+    expect(hero.cycle.it).toEqual([]);
   });
 
   it("start with the word the canonical headline already carries", () => {
-    (["en", "it"] as const).forEach((locale) => {
-      const word = hero.cycle[locale][0];
-      expect(hero.title[locale], locale).toContain(word);
-    });
+    expect(hero.title.en).toContain(hero.cycle.en[0]);
   });
 });
 
@@ -43,11 +40,10 @@ describe("the headline renders the slot", () => {
     expect(words).toEqual(["when", "why", "how"]);
   });
 
-  it("matches an accented Italian word, which \\b would not", async () => {
+  it("renders a headline with no words to cycle as plain text, no slot", async () => {
     const html = await render("it");
-    const words = [...html.matchAll(/word-cycle-word"[^>]*>([^<]+)</g)].map((m) => m[1]);
-    expect(words).toEqual(["quando", "perché", "come"]);
-    expect(html).toMatch(/Scopro\s*<span class="word-cycle"/);
+    expect(html).not.toContain("word-cycle");
+    expect(html).toContain("intelligenza artificiale nei");
   });
 
   it("reads the words from data rather than hardcoding them", () => {
@@ -58,7 +54,7 @@ describe("the headline renders the slot", () => {
 });
 
 describe("a screen reader hears one stable sentence", () => {
-  it.each(["en", "it"] as const)(
+  it.each(["en"] as const)(
     "leaves the canonical word on /%s as ordinary text and hides only the alternates",
     async (locale) => {
       const html = await render(locale);
@@ -174,7 +170,7 @@ describe("the typewriter holds still when asked to", () => {
 
   /** One pass for a locale, in ms. Order [1, 2, 0]: every word is erased once
    *  and typed once, and the two non-canonical words each hold after landing. */
-  const passDuration = (locale: "en" | "it") => {
+  const passDuration = (locale: "en") => {
     const { type, erase, hold, lead } = timing();
     const chars = hero.cycle[locale].reduce((sum, word) => sum + word.length, 0);
     return lead + chars * erase + chars * type + 2 * hold;
@@ -191,14 +187,11 @@ describe("the typewriter holds still when asked to", () => {
     expect(timing().lead).toBeGreaterThanOrEqual(1200);
   });
 
-  it("types at reading pace without becoming interminable, in either locale", () => {
-    (["en", "it"] as const).forEach((locale) => {
-      // Italian carries 16 characters against English's 10, so the bound has to
-      // hold for the longer words too. Deliberately generous: the pass is a
-      // one-off flourish above the fold that blocks nothing, and the pace was
-      // set by eye. It is here to catch a tenfold slip, not to police taste.
-      expect(passDuration(locale), locale).toBeGreaterThan(3500);
-      expect(passDuration(locale), locale).toBeLessThan(10000);
-    });
+  it("types at reading pace without becoming interminable", () => {
+    // Deliberately generous: the pass is a one-off flourish above the fold
+    // that blocks nothing, and the pace was set by eye. It is here to catch a
+    // tenfold slip, not to police taste.
+    expect(passDuration("en")).toBeGreaterThan(3500);
+    expect(passDuration("en")).toBeLessThan(10000);
   });
 });

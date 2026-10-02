@@ -1,0 +1,30 @@
+---
+export const prerender = true;
+import Base from "../../../layouts/Base.astro";
+import PersonJsonLd from "../../../components/PersonJsonLd.astro";
+import Services from "../../../components/Services.astro";
+import Engagement from "../../../components/Engagement.astro";
+import Qualifier from "../../../components/Qualifier.astro";
+---
+
+<Base
+  title="Servizi di intelligenza artificiale per aziende | Francesco Vigni"
+  description="Controllo qualità con visione artificiale, automazione di documenti ed email, assistenti AI sui dati aziendali e valutazione indipendente di progetti AI. Per PMI e industria in Emilia-Romagna e in tutta Italia."
+>
+  <PersonJsonLd slot="head" locale="it" />
+
+  <section class="wrap pt-16 sm:pt-20">
+    <p class="kicker mb-4">Servizi</p>
+    <h1 class="display max-w-prose text-4xl sm:text-5xl">
+      Servizi di intelligenza artificiale per le aziende.
+    </h1>
+    <p class="lead mt-5 max-w-prose text-lg">
+      Parto sempre da un processo che oggi costa tempo o errori, non da una tecnologia da
+      piazzare. Se l'AI non è la risposta giusta, te lo dico prima che tu spenda.
+    </p>
+  </section>
+
+  <Services heading={false} />
+  <Engagement locale="it" />
+  <Qualifier locale="it" />
+</Base>

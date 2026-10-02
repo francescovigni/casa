@@ -52,12 +52,18 @@ describe("hero tagline", () => {
 
   it("names a literal role next to the personality label", async () => {
     expect(visibleText(await render("en"))).toContain("Applied ML Engineer · AI Consultant");
-    expect(visibleText(await render("it"))).toContain("Ingegnere ML · Consulente AI");
+    expect(visibleText(await render("it"))).toContain(
+      "Consulente AI per le aziende · Ingegnere con dottorato",
+    );
   });
 
-  it("calls the research applied, in the lead", () => {
+  it("calls the research applied, in the English lead", () => {
     expect(hero.lead.en).toMatch(/^PhD engineer and applied AI researcher\./);
-    expect(hero.lead.it).toMatch(/^Ingegnere e ricercatore applicato/);
+  });
+
+  it("names the services in the Italian lead, which faces companies", () => {
+    expect(hero.lead.it).toMatch(/controllo qualità/);
+    expect(hero.lead.it).toMatch(/documenti/);
   });
 
   it("uses the hyphenated English spelling everywhere in src", () => {
@@ -75,14 +81,18 @@ describe("machine-read fields stay literal", () => {
       expect(json).not.toMatch(/artisan|artigiano/i);
     });
     expect(personJsonLd("en").jobTitle).toBe("Applied AI and ML Engineer");
-    expect(personJsonLd("it").jobTitle).toBe("Ingegnere AI / ML applicata");
+    expect(personJsonLd("it").jobTitle).toBe(
+      "Consulente di intelligenza artificiale e ingegnere ML",
+    );
   });
 
   it("keeps the homepage <title> tags on the searchable role words", () => {
     const en = readFileSync(join(SRC, "pages", "index.astro"), "utf8");
     const it = readFileSync(join(SRC, "pages", "it", "index.astro"), "utf8");
     expect(en).toContain('title="Francesco Vigni, PhD | Applied AI / ML Engineer & Consultant"');
-    expect(it).toContain('title="Francesco Vigni, PhD | Ingegnere AI / ML e Consulente"');
+    expect(it).toContain(
+      'title="Consulente intelligenza artificiale per aziende | Francesco Vigni"',
+    );
   });
 
   it("never puts the tagline in a title or meta description", () => {

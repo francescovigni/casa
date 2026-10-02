@@ -24,7 +24,8 @@ describe("titles carry the searchable role words", () => {
     "pages/research/endoscopy-standardization.astro":
       "Endoscopy Domain Shift & Dataset Bias | AI Research",
     "pages/contact.astro": "Contact | Applied AI / ML Engineer & Consultant",
-    "pages/it/contatti.astro": "Contatti | Ingegnere AI / ML e Consulente",
+    "pages/it/contatti.astro": "Contatti | Consulente intelligenza artificiale per aziende",
+    "pages/it/servizi/index.astro": "Servizi di intelligenza artificiale per aziende | Francesco Vigni",
   };
 
   Object.entries(expected).forEach(([page, title]) => {

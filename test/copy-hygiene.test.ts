@@ -231,9 +231,13 @@ describe("identity links come from SITE", () => {
 describe("the headline claims evidence, not survival", () => {
   // "Survives deployment" only lands for a reader who has already had an ML
   // project fail in production. It reads as craft jargon to the other funnel.
-  it("states the claim in the first person, in both locales", () => {
+  it("states the claim in the first person, in English", () => {
     expect(hero.title.en).toMatch(/^I find out when the model is/);
-    expect(hero.title.it).toMatch(/^Scopro quando il modello/);
+  });
+
+  it("gives the Italian headline the words an Italian company searches for", () => {
+    expect(hero.title.it).toMatch(/intelligenza artificiale/);
+    expect(hero.title.it).toMatch(/azienda/);
   });
 
   it("is short enough to land as a headline", () => {

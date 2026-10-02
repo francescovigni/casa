@@ -17,6 +17,13 @@ describe("legacy /portfolio redirect", () => {
     });
   });
 
+  it("sends the old transparency url to its Italian home", () => {
+    expect(redirects["/trasparenza"]).toEqual({
+      status: 301,
+      destination: "/it/trasparenza/",
+    });
+  });
+
   it("declares the route once — a trailing-slash twin collides in the router", () => {
     expect(redirects["/portfolio/"]).toBeUndefined();
   });

@@ -382,6 +382,27 @@
   .study em {
     @apply italic;
   }
+  /* Lists and subheads: the Italian guides are Markdown and use both. */
+  .study ul,
+  .study ol {
+    @apply mb-4 space-y-1.5 pl-5;
+  }
+  .study ul {
+    @apply list-disc;
+  }
+  .study ol {
+    @apply list-decimal;
+  }
+  .study h3 {
+    @apply mb-2 mt-5 font-sans text-[15px] font-semibold text-ink;
+  }
+  /* Guide tables hold text, not numbers: headers sit over their column. */
+  .study.guide th {
+    @apply text-left;
+  }
+  .study.guide td {
+    @apply pl-3 align-top first:pl-0;
+  }
   .study strong {
     @apply font-medium;
   }

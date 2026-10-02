@@ -26,5 +26,8 @@ export default defineConfig({
   // /portfolio and /portfolio/ both match this route.
   redirects: {
     "/portfolio": { status: 301, destination: "/research/" },
+    // The funding disclosure moved under /it/ with the rest of the Italian
+    // pages; the old url may be in the grant's paperwork.
+    "/trasparenza": { status: 301, destination: "/it/trasparenza/" },
   },
 });

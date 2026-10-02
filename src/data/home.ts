@@ -7,22 +7,29 @@ export const hero = {
   tagline: { en: "High-Tech Artisan", it: "Artigiano hi-tech" },
   // Literal role words next to the memorable label: "High-Tech Artisan" is the
   // personality, this is what a hiring manager or a client searches for.
-  role: { en: "Applied ML Engineer · AI Consultant", it: "Ingegnere ML · Consulente AI" },
+  role: {
+    en: "Applied ML Engineer · AI Consultant",
+    it: "Consulente AI per le aziende · Ingegnere con dottorato",
+  },
+  // The two homepages face different readers: English speaks to hiring and
+  // research, Italian to a company with a process to fix, so the Italian
+  // headline carries the words that company searches for.
   title: {
     en: 'I find out when the model is <em class="accent-draw">wrong</em>.',
-    it: 'Scopro quando il modello <em class="accent-draw">sbaglia</em>.',
+    it: 'L\'intelligenza artificiale nei <em class="accent-draw">processi</em> della tua azienda.',
   },
   // The headline's hinge word cascades once on load and settles on the first
   // entry: detection, diagnosis, mechanism, which is the ladder the research
   // actually climbs. The canonical `title` above keeps the first word, so the
-  // server-rendered headline and the accessible name never move.
+  // server-rendered headline and the accessible name never move. The Italian
+  // headline has no hinge word, so it renders still.
   cycle: {
     en: ["when", "why", "how"],
-    it: ["quando", "perché", "come"],
+    it: [] as string[],
   },
   lead: {
     en: "PhD engineer and applied AI researcher. I take difficult models from research to systems that run: medical-imaging foundation models, robots on factory floors, and the infrastructure that keeps both in production. Whether it starts as a research question or a production problem, the work is the same.",
-    it: "Ingegnere e ricercatore applicato in AI, con dottorato. Porto modelli difficili dalla ricerca a sistemi che funzionano: foundation model per l'imaging medico, robot in fabbrica e l'infrastruttura che li tiene in produzione. Che si parta da una domanda di ricerca o da un problema di produzione, il lavoro è lo stesso.",
+    it: "Progetto e metto in produzione sistemi di AI per PMI e industria: controllo qualità con la visione artificiale, automazione di documenti ed email, assistenti AI sui dati aziendali che restano sui tuoi server. Prima di farti investire, verifico che l'AI funzioni sui tuoi dati e non solo in una demo.",
   },
   primary: { en: "Let's talk", it: "Parliamone" },
   secondary: { en: "My work", it: "Il mio lavoro" },
@@ -101,7 +108,7 @@ export const trust = {
     { en: "EU-based", it: "Con base in UE" },
     { en: "GDPR-aware", it: "Attento al GDPR" },
     { en: "NDA-friendly", it: "Disponibile a NDA" },
-    { en: "Self-hosted capable", it: "Self-hosted possibile" },
+    { en: "Self-hosted capable", it: "Anche sui tuoi server" },
     {
       en: "Registered Engineer (Ordine degli Ingegneri #2988)",
       it: "Ingegnere iscritto (Ordine degli Ingegneri #2988)",
